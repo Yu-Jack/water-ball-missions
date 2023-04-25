@@ -54,7 +54,9 @@ func (w *World) Start() {
 
 		x, y := w.position[p1], w.position[p2]
 
-		w.handler.Collision(x, y).Action(w, p1, p2)
+		if action := w.handler.Collision(x, y); action != nil {
+			action.Action(w, p1, p2)
+		}
 	}
 }
 
