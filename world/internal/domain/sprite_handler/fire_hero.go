@@ -1,8 +1,6 @@
 package sprite_handler
 
 import (
-	"fmt"
-
 	"world/internal/domain"
 	collisionStrategy "world/internal/domain/collision_strategy"
 	"world/internal/domain/sprite"
@@ -20,11 +18,6 @@ func (fh *fireHeroHandler) Match(c1, c2 sprite.Sprite) bool {
 }
 
 func (fh *fireHeroHandler) Collision(c1, c2 sprite.Sprite) domain.CollisionStrategy {
-
-	fmt.Println("Fire")
-	fmt.Println("Fire")
-	fmt.Println("Fire")
-	fmt.Println("Fire")
 
 	// c1 是 fire
 	if c1.GetName() == sprite.TypeFire {
