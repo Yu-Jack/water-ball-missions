@@ -1,4 +1,4 @@
-package sprite_handler
+package collision_handler
 
 import (
 	"world/internal/domain"

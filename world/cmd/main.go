@@ -2,7 +2,7 @@ package main
 
 import (
 	"world/internal/domain"
-	spriteHandler "world/internal/domain/sprite_handler"
+	spriteHandler "world/internal/domain/collision_handler"
 )
 
 func main() {
