@@ -1,10 +1,16 @@
 package domain
 
-import "world/internal/domain/sprite"
+import (
+	"world/internal/domain/sprite"
+)
 
 type SpriteHandler interface {
 	Match(sprite sprite.Sprite) bool
 	Collision(spriteX, spriteY sprite.Sprite) CollisionStrategy
+}
+
+type CollisionStrategy interface {
+	Action(world *World, p1, p2 int)
 }
 
 type Handler interface {
@@ -26,7 +32,7 @@ func NewHandler(spriteHandler SpriteHandler, next Handler) Handler {
 
 func (h *handler) Collision(spriteX, spriteY sprite.Sprite) CollisionStrategy {
 	if spriteX == nil {
-		return &FailedCollisionStrategy{}
+		return nil
 	}
 
 	if h.spriteHandler.Match(spriteX) {
@@ -37,5 +43,5 @@ func (h *handler) Collision(spriteX, spriteY sprite.Sprite) CollisionStrategy {
 		return h.next.Collision(spriteX, spriteY)
 	}
 
-	return &FailedCollisionStrategy{}
+	return nil
 }

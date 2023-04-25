@@ -2,6 +2,7 @@ package sprite_handler
 
 import (
 	"world/internal/domain"
+	collisionStrategy "world/internal/domain/collision_strategy"
 	"world/internal/domain/sprite"
 )
 
@@ -17,11 +18,11 @@ func (hh *heroHandler) Match(s sprite.Sprite) bool {
 
 func (hh *heroHandler) Collision(spriteX, spriteY sprite.Sprite) domain.CollisionStrategy {
 	if spriteY == nil {
-		return &domain.MoveCollisionStrategy{}
+		return &collisionStrategy.MoveCollisionStrategy{}
 	}
 
 	if spriteY.GetName() == sprite.TypeHero {
-		return &domain.FailedCollisionStrategy{}
+		return &collisionStrategy.FailedCollisionStrategy{}
 	}
 
 	hero := spriteX.(*sprite.Hero)
@@ -35,8 +36,8 @@ func (hh *heroHandler) Collision(spriteX, spriteY sprite.Sprite) domain.Collisio
 	}
 
 	if hero.GetHP() <= 0 {
-		return &domain.RemoveFirstCollisionStrategy{}
+		return &collisionStrategy.RemoveBothCollisionStrategy{}
 	}
 
-	return &domain.MoveCollisionStrategy{}
+	return &collisionStrategy.MoveCollisionStrategy{}
 }
