@@ -2,18 +2,18 @@ package main
 
 import (
 	"world/internal/domain"
-	spriteHandler "world/internal/domain/collision_handler"
+	collisionHandler "world/internal/domain/collision_handler"
 )
 
 func main() {
 	handler := domain.NewHandler(
-		spriteHandler.NewSpriteEmptyHandler(), domain.NewHandler(
-			spriteHandler.NewWaterWaterHandler(), domain.NewHandler(
-				spriteHandler.NewWaterHeroHandler(), domain.NewHandler(
-					spriteHandler.NewWaterFireHandler(), domain.NewHandler(
-						spriteHandler.NewHeroHeroHandler(), domain.NewHandler(
-							spriteHandler.NewFireHeroHandler(), domain.NewHandler(
-								spriteHandler.NewFireFireHandler(),
+		collisionHandler.NewSpriteEmptyHandler(), domain.NewHandler(
+			collisionHandler.NewWaterWaterHandler(), domain.NewHandler(
+				collisionHandler.NewWaterHeroHandler(), domain.NewHandler(
+					collisionHandler.NewWaterFireHandler(), domain.NewHandler(
+						collisionHandler.NewHeroHeroHandler(), domain.NewHandler(
+							collisionHandler.NewFireHeroHandler(), domain.NewHandler(
+								collisionHandler.NewFireFireHandler(),
 								nil),
 						),
 					),
