@@ -7,10 +7,17 @@ import (
 
 func main() {
 	handler := domain.NewHandler(
-		spriteHandler.NewWaterHandler(), domain.NewHandler(
-			spriteHandler.NewFireHandler(), domain.NewHandler(
-				spriteHandler.NewHeroHandler(),
-				nil,
+		spriteHandler.NewSpriteEmptyHandler(), domain.NewHandler(
+			spriteHandler.NewWaterWaterHandler(), domain.NewHandler(
+				spriteHandler.NewWaterHeroHandler(), domain.NewHandler(
+					spriteHandler.NewWaterFireHandler(), domain.NewHandler(
+						spriteHandler.NewHeroHeroHandler(), domain.NewHandler(
+							spriteHandler.NewFireHeroHandler(), domain.NewHandler(
+								spriteHandler.NewFireFireHandler(),
+								nil),
+						),
+					),
+				),
 			),
 		),
 	)
