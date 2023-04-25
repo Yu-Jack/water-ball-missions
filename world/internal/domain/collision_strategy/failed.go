@@ -6,7 +6,7 @@ import (
 	"world/internal/domain"
 )
 
-type FailedCollisionStrategy struct{ collisionStrategy }
+type FailedCollisionStrategy struct{ strategy }
 
 func (s *FailedCollisionStrategy) Action(world *domain.World, p1, p2 int) {
 	fmt.Println("failed")
