@@ -2,23 +2,22 @@ package domain
 
 import (
 	"fmt"
-	"reflect"
 )
 
 type MatchMaking struct {
 	individual  Individual
 	individuals []Individual
-	strategies  []Strategy
+	strategy    Strategy
 }
 
 type Strategy interface {
 	Sort(individuals []Individual, individual Individual) []Individual
 }
 
-func NewMatchMaking(strategies []Strategy) MatchMaking {
+func NewMatchMaking(strategy Strategy) MatchMaking {
 	// 這邊我選擇直接在這邊初始化，要在外面初始化也可以，但這次是要測試不同策略，所以這個就先忽略
 	return MatchMaking{
-		strategies: strategies,
+		strategy:   strategy,
 		individual: NewIndividual(1, 19, 1, "", []string{"c"}, "1,35"),
 		individuals: []Individual{
 			NewIndividual(2, 19, 1, "", []string{"a"}, "10,10"),
@@ -34,10 +33,7 @@ func (m MatchMaking) Match() {
 
 	var strategies []string
 	individuals := m.individuals
-	for _, s := range m.strategies {
-		strategies = append(strategies, reflect.TypeOf(s).Elem().Name())
-		individuals = s.Sort(individuals, m.individual)
-	}
+	m.strategy.Sort(m.individuals, m.individual)
 
 	fmt.Println("The strategies are: ", strategies)
 	fmt.Printf("%d match to %d\n", m.individual.Id, individuals[0].Id)

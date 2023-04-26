@@ -7,10 +7,8 @@ import (
 
 func main() {
 	matchMaking := domain.NewMatchMaking(
-		[]domain.Strategy{
-			strategy.NewDistanceBased(),
-			strategy.NewReverse(),
-		},
+		//strategy.NewReverse(strategy.NewDistanceBased()),
+		strategy.NewDistanceBased(),
 	)
 
 	matchMaking.Match()
