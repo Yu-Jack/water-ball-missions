@@ -22,6 +22,7 @@ type Player interface {
 	Play()
 	AddCard(card *card.Card)
 	HandSize() int
+	IsClub3() bool
 }
 
 type player struct {
@@ -37,6 +38,15 @@ func NewPlayer(big2 *Big2, inputStrategy InputStrategy) Player {
 		inputStrategy: inputStrategy,
 		hand:          NewHand(),
 	}
+}
+
+func (p *player) IsClub3() bool {
+	for _, c := range p.hand.cards {
+		if c.IsClub3() {
+			return true
+		}
+	}
+	return false
 }
 
 func (p *player) AddCard(card *card.Card) {
@@ -70,6 +80,24 @@ func (p *player) Play() {
 
 		// 每回合首發玩家，直接出牌
 		if p.big2.TopPlay == nil {
+
+			// 第一回合玩家，一定要出梅花三
+			if p.big2.Round == 1 {
+				valid := false
+				for _, c := range cp.GetCards() {
+					if c.IsClub3() {
+						valid = true
+						break
+					}
+				}
+
+				if !valid {
+					fmt.Println("此牌型不合法，請再嘗試一次。")
+					orders, pass = p.inputStrategy.Input()
+					continue
+				}
+			}
+
 			p.hand.Remove(orders)
 			p.big2.TopPlay = cp
 			p.big2.TopPlayer = p

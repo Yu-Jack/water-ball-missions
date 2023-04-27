@@ -64,9 +64,10 @@ func (b *Big2) Start() {
 
 	startPlayer := -1
 	for i, _ := range b.Players {
-		// TODO: 需要讓梅花三的先出
-		startPlayer = i
-		break
+		if b.Players[i].IsClub3() {
+			startPlayer = i
+			break
+		}
 	}
 
 	winner := ""

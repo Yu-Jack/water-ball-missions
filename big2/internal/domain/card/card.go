@@ -136,6 +136,10 @@ func (c *Card) DiffRank(card *Card) int {
 	return c.rank - card.rank
 }
 
+func (c *Card) IsClub3() bool {
+	return c.rank == Rank3 && c.suit == SuitClub
+}
+
 // for convenience of debugging
 func (c *Card) String() string {
 	rank := ""

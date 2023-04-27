@@ -10,6 +10,7 @@ type Pattern interface {
 	Validate(cards []*card.Card) bool
 	GetBigOne() *card.Card
 	SetCards(cards []*card.Card)
+	GetCards() []*card.Card
 	GetName() string
 	String() string
 }
@@ -26,6 +27,10 @@ func (cp *pattern) GetName() string {
 
 func (cp *pattern) SetCards(cards []*card.Card) {
 	cp.cards = cards
+}
+
+func (cp *pattern) GetCards() []*card.Card {
+	return cp.cards
 }
 
 func (cp *pattern) String() string {
