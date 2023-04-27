@@ -1,12 +1,7 @@
 package domain
 
 import (
-	"bufio"
 	"fmt"
-	"math/rand"
-	"os"
-	"strconv"
-	"strings"
 
 	"big2/internal/domain/card"
 	cardPattern "big2/internal/domain/card_pattern"
@@ -56,6 +51,14 @@ func (p *player) AddCard(card *card.Card) {
 
 func (p *player) GetName() string {
 	return p.name
+}
+
+func (p *player) HandSize() int {
+	return p.hand.Size()
+}
+
+func (p *player) Name() {
+	p.name = p.inputStrategy.Name()
 }
 
 func (p *player) Play() {
@@ -145,70 +148,4 @@ func (p *player) Play() {
 		p.big2.PassCount = 0
 		fmt.Printf("玩家 %s 打出了 %s\n", p.GetName(), cp.String())
 	}
-}
-
-func (p *player) HandSize() int {
-	return p.hand.Size()
-}
-
-func (p *player) Name() {
-	p.name = p.inputStrategy.Name()
-}
-
-type human struct{}
-
-func NewHumanStrategy() InputStrategy {
-	return &human{}
-}
-
-func (h human) Input() ([]int, bool) {
-	reader := bufio.NewReader(os.Stdin)
-	var input string
-	var inputs []string
-
-	for input == "" {
-		fmt.Print("請輸入牌號：")
-		input, _ = reader.ReadString('\n')
-		input = strings.TrimSuffix(input, "\n")
-		inputs = strings.Split(input, " ")
-	}
-
-	if inputs[0] == "-1" {
-		return []int{}, true
-	}
-
-	orders := make([]int, 0, len(inputs))
-	for _, input := range inputs {
-		integer, _ := strconv.Atoi(input)
-		orders = append(orders, integer)
-	}
-
-	return orders, false
-}
-
-func (h human) Name() string {
-	var name string
-
-	fmt.Println("請輸入你的名字：")
-	_, _ = fmt.Scan(&name)
-	fmt.Print("你好, " + name + "!\n")
-
-	return name
-}
-
-type ai struct{}
-
-func NewAIStrategy() InputStrategy {
-	return &ai{}
-}
-
-func (a ai) Input() ([]int, bool) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (a ai) Name() string {
-	name := fmt.Sprintf("%d", rand.Intn(100000))
-	fmt.Print("Hello, " + name + "!\n")
-	return name
 }

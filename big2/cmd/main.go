@@ -3,6 +3,7 @@ package main
 import (
 	"big2/internal/domain"
 	cardPattern "big2/internal/domain/card_pattern"
+	playStrategy "big2/internal/domain/play_strategy"
 )
 
 func main() {
@@ -28,10 +29,10 @@ func main() {
 		)
 
 	big := domain.NewBig2(matchers, comparer)
-	big.AddPlayer(domain.NewPlayer(big, domain.NewHumanStrategy()))
-	big.AddPlayer(domain.NewPlayer(big, domain.NewHumanStrategy()))
-	big.AddPlayer(domain.NewPlayer(big, domain.NewHumanStrategy()))
-	big.AddPlayer(domain.NewPlayer(big, domain.NewHumanStrategy()))
+	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewAIStrategy()))
+	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewAIStrategy()))
+	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewAIStrategy()))
+	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewAIStrategy()))
 
 	big.Start()
 }
