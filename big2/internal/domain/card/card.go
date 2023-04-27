@@ -17,6 +17,7 @@ ENUM(
 Smaller = 0
 Bigger = 1
 Equal = 2
+Invalid = 3
 )
 */
 type CompareResult int

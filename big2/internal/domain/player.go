@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"big2/internal/domain/card"
+	cardPattern "big2/internal/domain/card_pattern"
 )
 
 type InputStrategy interface {
@@ -58,7 +59,7 @@ func (p *player) GetName() string {
 }
 
 func (p *player) Play() {
-	p.hand.Sort()
+	p.hand.Sort() // 整理一下手牌，方便閱讀
 	fmt.Printf("輪到 %s 了\n", p.GetName())
 	p.hand.List()
 
@@ -68,13 +69,22 @@ func (p *player) Play() {
 		orders, pass = p.inputStrategy.Input()
 	}
 
-	for !pass {
-		cards := p.hand.PickCard(orders)
+	var (
+		invalid bool
+		cp      cardPattern.Pattern
+	)
 
-		cp := p.big2.Matcher.Match(cards)
-		if cp == nil {
+	for !pass {
+
+		if invalid {
 			fmt.Println("此牌型不合法，請再嘗試一次。")
 			orders, pass = p.inputStrategy.Input()
+		}
+
+		cp = p.big2.Matcher.Match(p.hand.PickCard(orders))
+
+		if cp == nil {
+			invalid = true
 			continue
 		}
 
@@ -83,44 +93,41 @@ func (p *player) Play() {
 
 			// 第一回合玩家，一定要出梅花三
 			if p.big2.Round == 1 {
-				valid := false
+				invalid = true
+
 				for _, c := range cp.GetCards() {
 					if c.IsClub3() {
-						valid = true
+						invalid = false
 						break
 					}
 				}
 
-				if !valid {
-					fmt.Println("此牌型不合法，請再嘗試一次。")
-					orders, pass = p.inputStrategy.Input()
+				if invalid {
 					continue
 				}
 			}
 
-			p.hand.Remove(orders)
-			p.big2.TopPlay = cp
-			p.big2.TopPlayer = p
-			fmt.Printf("玩家 %s 打出了 %s\n", p.GetName(), cp.String())
+			// 其餘回合直接出牌
 			break
 		}
 
 		compareResult := p.big2.Comparer.Compare(cp, p.big2.TopPlay)
 
+		// 不同牌型比對，不合法
+		if compareResult == card.CompareResultInvalid {
+			invalid = true
+			continue
+		}
+
 		// 發現手牌太小，重出
 		if compareResult == card.CompareResultSmaller {
-			fmt.Println("此牌型不合法，請再嘗試一次。")
-			orders, pass = p.inputStrategy.Input()
+			invalid = true
 			continue
 		}
 
 		// 手牌大於頂牌，出牌！
 		if compareResult == card.CompareResultBigger {
-			p.hand.Remove(orders)
-			p.big2.TopPlay = cp
-			p.big2.TopPlayer = p
-			p.big2.PassCount = 0
-			fmt.Printf("玩家 %s 打出了 %s\n", p.GetName(), cp.String())
+			invalid = false
 			break
 		}
 	}
@@ -128,6 +135,15 @@ func (p *player) Play() {
 	if pass {
 		p.big2.PassCount++
 		fmt.Printf("玩家 %s PASS\n", p.GetName())
+		return
+	}
+
+	if !invalid {
+		p.hand.Remove(orders)
+		p.big2.TopPlay = cp
+		p.big2.TopPlayer = p
+		p.big2.PassCount = 0
+		fmt.Printf("玩家 %s 打出了 %s\n", p.GetName(), cp.String())
 	}
 }
 

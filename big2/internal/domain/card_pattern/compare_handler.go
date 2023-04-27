@@ -22,7 +22,7 @@ func (c *compareHandler) Compare(cp1 Pattern, cp2 Pattern) card.CompareResult {
 		return c.next.Compare(cp1, cp2)
 	}
 
-	return -1
+	return card.CompareResultInvalid
 }
 
 func (c *compareHandler) Match(cp1 Pattern, cp2 Pattern) bool {

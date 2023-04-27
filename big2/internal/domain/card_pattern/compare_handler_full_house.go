@@ -10,10 +10,7 @@ func (fh *comparerFullHouse) Compare(cp1 Pattern, cp2 Pattern) card.CompareResul
 }
 
 func (fh *comparerFullHouse) Match(cp1 Pattern, cp2 Pattern) bool {
-	if cp1.GetName() == "FullHouse" && cp1.GetName() == cp2.GetName() {
-		return true
-	}
-	return false
+	return cp1.GetName() == "FullHouse" && cp1.GetName() == cp2.GetName()
 }
 
 func NewComparerFullHouse() CompareHandler {

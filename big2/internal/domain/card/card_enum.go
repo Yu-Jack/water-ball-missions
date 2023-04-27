@@ -19,16 +19,19 @@ const (
 	CompareResultBigger
 	// CompareResultEqual is a CompareResult of type Equal.
 	CompareResultEqual
+	// CompareResultInvalid is a CompareResult of type Invalid.
+	CompareResultInvalid
 )
 
 var ErrInvalidCompareResult = errors.New("not a valid CompareResult")
 
-const _CompareResultName = "SmallerBiggerEqual"
+const _CompareResultName = "SmallerBiggerEqualInvalid"
 
 var _CompareResultMap = map[CompareResult]string{
 	CompareResultSmaller: _CompareResultName[0:7],
 	CompareResultBigger:  _CompareResultName[7:13],
 	CompareResultEqual:   _CompareResultName[13:18],
+	CompareResultInvalid: _CompareResultName[18:25],
 }
 
 // String implements the Stringer interface.
@@ -46,6 +49,8 @@ var _CompareResultValue = map[string]CompareResult{
 	strings.ToLower(_CompareResultName[7:13]):  CompareResultBigger,
 	_CompareResultName[13:18]:                  CompareResultEqual,
 	strings.ToLower(_CompareResultName[13:18]): CompareResultEqual,
+	_CompareResultName[18:25]:                  CompareResultInvalid,
+	strings.ToLower(_CompareResultName[18:25]): CompareResultInvalid,
 }
 
 // ParseCompareResult attempts to convert a string to a CompareResult.

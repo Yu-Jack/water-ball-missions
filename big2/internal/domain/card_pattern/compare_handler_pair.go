@@ -10,10 +10,7 @@ func (p *comparerPair) Compare(cp1 Pattern, cp2 Pattern) card.CompareResult {
 }
 
 func (p *comparerPair) Match(cp1 Pattern, cp2 Pattern) bool {
-	if cp1.GetName() == "Pair" && cp1.GetName() == cp2.GetName() {
-		return true
-	}
-	return false
+	return cp1.GetName() == "Pair" && cp1.GetName() == cp2.GetName()
 }
 
 func NewComparerPair() CompareHandler {
