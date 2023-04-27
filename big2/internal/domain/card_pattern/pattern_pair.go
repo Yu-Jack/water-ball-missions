@@ -13,7 +13,11 @@ func (p *Pair) Validate(cards []*card.Card) bool {
 }
 
 func (p *Pair) GetBigOne() *card.Card {
-	return p.cards[0]
+	if p.cards[0].Compare(p.cards[1]) == card.CompareResultBigger {
+		return p.cards[0]
+	}
+
+	return p.cards[1]
 }
 
 func NewPair() Pattern {
