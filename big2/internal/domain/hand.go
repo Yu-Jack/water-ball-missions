@@ -27,6 +27,12 @@ func (h *Hand) AddCard(card *card.Card) {
 func (h *Hand) PickCard(orders []int) []*card.Card {
 	cards := make([]*card.Card, 0, len(orders))
 	for _, order := range orders {
+
+		// 如果 order 不合理直接回傳空的回去
+		if order >= h.Size() {
+			return nil
+		}
+
 		cards = append(cards, h.cards[order])
 	}
 	return cards
