@@ -71,6 +71,8 @@ func (b *Big2) Start() {
 
 	winner := ""
 
+	fmt.Println("新的回合開始了。")
+
 	for {
 		order := startPlayer % 4
 		currentPlayer := b.Players[order]
