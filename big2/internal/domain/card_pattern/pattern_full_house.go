@@ -8,7 +8,9 @@ import (
 
 type FullHouse struct{ pattern }
 
-func (fh *FullHouse) Validate(cards []*card.Card) bool {
+func (fh *FullHouse) Validate() bool {
+	cards := fh.cards
+
 	if len(cards) != fh.size {
 		return false
 	}
@@ -46,11 +48,12 @@ func (fh *FullHouse) GetBigOne() *card.Card {
 	return biggerOne
 }
 
-func NewFullHouse() Pattern {
+func NewFullHouse(cards []*card.Card) Pattern {
 	return &FullHouse{
 		pattern{
-			size: 5,
-			name: CardPatternFullHouse,
+			cards: cards,
+			size:  5,
+			name:  CardPatternFullHouse,
 		},
 	}
 }

@@ -4,19 +4,20 @@ import "big2/internal/domain/card"
 
 type Single struct{ pattern }
 
-func (s *Single) Validate(cards []*card.Card) bool {
-	return len(cards) == s.size
+func (s *Single) Validate() bool {
+	return len(s.cards) == s.size
 }
 
 func (s *Single) GetBigOne() *card.Card {
 	return s.cards[0]
 }
 
-func NewSingle() Pattern {
+func NewSingle(cards []*card.Card) Pattern {
 	return &Single{
 		pattern{
-			size: 1,
-			name: CardPatternSingle,
+			cards: cards,
+			size:  1,
+			name:  CardPatternSingle,
 		},
 	}
 }

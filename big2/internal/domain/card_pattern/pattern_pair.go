@@ -4,12 +4,12 @@ import "big2/internal/domain/card"
 
 type Pair struct{ pattern }
 
-func (p *Pair) Validate(cards []*card.Card) bool {
-	if len(cards) != p.size {
+func (p *Pair) Validate() bool {
+	if len(p.cards) != p.size {
 		return false
 	}
 
-	return cards[0].CompareRank(cards[1]) == card.CompareResultEqual
+	return p.cards[0].CompareRank(p.cards[1]) == card.CompareResultEqual
 }
 
 func (p *Pair) GetBigOne() *card.Card {
@@ -20,11 +20,12 @@ func (p *Pair) GetBigOne() *card.Card {
 	return p.cards[1]
 }
 
-func NewPair() Pattern {
+func NewPair(cards []*card.Card) Pattern {
 	return &Pair{
 		pattern{
-			size: 2,
-			name: CardPatternPair,
+			cards: cards,
+			size:  2,
+			name:  CardPatternPair,
 		},
 	}
 }

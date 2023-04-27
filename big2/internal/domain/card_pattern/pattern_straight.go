@@ -8,7 +8,9 @@ import (
 
 type Straight struct{ pattern }
 
-func (s *Straight) Validate(cards []*card.Card) bool {
+func (s *Straight) Validate() bool {
+	cards := s.cards
+	
 	if len(cards) != s.size {
 		return false
 	}
@@ -34,11 +36,12 @@ func (s *Straight) GetBigOne() *card.Card {
 	return s.cards[0]
 }
 
-func NewStraight() Pattern {
+func NewStraight(cards []*card.Card) Pattern {
 	return &Straight{
 		pattern{
-			size: 5,
-			name: CardPatternStraight,
+			cards: cards,
+			size:  5,
+			name:  CardPatternStraight,
 		},
 	}
 }

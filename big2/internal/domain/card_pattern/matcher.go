@@ -22,7 +22,6 @@ func (c *cardPatternMatcher) Match(cards []*card.Card) Pattern {
 	cp := c.matcher.Match(cards)
 
 	if cp != nil {
-		cp.SetCards(cards)
 		return cp
 	}
 

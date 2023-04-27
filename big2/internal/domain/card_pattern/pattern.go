@@ -20,9 +20,8 @@ Pair
 type CardPattern string
 
 type Pattern interface {
-	Validate(cards []*card.Card) bool
+	Validate() bool
 	GetBigOne() *card.Card
-	SetCards(cards []*card.Card)
 	GetCards() []*card.Card
 	GetName() CardPattern
 	String() string

@@ -5,9 +5,9 @@ import "big2/internal/domain/card"
 type MatcherStraight struct{}
 
 func (fh *MatcherStraight) Match(cards []*card.Card) Pattern {
-	cp := NewStraight()
+	cp := NewStraight(cards)
 
-	if !cp.Validate(cards) {
+	if !cp.Validate() {
 		return nil
 	}
 
