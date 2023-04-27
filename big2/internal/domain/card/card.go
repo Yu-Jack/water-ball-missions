@@ -131,6 +131,11 @@ func (c *Card) CompareRank(card *Card) CompareResult {
 	return CompareResultEqual
 }
 
+// DiffRank return diff rank
+func (c *Card) DiffRank(card *Card) int {
+	return c.rank - card.rank
+}
+
 // for convenience of debugging
 func (c *Card) String() string {
 	rank := ""

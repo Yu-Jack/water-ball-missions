@@ -11,7 +11,9 @@ func main() {
 	matchers :=
 		cardPattern.NewCardPatternMatcher(cardPattern.NewMatcherFullHouse(),
 			cardPattern.NewCardPatternMatcher(cardPattern.NewMatcherSingle(),
-				cardPattern.NewCardPatternMatcher(cardPattern.NewMatcherPair(), nil),
+				cardPattern.NewCardPatternMatcher(cardPattern.NewMatcherPair(),
+					cardPattern.NewCardPatternMatcher(cardPattern.NewMatcherStraight(), nil),
+				),
 			),
 		)
 
@@ -19,7 +21,9 @@ func main() {
 	comparer :=
 		cardPattern.NewComparerHandler(cardPattern.NewComparerSingle(),
 			cardPattern.NewComparerHandler(cardPattern.NewComparerFullHouse(),
-				cardPattern.NewComparerHandler(cardPattern.NewComparerPair(), nil),
+				cardPattern.NewComparerHandler(cardPattern.NewComparerPair(),
+					cardPattern.NewComparerHandler(cardPattern.NewComparerStraight(), nil),
+				),
 			),
 		)
 
