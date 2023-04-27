@@ -1,3 +1,5 @@
+//go:generate go-enum -f=$GOFILE --nocase
+
 package card_pattern
 
 import (
@@ -6,22 +8,33 @@ import (
 	"big2/internal/domain/card"
 )
 
+// CardPattern
+/*
+ENUM(
+Straight
+FullHouse
+Single
+Pair
+)
+*/
+type CardPattern string
+
 type Pattern interface {
 	Validate(cards []*card.Card) bool
 	GetBigOne() *card.Card
 	SetCards(cards []*card.Card)
 	GetCards() []*card.Card
-	GetName() string
+	GetName() CardPattern
 	String() string
 }
 
 type pattern struct {
-	name  string
+	name  CardPattern
 	cards []*card.Card
 	size  int
 }
 
-func (cp *pattern) GetName() string {
+func (cp *pattern) GetName() CardPattern {
 	return cp.name
 }
 

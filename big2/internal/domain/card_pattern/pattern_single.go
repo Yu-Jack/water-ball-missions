@@ -16,7 +16,7 @@ func NewSingle() Pattern {
 	return &Single{
 		pattern{
 			size: 1,
-			name: "Single",
+			name: CardPatternSingle,
 		},
 	}
 }

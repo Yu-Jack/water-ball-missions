@@ -38,7 +38,7 @@ func NewStraight() Pattern {
 	return &Straight{
 		pattern{
 			size: 5,
-			name: "Straight",
+			name: CardPatternStraight,
 		},
 	}
 }

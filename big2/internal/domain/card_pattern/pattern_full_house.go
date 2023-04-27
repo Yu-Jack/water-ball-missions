@@ -50,7 +50,7 @@ func NewFullHouse() Pattern {
 	return &FullHouse{
 		pattern{
 			size: 5,
-			name: "FullHouse",
+			name: CardPatternFullHouse,
 		},
 	}
 }

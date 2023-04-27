@@ -20,7 +20,7 @@ func NewPair() Pattern {
 	return &Pair{
 		pattern{
 			size: 2,
-			name: "Pair",
+			name: CardPatternPair,
 		},
 	}
 }

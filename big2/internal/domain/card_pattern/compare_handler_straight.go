@@ -10,7 +10,7 @@ func (c *comparerStraight) Compare(cp1 Pattern, cp2 Pattern) card.CompareResult 
 }
 
 func (c *comparerStraight) Match(cp1 Pattern, cp2 Pattern) bool {
-	return cp1.GetName() == "Straight" && cp1.GetName() == cp2.GetName()
+	return cp1.GetName() == CardPatternStraight && cp1.GetName() == cp2.GetName()
 }
 
 func NewComparerStraight() CompareHandler {
