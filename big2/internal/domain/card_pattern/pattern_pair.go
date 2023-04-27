@@ -21,11 +21,17 @@ func (p *Pair) GetBigOne() *card.Card {
 }
 
 func NewPair(cards []*card.Card) Pattern {
-	return &Pair{
+	p := &Pair{
 		pattern{
 			cards: cards,
 			size:  2,
 			name:  CardPatternPair,
 		},
 	}
+
+	if !p.Validate() {
+		return nil
+	}
+
+	return p
 }

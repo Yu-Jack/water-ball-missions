@@ -5,13 +5,7 @@ import "big2/internal/domain/card"
 type MatcherStraight struct{}
 
 func (fh *MatcherStraight) Match(cards []*card.Card) Pattern {
-	cp := NewStraight(cards)
-
-	if !cp.Validate() {
-		return nil
-	}
-
-	return cp
+	return NewStraight(cards)
 }
 
 func NewMatcherStraight() Matcher {

@@ -10,7 +10,7 @@ type Straight struct{ pattern }
 
 func (s *Straight) Validate() bool {
 	cards := s.cards
-	
+
 	if len(cards) != s.size {
 		return false
 	}
@@ -37,11 +37,17 @@ func (s *Straight) GetBigOne() *card.Card {
 }
 
 func NewStraight(cards []*card.Card) Pattern {
-	return &Straight{
+	s := &Straight{
 		pattern{
 			cards: cards,
 			size:  5,
 			name:  CardPatternStraight,
 		},
 	}
+
+	if !s.Validate() {
+		return nil
+	}
+
+	return s
 }

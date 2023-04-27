@@ -13,11 +13,17 @@ func (s *Single) GetBigOne() *card.Card {
 }
 
 func NewSingle(cards []*card.Card) Pattern {
-	return &Single{
+	s := &Single{
 		pattern{
 			cards: cards,
 			size:  1,
 			name:  CardPatternSingle,
 		},
 	}
+
+	if !s.Validate() {
+		return nil
+	}
+
+	return s
 }

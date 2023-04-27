@@ -49,11 +49,17 @@ func (fh *FullHouse) GetBigOne() *card.Card {
 }
 
 func NewFullHouse(cards []*card.Card) Pattern {
-	return &FullHouse{
+	fh := &FullHouse{
 		pattern{
 			cards: cards,
 			size:  5,
 			name:  CardPatternFullHouse,
 		},
 	}
+
+	if !fh.Validate() {
+		return nil
+	}
+
+	return fh
 }
