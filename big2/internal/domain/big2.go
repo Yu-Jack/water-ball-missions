@@ -25,6 +25,9 @@ func NewBig2(
 	return &Big2{
 		Round:     1,
 		PassCount: 0,
+		TopPlay:   nil,
+		TopPlayer: nil,
+		Players:   []Player{},
 		Matcher:   matcher,
 		Comparer:  comparer,
 	}
