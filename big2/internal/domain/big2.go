@@ -3,21 +3,24 @@ package domain
 import (
 	"fmt"
 	"strings"
+
+	"big2/internal/domain/card"
+	cardPattern "big2/internal/domain/card_pattern"
 )
 
 type Big2 struct {
-	Matcher   CardPatternMatcher
-	Comparer  CardPatternCompareHandler
+	Matcher   cardPattern.Matcher
+	Comparer  cardPattern.CompareHandler
 	Players   []Player
-	TopPlay   CardPattern
+	TopPlay   cardPattern.Pattern
 	TopPlayer Player
 	Round     int
 	PassCount int
 }
 
 func NewBig2(
-	matcher CardPatternMatcher,
-	comparer CardPatternCompareHandler,
+	matcher cardPattern.Matcher,
+	comparer cardPattern.CompareHandler,
 ) *Big2 {
 	return &Big2{
 		Round:     1,
@@ -39,7 +42,7 @@ func (b *Big2) Start() {
 	// TODO: 需要封裝
 	input := "S[8] S[9] S[3] D[J] S[7] H[3] C[2] C[9] H[2] D[7] S[K] C[6] C[3] D[4] H[7] C[A] D[A] D[K] H[4] D[8] C[4] H[10] H[A] S[10] H[Q] H[5] S[4] D[5] H[9] H[8] C[10] S[6] S[A] D[3] S[5] D[9] D[Q] H[K] C[Q] H[J] D[10] S[2] H[6] C[K] S[J] C[7] S[Q] D[6] D[2] C[J] C[8] C[5]"
 	inputs := strings.Split(input, " ")
-	cards := make([]*Card, 0)
+	cards := make([]*card.Card, 0)
 	for _, input := range inputs {
 		input = strings.Replace(input, "[", " ", -1)
 		input = strings.Replace(input, "]", "", -1)
@@ -47,7 +50,7 @@ func (b *Big2) Start() {
 		var suit string
 		var rank string
 		_, _ = fmt.Sscanf(input, "%s %s", &suit, &rank)
-		cards = append(cards, NewCard(rank, suit))
+		cards = append(cards, card.NewCard(rank, suit))
 
 	}
 

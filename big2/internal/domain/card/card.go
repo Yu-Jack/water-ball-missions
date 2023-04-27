@@ -1,6 +1,6 @@
 //go:generate go-enum -f=$GOFILE --nocase
 
-package domain
+package card
 
 import (
 	"fmt"

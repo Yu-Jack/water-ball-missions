@@ -7,6 +7,8 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"big2/internal/domain/card"
 )
 
 type InputStrategy interface {
@@ -18,7 +20,7 @@ type Player interface {
 	Name()
 	GetName() string
 	Play()
-	AddCard(card *Card)
+	AddCard(card *card.Card)
 	HandSize() int
 }
 
@@ -37,7 +39,7 @@ func NewPlayer(big2 *Big2, inputStrategy InputStrategy) Player {
 	}
 }
 
-func (p *player) AddCard(card *Card) {
+func (p *player) AddCard(card *card.Card) {
 	p.hand.AddCard(card)
 }
 
@@ -78,14 +80,14 @@ func (p *player) Play() {
 		compareResult := p.big2.Comparer.Compare(cp, p.big2.TopPlay)
 
 		// 發現手牌太小，重出
-		if compareResult == CompareResultSmaller {
+		if compareResult == card.CompareResultSmaller {
 			fmt.Println("此牌型不合法，請再嘗試一次。")
 			orders, pass = p.inputStrategy.Input()
 			continue
 		}
 
 		// 手牌大於頂牌，出牌！
-		if compareResult == CompareResultBigger {
+		if compareResult == card.CompareResultBigger {
 			p.hand.Remove(orders)
 			p.big2.TopPlay = cp
 			p.big2.TopPlayer = p

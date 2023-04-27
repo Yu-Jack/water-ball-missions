@@ -1,17 +1,19 @@
 package domain
 
+import "big2/internal/domain/card"
+
 type Deck struct {
-	cards []*Card
+	cards []*card.Card
 }
 
-func NewDeck(cards []*Card) *Deck {
+func NewDeck(cards []*card.Card) *Deck {
 	return &Deck{
 		cards: cards,
 	}
 }
 
 // Deal pops last one
-func (d *Deck) Deal() *Card {
+func (d *Deck) Deal() *card.Card {
 	c := d.cards[len(d.cards)-1]
 	d.cards = d.cards[:len(d.cards)-1]
 	return c

@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+
+	"big2/internal/domain/card"
 )
 
 type Hand struct {
-	cards []*Card
+	cards []*card.Card
 }
 
 func NewHand() *Hand {
@@ -18,12 +20,12 @@ func (h *Hand) Size() int {
 	return len(h.cards)
 }
 
-func (h *Hand) AddCard(card *Card) {
+func (h *Hand) AddCard(card *card.Card) {
 	h.cards = append(h.cards, card)
 }
 
-func (h *Hand) PickCard(orders []int) []*Card {
-	cards := make([]*Card, 0, len(orders))
+func (h *Hand) PickCard(orders []int) []*card.Card {
+	cards := make([]*card.Card, 0, len(orders))
 	for _, order := range orders {
 		cards = append(cards, h.cards[order])
 	}
@@ -43,7 +45,7 @@ func (h *Hand) Remove(orders []int) {
 
 func (h *Hand) Sort() {
 	sort.Slice(h.cards, func(i, j int) bool {
-		return h.cards[i].Compare(h.cards[j]) == CompareResultSmaller
+		return h.cards[i].Compare(h.cards[j]) == card.CompareResultSmaller
 	})
 }
 

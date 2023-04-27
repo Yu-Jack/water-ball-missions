@@ -4,7 +4,7 @@
 // Build Date:
 // Built By:
 
-package domain
+package card
 
 import (
 	"errors"
