@@ -8,9 +8,6 @@ type Showdown struct {
 	strategy Strategy
 }
 
-type HumanPlayerShowdown struct{ Showdown }
-type AIPlayerShowdown struct{ Showdown }
-
 func (ps *Showdown) GainPoint() {
 	ps.point++
 }

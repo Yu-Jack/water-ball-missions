@@ -11,9 +11,6 @@ type Uno struct {
 	strategy Strategy
 }
 
-type HumanPlayerUno struct{ Uno }
-type AIPlayerUno struct{ Uno }
-
 func (pu *Uno) TakeTurn(player domain.Player) {
 	fmt.Printf("%s's turn, hand size is %d\n", player.GetName(), player.HandSize())
 	lastCard := pu.game.Table[len(pu.game.Table)-1]
