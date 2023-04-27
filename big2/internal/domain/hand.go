@@ -59,12 +59,12 @@ func (h *Hand) List() {
 	index := ""
 	cards := ""
 
-	for i, card := range h.cards {
+	for i, c := range h.cards {
 		indexS := fmt.Sprintf("%d", i)
-		spaceNumber := len(card.String()) - len(indexS) + 1
+		spaceNumber := len(c.String()) - len(indexS) + 1
 		index += fmt.Sprintf("%d", i)
 		index += strings.Repeat(" ", spaceNumber)
-		cards += fmt.Sprintf("%s ", card.String())
+		cards += fmt.Sprintf("%s ", c.String())
 	}
 
 	fmt.Printf("%s\n%s\n", index, cards)
