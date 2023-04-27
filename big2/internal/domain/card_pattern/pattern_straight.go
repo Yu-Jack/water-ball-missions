@@ -9,9 +9,7 @@ import (
 type Straight struct{ pattern }
 
 func (s *Straight) Validate() bool {
-	cards := s.cards
-
-	if len(cards) != s.size {
+	if len(s.cards) != s.size {
 		return false
 	}
 
