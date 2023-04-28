@@ -2,8 +2,8 @@ package collision_handler
 
 import (
 	"world/internal/domain"
-	collisionStrategy "world/internal/domain/collision_strategy"
 	"world/internal/domain/sprite"
+	worldStrategy "world/internal/domain/world_strategy"
 )
 
 type waterHeroHandler struct{}
@@ -22,14 +22,14 @@ func (wh *waterHeroHandler) Collision(c1, c2 sprite.Sprite) domain.CollisionStra
 	// c1 是 water
 	if c1.GetName() == sprite.TypeWater {
 		c2.(*sprite.Hero).PlusHP(10)
-		return &collisionStrategy.RemoveFirstCollisionStrategy{}
+		return &worldStrategy.RemoveFirstStrategy{}
 	}
 
 	// c1 是 hero
 	if c1.GetName() == sprite.TypeHero {
 		c1.(*sprite.Hero).PlusHP(10)
-		return &collisionStrategy.MoveCollisionStrategy{}
+		return &worldStrategy.MoveStrategy{}
 	}
 
-	return &collisionStrategy.FailedCollisionStrategy{}
+	return &worldStrategy.FailedStrategy{}
 }

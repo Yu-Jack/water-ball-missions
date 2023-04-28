@@ -2,8 +2,8 @@ package collision_handler
 
 import (
 	"world/internal/domain"
-	collisionStrategy "world/internal/domain/collision_strategy"
 	"world/internal/domain/sprite"
+	worldStrategy "world/internal/domain/world_strategy"
 )
 
 type waterFireHandler struct{}
@@ -18,5 +18,5 @@ func (wf *waterFireHandler) Match(c1, c2 sprite.Sprite) bool {
 }
 
 func (wf *waterFireHandler) Collision(c1, c2 sprite.Sprite) domain.CollisionStrategy {
-	return &collisionStrategy.RemoveBothCollisionStrategy{}
+	return &worldStrategy.RemoveBothStrategy{}
 }

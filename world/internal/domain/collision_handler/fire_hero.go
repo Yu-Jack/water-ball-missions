@@ -2,8 +2,8 @@ package collision_handler
 
 import (
 	"world/internal/domain"
-	collisionStrategy "world/internal/domain/collision_strategy"
 	"world/internal/domain/sprite"
+	worldStrategy "world/internal/domain/world_strategy"
 )
 
 type fireHeroHandler struct{}
@@ -24,10 +24,10 @@ func (fh *fireHeroHandler) Collision(c1, c2 sprite.Sprite) domain.CollisionStrat
 		hero := c2.(*sprite.Hero)
 		hero.MinusHP(10)
 		if hero.GetHP() <= 0 {
-			return &collisionStrategy.RemoveBothCollisionStrategy{}
+			return &worldStrategy.RemoveBothStrategy{}
 		}
 
-		return &collisionStrategy.RemoveFirstCollisionStrategy{}
+		return &worldStrategy.RemoveFirstStrategy{}
 	}
 
 	// c1 是 hero
@@ -36,11 +36,11 @@ func (fh *fireHeroHandler) Collision(c1, c2 sprite.Sprite) domain.CollisionStrat
 		hero.MinusHP(10)
 
 		if hero.GetHP() <= 0 {
-			return &collisionStrategy.RemoveBothCollisionStrategy{}
+			return &worldStrategy.RemoveBothStrategy{}
 		}
 
-		return &collisionStrategy.MoveCollisionStrategy{}
+		return &worldStrategy.MoveStrategy{}
 	}
 
-	return &collisionStrategy.FailedCollisionStrategy{}
+	return &worldStrategy.FailedStrategy{}
 }

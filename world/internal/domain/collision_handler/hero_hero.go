@@ -2,8 +2,8 @@ package collision_handler
 
 import (
 	"world/internal/domain"
-	collisionStrategy "world/internal/domain/collision_strategy"
 	"world/internal/domain/sprite"
+	worldStrategy "world/internal/domain/world_strategy"
 )
 
 type heroHeroHandler struct{}
@@ -17,5 +17,5 @@ func (hh *heroHeroHandler) Match(c1, c2 sprite.Sprite) bool {
 }
 
 func (hh *heroHeroHandler) Collision(c1, c2 sprite.Sprite) domain.CollisionStrategy {
-	return &collisionStrategy.FailedCollisionStrategy{}
+	return &worldStrategy.FailedStrategy{}
 }
