@@ -91,26 +91,26 @@ func (p *player) Play() {
 			continue
 		}
 
-		// 每回合首發玩家，直接出牌
-		if p.big2.TopPlay == nil {
+		// 第一回合玩家，一定要出梅花三
+		if p.big2.TopPlay == nil && p.big2.Round == 1 {
+			invalid = true
 
-			// 第一回合玩家，一定要出梅花三
-			if p.big2.Round == 1 {
-				invalid = true
-
-				for _, c := range cp.GetCards() {
-					if c.IsClub3() {
-						invalid = false
-						break
-					}
-				}
-
-				if invalid {
-					continue
+			for _, c := range cp.GetCards() {
+				if c.IsClub3() {
+					invalid = false
+					break
 				}
 			}
 
-			// 其餘回合直接出牌
+			if invalid {
+				continue
+			}
+
+			break
+		}
+
+		// 每回合首發玩家，直接出牌
+		if p.big2.TopPlay == nil {
 			break
 		}
 
