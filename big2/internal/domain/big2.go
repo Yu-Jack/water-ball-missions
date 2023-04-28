@@ -1,7 +1,9 @@
 package domain
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strings"
 
 	"big2/internal/domain/card"
@@ -37,13 +39,13 @@ func (b *Big2) AddPlayer(player Player) {
 	b.Players = append(b.Players, player)
 }
 
-func (b *Big2) Start() {
-	for _, player := range b.Players {
-		player.Name()
-	}
+func (b *Big2) generateDeck() *Deck {
+	var input string
 
-	// TODO: 需要封裝
-	input := "S[8] S[9] S[3] D[J] S[7] H[3] C[2] C[9] H[2] D[7] S[K] C[6] C[3] D[4] H[7] C[A] D[A] D[K] H[4] D[8] C[4] H[10] H[A] S[10] H[Q] H[5] S[4] D[5] H[9] H[8] C[10] S[6] S[A] D[3] S[5] D[9] D[Q] H[K] C[Q] H[J] D[10] S[2] H[6] C[K] S[J] C[7] S[Q] D[6] D[2] C[J] C[8] C[5]"
+	reader := bufio.NewReader(os.Stdin)
+	input, _ = reader.ReadString('\n')
+	input = strings.TrimSuffix(input, "\n")
+
 	inputs := strings.Split(input, " ")
 	cards := make([]*card.Card, 0)
 	for _, input := range inputs {
@@ -54,17 +56,30 @@ func (b *Big2) Start() {
 		var rank string
 		_, _ = fmt.Sscanf(input, "%s %s", &suit, &rank)
 		cards = append(cards, card.NewCard(rank, suit))
-
 	}
 
-	deck := NewDeck(cards)
+	return NewDeck(cards)
+}
 
+func (b *Big2) Start() {
+	deck := &Deck{}
+
+	for deck.Size() != 52 {
+		deck = b.generateDeck()
+	}
+
+	for _, player := range b.Players {
+		player.Name()
+	}
+
+	// deal cards
 	for deck.Size() > 0 {
 		for _, player := range b.Players {
 			player.AddCard(deck.Deal())
 		}
 	}
 
+	// choose who is first one
 	startPlayer := -1
 	for i, _ := range b.Players {
 		if b.Players[i].IsClub3() {

@@ -29,10 +29,10 @@ func main() {
 		)
 
 	big := domain.NewBig2(matchers, comparer)
-	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewAIStrategy()))
-	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewAIStrategy()))
-	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewAIStrategy()))
-	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewAIStrategy()))
+	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewHumanStrategy()))
+	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewHumanStrategy()))
+	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewHumanStrategy()))
+	big.AddPlayer(domain.NewPlayer(big, playStrategy.NewHumanStrategy()))
 
 	big.Start()
 }
