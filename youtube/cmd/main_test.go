@@ -18,15 +18,15 @@ func Example() {
 
 	p2 := domain.NewChannelSubscriber("火球", func(name string, channel *domain.Channel, video *domain.Video) {
 		if video.Length <= 1*time.Minute {
-			channel.Unregister(name)
+			channel.Unsubscribed(name)
 		}
 	})
 
-	water.Register(p1)
-	pew.Register(p1)
+	water.Subscribed(p1)
+	pew.Subscribed(p1)
 
-	water.Register(p2)
-	pew.Register(p2)
+	water.Subscribed(p2)
+	pew.Subscribed(p2)
 
 	water.Upload(domain.NewVideo("C1M1S2", "這個世界正是物件導向的呢！", 4*time.Minute))
 	pew.Upload(domain.NewVideo("Hello guys", "Clickbait", 30*time.Second))
