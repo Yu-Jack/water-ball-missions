@@ -10,23 +10,23 @@ func Example() {
 	pew := domain.NewChannel("PewDiePie")
 	water := domain.NewChannel("水球軟體學院")
 
-	p1 := domain.NewChannelSubscriber("水球", func(name string, channel *domain.Channel, video *domain.Video) {
+	p1 := domain.NewChannelSubscriber("水球", func(cs *domain.ChannelSubscriber, channel *domain.Channel, video *domain.Video) {
 		if video.Length >= 3*time.Minute {
-			video.Liked(name)
+			cs.LikeVideo(video)
 		}
 	})
 
-	p2 := domain.NewChannelSubscriber("火球", func(name string, channel *domain.Channel, video *domain.Video) {
+	p2 := domain.NewChannelSubscriber("火球", func(cs *domain.ChannelSubscriber, channel *domain.Channel, video *domain.Video) {
 		if video.Length <= 1*time.Minute {
-			channel.Unsubscribed(name)
+			cs.Unsubscribe(channel)
 		}
 	})
 
-	water.Subscribed(p1)
-	pew.Subscribed(p1)
+	p1.Subscribe(water)
+	p1.Subscribe(pew)
 
-	water.Subscribed(p2)
-	pew.Subscribed(p2)
+	p2.Subscribe(water)
+	p2.Subscribe(pew)
 
 	water.Upload(domain.NewVideo("C1M1S2", "這個世界正是物件導向的呢！", 4*time.Minute))
 	pew.Upload(domain.NewVideo("Hello guys", "Clickbait", 30*time.Second))

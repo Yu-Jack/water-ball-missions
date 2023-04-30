@@ -31,16 +31,14 @@ func (c *Channel) notify(video *Video) {
 	}
 }
 
-func (c *Channel) Subscribed(subscriber ChannelObserver) {
-	fmt.Printf("%s 訂閱了 %s。\n", subscriber.GetName(), c.name)
+func (c *Channel) Register(subscriber ChannelObserver) {
 	c.subscribers = append(c.subscribers, subscriber)
 }
 
-func (c *Channel) Unsubscribed(name string) {
+func (c *Channel) Unregister(name string) {
 	for i, sub := range c.subscribers {
 		if sub.GetName() == name {
 			c.subscribers = append(c.subscribers[:i], c.subscribers[i+1:]...)
-			fmt.Printf("%s 解除訂閱了 %s。\n", name, c.name)
 			return
 		}
 	}
