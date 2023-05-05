@@ -19,7 +19,7 @@ func (s *Straight) Validate() bool {
 
 	// 每一個牌之間 rank 都差 1
 	for i := 1; i < len(s.cards); i++ {
-		if s.cards[i].CompareRank(s.cards[i-1]) != 1 {
+		if s.cards[i].DiffRank(s.cards[i-1]) != 1 {
 			return false
 		}
 	}
