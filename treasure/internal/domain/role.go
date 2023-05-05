@@ -42,13 +42,13 @@ type RoleName int
 // Direction
 /*
 ENUM(
-Up
-Down
-Left
-Right
+Up = "↑"
+Down = "↓"
+Left = "←"
+Right = "→"
 )
 */
-type Direction int
+type Direction string
 
 // AttackScope
 /*

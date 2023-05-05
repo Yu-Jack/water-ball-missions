@@ -91,43 +91,33 @@ func ParseAttackScope(name string) (AttackScope, error) {
 
 const (
 	// DirectionUp is a Direction of type Up.
-	DirectionUp Direction = iota
+	DirectionUp Direction = "↑"
 	// DirectionDown is a Direction of type Down.
-	DirectionDown
+	DirectionDown Direction = "↓"
 	// DirectionLeft is a Direction of type Left.
-	DirectionLeft
+	DirectionLeft Direction = "←"
 	// DirectionRight is a Direction of type Right.
-	DirectionRight
+	DirectionRight Direction = "→"
 )
 
 var ErrInvalidDirection = errors.New("not a valid Direction")
 
-const _DirectionName = "UpDownLeftRight"
-
-var _DirectionMap = map[Direction]string{
-	DirectionUp:    _DirectionName[0:2],
-	DirectionDown:  _DirectionName[2:6],
-	DirectionLeft:  _DirectionName[6:10],
-	DirectionRight: _DirectionName[10:15],
+// String implements the Stringer interface.
+func (x Direction) String() string {
+	return string(x)
 }
 
 // String implements the Stringer interface.
-func (x Direction) String() string {
-	if str, ok := _DirectionMap[x]; ok {
-		return str
-	}
-	return fmt.Sprintf("Direction(%d)", x)
+func (x Direction) IsValid() bool {
+	_, err := ParseDirection(string(x))
+	return err == nil
 }
 
 var _DirectionValue = map[string]Direction{
-	_DirectionName[0:2]:                    DirectionUp,
-	strings.ToLower(_DirectionName[0:2]):   DirectionUp,
-	_DirectionName[2:6]:                    DirectionDown,
-	strings.ToLower(_DirectionName[2:6]):   DirectionDown,
-	_DirectionName[6:10]:                   DirectionLeft,
-	strings.ToLower(_DirectionName[6:10]):  DirectionLeft,
-	_DirectionName[10:15]:                  DirectionRight,
-	strings.ToLower(_DirectionName[10:15]): DirectionRight,
+	"↑": DirectionUp,
+	"↓": DirectionDown,
+	"←": DirectionLeft,
+	"→": DirectionRight,
 }
 
 // ParseDirection attempts to convert a string to a Direction.
@@ -139,7 +129,7 @@ func ParseDirection(name string) (Direction, error) {
 	if x, ok := _DirectionValue[strings.ToLower(name)]; ok {
 		return x, nil
 	}
-	return Direction(0), fmt.Errorf("%s is %w", name, ErrInvalidDirection)
+	return Direction(""), fmt.Errorf("%s is %w", name, ErrInvalidDirection)
 }
 
 const (

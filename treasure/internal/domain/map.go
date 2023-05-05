@@ -137,8 +137,7 @@ func (m *Map) Start() {
 }
 
 func (m *Map) DirectlyMove(oldPosition, newPosition Position) {
-	m.m[newPosition.YRay][newPosition.XRay] = m.m[oldPosition.YRay][oldPosition.XRay]
-	m.m[oldPosition.YRay][oldPosition.XRay] = ""
+	m.changePosition(m.character, oldPosition, newPosition, Direction(m.m[oldPosition.YRay][oldPosition.XRay]))
 }
 
 func (m *Map) RandomEmptyPosition() Position {
@@ -184,8 +183,7 @@ func (m *Map) Move(role Role, position Position, direction Direction) (successMo
 
 	// success move
 	if m.m[position.YRay][position.XRay] == "" {
-		m.m[position.YRay][position.XRay] = m.m[originalP.YRay][originalP.XRay]
-		m.m[originalP.YRay][originalP.XRay] = ""
+		m.changePosition(role, originalP, position, direction)
 		role.SetPosition(position)
 		return true
 	}
@@ -193,17 +191,26 @@ func (m *Map) Move(role Role, position Position, direction Direction) (successMo
 	// trigger touch treasure
 	if m.m[position.YRay][position.XRay] == MapObjectTreasure {
 		role.TakeTreasure(role, m.getTreasure(position))
+
 		// 移除物件
 		m.remove(position)
 
 		// 移動過去
-		m.m[position.YRay][position.XRay] = m.m[originalP.YRay][originalP.XRay]
-		m.m[originalP.YRay][originalP.XRay] = ""
+		m.changePosition(role, originalP, position, direction)
 		role.SetPosition(position)
 		return true
 	}
 
 	return true
+}
+
+func (m *Map) changePosition(role Role, originalP Position, position Position, direction Direction) {
+	m.m[position.YRay][position.XRay] = m.m[originalP.YRay][originalP.XRay]
+	m.m[originalP.YRay][originalP.XRay] = ""
+
+	if role.GetName() == RoleNameCharacter.String() {
+		m.m[position.YRay][position.XRay] = MapObject(direction.String())
+	}
 }
 
 func (m *Map) getTreasure(position Position) Treasure {
