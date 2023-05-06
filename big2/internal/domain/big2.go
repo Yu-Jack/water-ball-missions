@@ -62,32 +62,13 @@ func (b *Big2) generateDeck() *Deck {
 }
 
 func (b *Big2) Start() {
-	deck := &Deck{}
+	b.dealCard()
+	startPlayer := b.findFirstPlayer()
+	winner := b.play(startPlayer)
+	fmt.Printf("遊戲結束，遊戲的勝利者為 %s\n", winner)
+}
 
-	for deck.Size() != 52 {
-		deck = b.generateDeck()
-	}
-
-	for _, player := range b.Players {
-		player.Name()
-	}
-
-	// deal cards
-	for deck.Size() > 0 {
-		for _, player := range b.Players {
-			player.AddCard(deck.Deal())
-		}
-	}
-
-	// choose who is first one
-	startPlayer := -1
-	for i, _ := range b.Players {
-		if b.Players[i].IsClub3() {
-			startPlayer = i
-			break
-		}
-	}
-
+func (b *Big2) play(startPlayer int) string {
 	winner := ""
 
 	fmt.Println("新的回合開始了。")
@@ -119,5 +100,36 @@ func (b *Big2) Start() {
 		startPlayer++
 	}
 
-	fmt.Printf("遊戲結束，遊戲的勝利者為 %s\n", winner)
+	return winner
+}
+
+func (b *Big2) findFirstPlayer() int {
+	// choose who is first one
+	startPlayer := -1
+	for i, _ := range b.Players {
+		if b.Players[i].IsClub3() {
+			startPlayer = i
+			break
+		}
+	}
+	return startPlayer
+}
+
+func (b *Big2) dealCard() {
+	deck := &Deck{}
+
+	for deck.Size() != 52 {
+		deck = b.generateDeck()
+	}
+
+	for _, p := range b.Players {
+		p.Name()
+	}
+
+	// deal cards
+	for deck.Size() > 0 {
+		for _, p := range b.Players {
+			p.AddCard(deck.Deal())
+		}
+	}
 }

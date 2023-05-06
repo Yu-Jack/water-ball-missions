@@ -73,8 +73,9 @@ func (p *player) Play() {
 	}
 
 	var (
-		invalid bool
-		cp      cardPattern.Pattern
+		isMatchRule bool
+		invalid     bool
+		cp          cardPattern.Pattern
 	)
 
 	for !pass {
@@ -91,46 +92,17 @@ func (p *player) Play() {
 			continue
 		}
 
-		// 第一回合玩家，一定要出梅花三
-		if p.big2.TopPlay == nil && p.big2.Round == 1 {
-			invalid = true
-
-			for _, c := range cp.GetCards() {
-				if c.IsClub3() {
-					invalid = false
-					break
-				}
-			}
-
+		if isMatchRule, invalid = p.checkRules(cp); isMatchRule {
 			if invalid {
 				continue
+			} else {
+				break
 			}
-
-			break
 		}
 
-		// 每回合首發玩家，直接出牌
-		if p.big2.TopPlay == nil {
-			break
-		}
-
-		compareResult := p.big2.Comparer.Compare(cp, p.big2.TopPlay)
-
-		// 不同牌型比對，不合法
-		if compareResult == card.CompareResultInvalid {
-			invalid = true
+		if invalid = p.compareWithTable(cp); invalid {
 			continue
-		}
-
-		// 發現手牌太小，重出
-		if compareResult == card.CompareResultSmaller {
-			invalid = true
-			continue
-		}
-
-		// 手牌大於頂牌，出牌！
-		if compareResult == card.CompareResultBigger {
-			invalid = false
+		} else {
 			break
 		}
 	}
@@ -147,5 +119,41 @@ func (p *player) Play() {
 		p.big2.TopPlayer = p
 		p.big2.PassCount = 0
 		fmt.Printf("玩家 %s 打出了 %s\n", p.GetName(), cp.String())
+	}
+}
+
+func (p *player) checkRules(cp cardPattern.Pattern) (isMatchRule, invalid bool) {
+	// 第一回合玩家，一定要出梅花三
+	if p.big2.TopPlay == nil && p.big2.Round == 1 {
+		for _, c := range cp.GetCards() {
+			if c.IsClub3() {
+				return true, false
+			}
+		}
+
+		// 沒有梅花三
+		return true, true
+	}
+
+	// 每回合首發玩家，直接出牌
+	if p.big2.TopPlay == nil {
+		return true, false
+	}
+
+	return false, false
+}
+
+func (p *player) compareWithTable(cp cardPattern.Pattern) bool {
+	compareResult := p.big2.Comparer.Compare(cp, p.big2.TopPlay)
+
+	if compareResult == card.CompareResultSmaller {
+		// 發現手牌太小，重出
+		return true
+	} else if compareResult == card.CompareResultBigger {
+		// 手牌大於頂牌，出牌！
+		return false
+	} else {
+		// 不同牌型比對，不合法
+		return true
 	}
 }
