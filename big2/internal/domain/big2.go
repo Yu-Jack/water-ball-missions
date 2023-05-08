@@ -66,6 +66,7 @@ func (b *Big2) generateDeck() *Deck {
 
 func (b *Big2) Start() {
 	b.dealCard()
+	b.naming()
 	b.findFirstPlayer()
 	b.play()
 
@@ -114,15 +115,17 @@ func (b *Big2) findFirstPlayer() {
 	}
 }
 
+func (b *Big2) naming() {
+	for _, p := range b.Players {
+		p.Name()
+	}
+}
+
 func (b *Big2) dealCard() {
 	deck := &Deck{}
 
 	for deck.Size() != 52 {
 		deck = b.generateDeck()
-	}
-
-	for _, p := range b.Players {
-		p.Name()
 	}
 
 	// deal cards
