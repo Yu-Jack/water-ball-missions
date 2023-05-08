@@ -18,6 +18,9 @@ type Big2 struct {
 	TopPlayer Player
 	Round     int
 	PassCount int
+
+	startPlayer int
+	winner      string
 }
 
 func NewBig2(
@@ -63,30 +66,29 @@ func (b *Big2) generateDeck() *Deck {
 
 func (b *Big2) Start() {
 	b.dealCard()
-	startPlayer := b.findFirstPlayer()
-	winner := b.play(startPlayer)
-	fmt.Printf("遊戲結束，遊戲的勝利者為 %s\n", winner)
+	b.findFirstPlayer()
+	b.play()
+
+	fmt.Printf("遊戲結束，遊戲的勝利者為 %s\n", b.winner)
 }
 
-func (b *Big2) play(startPlayer int) string {
-	winner := ""
-
+func (b *Big2) play() {
 	fmt.Println("新的回合開始了。")
 
 	for {
-		order := startPlayer % 4
+		order := b.startPlayer % 4
 		currentPlayer := b.Players[order]
 		currentPlayer.Play()
 
 		if currentPlayer.HandSize() == 0 {
-			winner = currentPlayer.GetName()
+			b.winner = currentPlayer.GetName()
 			break
 		}
 
 		if b.PassCount == 3 {
 			for i, p := range b.Players {
 				if p.GetName() == b.TopPlayer.GetName() {
-					startPlayer = i
+					b.startPlayer = i
 					break
 				}
 			}
@@ -97,22 +99,19 @@ func (b *Big2) play(startPlayer int) string {
 			continue
 		}
 
-		startPlayer++
+		b.startPlayer++
 	}
 
-	return winner
 }
 
-func (b *Big2) findFirstPlayer() int {
+func (b *Big2) findFirstPlayer() {
 	// choose who is first one
-	startPlayer := -1
 	for i, _ := range b.Players {
 		if b.Players[i].IsClub3() {
-			startPlayer = i
+			b.startPlayer = i
 			break
 		}
 	}
-	return startPlayer
 }
 
 func (b *Big2) dealCard() {
