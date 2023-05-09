@@ -1,0 +1,60 @@
+[
+  {
+    "id": "A111111111",
+    "name": "Female",
+    "gender": "female",
+    "age": 18,
+    "height": 180.4,
+    "weight": 100.6,
+    "cases": [
+      {
+        "symptoms": [
+          "Sneeze"
+        ],
+        "prescription": {
+          "name": "青春抑制劑",
+          "potential_disease": "有人想你了 (專業學名：Attractive)",
+          "medicines": "假鬢角、臭味",
+          "usage": "把假鬢角黏在臉的兩側，讓自己異性緣差一點，自然就不會有人想妳了。"
+        },
+        "time": "2023-05-09T14:06:27.28231+08:00"
+      }
+    ]
+  },
+  {
+    "id": "A000000000",
+    "name": "Male",
+    "gender": "male",
+    "age": 18,
+    "height": 180.4,
+    "weight": 100.6,
+    "cases": [
+      {
+        "symptoms": [
+          "Headache",
+          "Sneeze",
+          "Cough"
+        ],
+        "prescription": {
+          "name": "清冠一號",
+          "potential_disease": "新冠肺炎（專業學名：COVID-19）",
+          "medicines": "清冠一號",
+          "usage": "將相關藥材裝入茶包裡，使用500 mL 溫、熱水沖泡悶煮1~3 分鐘後即可飲用。"
+        },
+        "time": "2023-05-09T14:16:57.428889+08:00"
+      },
+      {
+        "symptoms": [
+          "Snore"
+        ],
+        "prescription": {
+          "name": "打呼抑制劑",
+          "potential_disease": "睡眠呼吸中止症（專業學名：SleepApneaSyndrome）",
+          "medicines": "一捲膠帶",
+          "usage": "睡覺時，撕下兩塊膠帶，將兩塊膠帶交錯黏在關閉的嘴巴上，就不會打呼了。"
+        },
+        "time": "2023-05-09T14:29:12.809307+08:00"
+      }
+    ]
+  }
+]
