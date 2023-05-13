@@ -1,6 +1,7 @@
 package card_pattern
 
 import (
+	"fmt"
 	"sort"
 
 	"big2/internal/domain/card"
@@ -46,6 +47,10 @@ func (fh *FullHouse) GetBigOne() *card.Card {
 	}
 
 	return biggerOne
+}
+
+func (fh *FullHouse) String() string {
+	return fmt.Sprintf("%s %s", "葫蘆", fh.pattern.String())
 }
 
 func NewFullHouse(cards []*card.Card) Pattern {

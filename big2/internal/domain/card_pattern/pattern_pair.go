@@ -1,6 +1,10 @@
 package card_pattern
 
-import "big2/internal/domain/card"
+import (
+	"fmt"
+
+	"big2/internal/domain/card"
+)
 
 type Pair struct{ pattern }
 
@@ -18,6 +22,10 @@ func (p *Pair) GetBigOne() *card.Card {
 	}
 
 	return p.cards[1]
+}
+
+func (p *Pair) String() string {
+	return fmt.Sprintf("%s %s", "對子", p.pattern.String())
 }
 
 func NewPair(cards []*card.Card) Pattern {

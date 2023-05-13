@@ -1,6 +1,7 @@
 package card_pattern
 
 import (
+	"fmt"
 	"sort"
 
 	"big2/internal/domain/card"
@@ -32,6 +33,10 @@ func (s *Straight) GetBigOne() *card.Card {
 		return s.cards[i].Compare(s.cards[j]) == card.CompareResultBigger
 	})
 	return s.cards[0]
+}
+
+func (s *Straight) String() string {
+	return fmt.Sprintf("%s %s", "順子", s.pattern.String())
 }
 
 func NewStraight(cards []*card.Card) Pattern {

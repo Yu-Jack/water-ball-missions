@@ -52,17 +52,5 @@ func (cp *pattern) String() string {
 		cardString += fmt.Sprintf("%s ", c.String())
 	}
 
-	name := ""
-	switch cp.GetName() {
-	case CardPatternStraight:
-		name = "順子"
-	case CardPatternFullHouse:
-		name = "葫蘆"
-	case CardPatternSingle:
-		name = "單張"
-	case CardPatternPair:
-		name = "對子"
-	}
-
-	return fmt.Sprintf("%s %s", name, cardString)
+	return cardString
 }
