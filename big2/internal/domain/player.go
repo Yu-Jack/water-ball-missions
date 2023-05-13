@@ -85,7 +85,7 @@ func (p *player) Play() {
 			orders, pass = p.inputStrategy.Input()
 		}
 
-		cp = p.big2.Matcher.Match(p.hand.PickCard(orders))
+		invalid, cp = p.big2.Validator.Validate(p.hand.PickCard(orders))
 
 		if cp == nil {
 			invalid = true
@@ -144,16 +144,17 @@ func (p *player) checkRules(cp cardPattern.Pattern) (isMatchRule, invalid bool) 
 }
 
 func (p *player) compareWithTable(cp cardPattern.Pattern) bool {
-	compareResult := p.big2.Comparer.Compare(cp, p.big2.TopPlay)
-
-	if compareResult == card.CompareResultSmaller {
-		// 發現手牌太小，重出
+	if cp.GetName() != p.big2.TopPlay.GetName() {
+		// 不同牌型比對，不合法
 		return true
-	} else if compareResult == card.CompareResultBigger {
+	}
+
+	compareResult := cp.GetBigOne().Compare(p.big2.TopPlay.GetBigOne())
+
+	if compareResult == card.CompareResultBigger {
 		// 手牌大於頂牌，出牌！
 		return false
 	} else {
-		// 不同牌型比對，不合法
 		return true
 	}
 }

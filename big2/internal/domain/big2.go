@@ -11,8 +11,7 @@ import (
 )
 
 type Big2 struct {
-	Matcher   cardPattern.Matcher
-	Comparer  cardPattern.CompareHandler
+	Validator cardPattern.Handler
 	Players   []Player
 	TopPlay   cardPattern.Pattern
 	TopPlayer Player
@@ -24,8 +23,7 @@ type Big2 struct {
 }
 
 func NewBig2(
-	matcher cardPattern.Matcher,
-	comparer cardPattern.CompareHandler,
+	comparer cardPattern.Handler,
 ) *Big2 {
 	return &Big2{
 		Round:     1,
@@ -33,8 +31,7 @@ func NewBig2(
 		TopPlay:   nil,
 		TopPlayer: nil,
 		Players:   []Player{},
-		Matcher:   matcher,
-		Comparer:  comparer,
+		Validator: comparer,
 	}
 }
 
