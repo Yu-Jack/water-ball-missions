@@ -87,8 +87,7 @@ func (p *player) Play() {
 
 		invalid, cp = p.big2.Validator.Validate(p.hand.PickCard(orders))
 
-		if cp == nil {
-			invalid = true
+		if invalid {
 			continue
 		}
 
