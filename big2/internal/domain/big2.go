@@ -23,7 +23,7 @@ type Big2 struct {
 }
 
 func NewBig2(
-	comparer cardPattern.Handler,
+	validator cardPattern.Handler,
 ) *Big2 {
 	return &Big2{
 		Round:     1,
@@ -31,7 +31,7 @@ func NewBig2(
 		TopPlay:   nil,
 		TopPlayer: nil,
 		Players:   []Player{},
-		Validator: comparer,
+		Validator: validator,
 	}
 }
 
