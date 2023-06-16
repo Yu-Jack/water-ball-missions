@@ -13,6 +13,6 @@ type State interface {
 	GetRound() int
 	SetRole(role Role)
 	IsNormal() bool
-	IsOrderless() bool
+	IsControlledAble() bool
 	GetType() string
 }

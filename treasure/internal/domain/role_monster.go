@@ -43,7 +43,7 @@ func (r *roleMonster) DefaultScope() AttackScope {
 
 func (r *roleMonster) TakeTurn() {
 	r.takeTurn(func() {
-		if isAround, character := r.m.isCharacterAround(r.position); isAround && !r.state.IsOrderless() {
+		if isAround, character := r.m.isCharacterAround(r.position); isAround && !r.state.IsControlledAble() {
 			if r.scope == AttackScopeOne {
 				r.Damage(character)
 			}

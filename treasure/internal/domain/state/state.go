@@ -40,7 +40,7 @@ func (s *state) SetRole(role domain.Role) { s.role = role }
 func (s *state) GetRound() int            { return s.round }
 func (s *state) GetType() string          { return string(s.name) }
 func (s *state) IsNormal() bool           { return s.name == TypeNormal }
-func (s *state) IsOrderless() bool        { return s.name == TypeOrderless }
+func (s *state) IsControlledAble() bool   { return true }
 func (s *state) Do()                      {}
 func (s *state) Enter()                   {}
 func (s *state) Exit()                    {}

@@ -24,6 +24,10 @@ func NewStateOrderless() domain.State {
 	}
 }
 
+func (s *orderless) IsControlledAble() bool {
+	return false
+}
+
 func (s *orderless) Enter() {
 	s.role.SetActionOptions([]domain.ActionOption{domain.ActionOptionMove})
 }

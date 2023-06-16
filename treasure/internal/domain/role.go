@@ -70,16 +70,17 @@ Attack = "攻擊"
 type ActionOption string
 
 type role struct {
-	m             *Map
-	name          RoleName
-	state         State
-	hp            int
-	actionCount   int
-	actionOptions []ActionOption
-	directions    []Direction
-	power         int
-	scope         AttackScope
-	position      Position
+	m              *Map
+	name           RoleName
+	state          State
+	hp             int
+	actionCount    int
+	actionOptions  []ActionOption
+	directions     []Direction
+	power          int
+	scope          AttackScope
+	position       Position
+	controlledAble bool
 }
 
 func (r *role) takeTurn(action func()) {
