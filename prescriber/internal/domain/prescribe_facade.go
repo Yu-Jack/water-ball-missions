@@ -31,7 +31,7 @@ func NewPrescribeFacade(patientDatabaseFileName string, prescriptionFileName str
 	return pf
 }
 
-func (pf *PrescribeFacade) Prescribe(id string, symptoms []Symptom, cb func(exporter func(format, filePath string))) {
+func (pf *PrescribeFacade) Prescribe(id string, symptoms []Symptom, cb func(pf *PrescribeFacade, c Case)) {
 	c, success := pf.prescriber.Prescribe(id, symptoms)
 	if !success {
 		fmt.Println("找不到症狀！")
@@ -40,9 +40,7 @@ func (pf *PrescribeFacade) Prescribe(id string, symptoms []Symptom, cb func(expo
 
 	pf.savePatientDatabase()
 
-	cb(func(format, filePath string) {
-		pf.Export(format, filePath, c)
-	})
+	cb(pf, c)
 }
 
 func (pf *PrescribeFacade) Export(format, filePath string, c Case) {

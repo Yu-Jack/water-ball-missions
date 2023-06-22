@@ -1,6 +1,10 @@
 package main
 
-import "prescriber/internal/domain"
+import (
+	"fmt"
+
+	"prescriber/internal/domain"
+)
 
 func main() {
 	pf := domain.NewPrescribeFacade(
@@ -13,8 +17,12 @@ func main() {
 		[]domain.Symptom{
 			domain.SymptomSnore,
 		},
-		func(exporter func(format, filePath string)) {
-			exporter("json", "./database/result")
+		func(pf *domain.PrescribeFacade, c domain.Case) {
+			// 1a. only print case?
+			fmt.Println(c)
+
+			// or 1b. export to database?, just whatever you want to do
+			pf.Export("json", "./database/result", c)
 		},
 	)
 }
