@@ -19,7 +19,7 @@ func main() {
 		[]domain.Symptom{
 			domain.SymptomSnore,
 		},
-		func(pf *domain.PrescribeFacade, c domain.Case) {
+		func(ca domain.ClientAction, c domain.Case) {
 			// 1a. only print case?
 			fmt.Println("case1")
 

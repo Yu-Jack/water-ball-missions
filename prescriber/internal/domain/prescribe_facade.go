@@ -19,10 +19,14 @@ type PrescribeFacade struct {
 	wait                    chan struct{}
 }
 
+type ClientAction interface {
+	Export(format, filePath string, c Case)
+}
+
 type Queue struct {
 	id       string
 	symptoms []Symptom
-	cb       func(pf *PrescribeFacade, c Case)
+	cb       func(ca ClientAction, c Case)
 }
 
 func NewPrescribeFacade(patientDatabaseFileName string, prescriptionFileName string) *PrescribeFacade {
@@ -85,7 +89,7 @@ func (pf *PrescribeFacade) prescribe() {
 	}
 }
 
-func (pf *PrescribeFacade) Prescribe(id string, symptoms []Symptom, cb func(pf *PrescribeFacade, c Case)) {
+func (pf *PrescribeFacade) Prescribe(id string, symptoms []Symptom, cb func(ca ClientAction, c Case)) {
 	// start queuing
 	pf.q <- Queue{
 		id:       id,
