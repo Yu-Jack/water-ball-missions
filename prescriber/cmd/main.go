@@ -12,6 +12,8 @@ func main() {
 		"./database/prescription.csv",
 	)
 
+	pf.Open() // 診所開張囉
+
 	pf.Prescribe(
 		"A000000000",
 		[]domain.Symptom{
@@ -19,10 +21,12 @@ func main() {
 		},
 		func(pf *domain.PrescribeFacade, c domain.Case) {
 			// 1a. only print case?
-			fmt.Println(c)
+			fmt.Println("case1")
 
 			// or 1b. export to database?, just whatever you want to do
-			pf.Export("json", "./database/result", c)
+			//pf.Export("json", "./database/result", c)
 		},
 	)
+
+	pf.Wait()
 }
