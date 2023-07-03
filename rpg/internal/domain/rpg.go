@@ -23,6 +23,7 @@ func (r *rpg) GetRole(troopID, roleID int) Role {
 }
 
 type RPG interface {
+	GetAllRolesExcludeSelf(troopID, roleID int) []Role
 	GetAllEnemies(troopID int) []Role
 	GetAllAllies(troopID int) []Role
 	GetAllAlliesExcludeSelf(troopID, roleID int) []Role
@@ -104,6 +105,23 @@ func (r *rpg) End() (bool, string) {
 
 func (r *rpg) AddTroop(t Troop) {
 	r.troops = append(r.troops, t.(*troop))
+}
+
+func (r *rpg) GetAllRolesExcludeSelf(troopID, roleID int) []Role {
+	var rs []Role
+
+	for _, t := range r.troops {
+		for _, role := range t.roles {
+			if role.GetID() == roleID && role.GetTroopID() == troopID {
+				continue
+			}
+			if role.GetHp() > 0 {
+				rs = append(rs, role)
+			}
+		}
+	}
+
+	return rs
 }
 
 func (r *rpg) GetAllEnemies(troopID int) []Role {
