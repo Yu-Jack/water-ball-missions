@@ -13,7 +13,7 @@ type fireBall struct {
 
 func NewFireBall() domain.Skill {
 	return &fireBall{
-		skill{mp: 250, name: "火球"},
+		skill{mp: 50, name: "火球"},
 	}
 }
 

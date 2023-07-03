@@ -34,7 +34,7 @@ func (b waterBall) Execute(currentRole domain.Role) {
 	)
 	targetRole := enemies[selectedID[0]]
 
-	damage := 50 + currentRole.GetExtraStr()
+	damage := 120 + currentRole.GetExtraStr()
 
 	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetName(), targetRole.GetName(), b.name)
 
