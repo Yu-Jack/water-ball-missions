@@ -28,13 +28,38 @@ func main() {
 	_ = onePunchSkill
 
 	t1.AddRole(domain.NewRole(
-		"英雄", 500, 500, 40, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack()},
+		"英雄", 500, 10000, 30, state.NewNormalState(),
+		[]domain.Skill{skill.NewBasicAttack(), skill.NewCheerUp()},
 		action.NewHero(),
 	))
+	t1.AddRole(domain.NewRole(
+		"Servant1", 1000, 0, 0, state.NewNormalState(),
+		[]domain.Skill{skill.NewBasicAttack()},
+		action.NewAiI(),
+	))
+	t1.AddRole(domain.NewRole(
+		"Servant2", 1000, 0, 0, state.NewNormalState(),
+		[]domain.Skill{skill.NewBasicAttack()},
+		action.NewAiI(),
+	))
+	t1.AddRole(domain.NewRole(
+		"Servant3", 1000, 0, 0, state.NewNormalState(),
+		[]domain.Skill{skill.NewBasicAttack()},
+		action.NewAiI(),
+	))
+	t1.AddRole(domain.NewRole(
+		"Servant4", 1000, 0, 0, state.NewNormalState(),
+		[]domain.Skill{skill.NewBasicAttack()},
+		action.NewAiI(),
+	))
+	t1.AddRole(domain.NewRole(
+		"Servant5", 1000, 0, 0, state.NewNormalState(),
+		[]domain.Skill{skill.NewBasicAttack()},
+		action.NewAiI(),
+	))
 	t2.AddRole(domain.NewRole(
-		"Slime1", 100, 100, 30, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), skill.NewSelfHealing()},
+		"Slime1", 500, 0, 0, state.NewNormalState(),
+		[]domain.Skill{skill.NewBasicAttack()},
 		action.NewAiI(),
 	))
 

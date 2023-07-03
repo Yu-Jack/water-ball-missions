@@ -25,6 +25,7 @@ func (r *rpg) GetRole(troopID, roleID int) Role {
 type RPG interface {
 	GetAllEnemies(troopID int) []Role
 	GetAllAllies(troopID int) []Role
+	GetAllAlliesExcludeSelf(troopID, roleID int) []Role
 	GetRole(troopID, roleID int) Role
 	GetAllyTroop(id int) Troop
 	Start()
@@ -115,6 +116,25 @@ func (r *rpg) GetAllAllies(troopID int) []Role {
 	}
 
 	return []Role{}
+}
+
+func (r *rpg) GetAllAlliesExcludeSelf(troopID, roleID int) []Role {
+
+	var roles []Role
+
+	for _, t := range r.troops {
+		if t.id != troopID {
+			continue
+		}
+
+		for index, role := range t.roles {
+			if index != roleID {
+				roles = append(roles, role)
+			}
+		}
+	}
+
+	return roles
 }
 
 func (r *rpg) GetAllyTroop(troopID int) Troop {

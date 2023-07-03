@@ -1,8 +1,11 @@
 package action
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strconv"
+	"strings"
 
 	"rpg/internal/domain"
 )
@@ -37,20 +40,33 @@ func (h hero) S2(availableIDs []int, limit int) []int {
 		return availableIDs
 	}
 
-	var targets []int
-	var input string
+	reader := bufio.NewReader(os.Stdin)
 
-	for len(targets) != limit {
-		_, _ = fmt.Scanln(&input)
-		n, _ := strconv.Atoi(input)
+	var (
+		input  string
+		inputs []string
+		orders []int
+		again  = true
+	)
 
-		if n >= len(availableIDs) {
-			fmt.Println("選擇超出範圍，請重新選擇。")
-			continue
-		} else {
-			targets = append(targets, availableIDs[n])
+	for again {
+		for input == "" {
+			input, _ = reader.ReadString('\n')
+			input = strings.TrimSuffix(input, "\n")
+			inputs = strings.Split(input, ", ")
+		}
+
+		for _, input := range inputs {
+			integer, _ := strconv.Atoi(input)
+			if integer >= len(availableIDs) {
+				fmt.Println("選擇超出範圍，請重新選擇。")
+				again = true
+				break
+			}
+			orders = append(orders, integer)
+			again = false
 		}
 	}
 
-	return targets
+	return orders
 }

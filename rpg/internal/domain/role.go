@@ -30,6 +30,7 @@ type Role interface {
 	ActionS1(skillIDs []int) int
 	ActionS2(availableIDs []int, limit int) []int
 	GetTroopID() int
+	GetID() int
 	GetStr() int
 	GetExtraStr() int
 	TakeAction()
@@ -61,6 +62,7 @@ func NewRole(name string, hp, mp, str int, state State, skills []Skill, strategy
 	return role
 }
 
+func (r *role) GetID() int                    { return r.ID }
 func (r *role) GetTroopID() int               { return r.troopID }
 func (r *role) GetRPG() RPG                   { return r.rpg }
 func (r *role) GetStr() int                   { return r.str }

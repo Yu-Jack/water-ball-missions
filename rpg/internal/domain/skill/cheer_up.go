@@ -20,7 +20,7 @@ func NewCheerUp() domain.Skill {
 }
 
 func (b cheerUp) Execute(currentRole domain.Role) {
-	allies := currentRole.GetRPG().GetAllAllies(currentRole.GetTroopID())
+	allies := currentRole.GetRPG().GetAllAlliesExcludeSelf(currentRole.GetTroopID(), currentRole.GetID())
 
 	output := ""
 	var indexes []int
