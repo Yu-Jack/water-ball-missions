@@ -20,7 +20,7 @@ func (o onePunchI) match(currentRole, targetRole domain.Role) bool {
 func (o onePunchI) execute(currentRole, targetRole domain.Role) {
 	damage := 300 + currentRole.GetExtraStr()
 
-	domain.LogDamage(currentRole.GetName(), targetRole.GetName(), damage)
+	domain.LogDamage(currentRole.GetNameWithTroop(), targetRole.GetNameWithTroop(), damage)
 
 	targetRole.MinusHp(damage)
 }

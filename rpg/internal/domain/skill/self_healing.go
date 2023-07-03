@@ -18,5 +18,5 @@ func NewSelfHealing() domain.Skill {
 
 func (b selfHealing) Execute(currentRole domain.Role) {
 	currentRole.PlusHp(150)
-	fmt.Printf("%s 使用了 %s。\n", currentRole.GetName(), b.name)
+	fmt.Printf("%s 使用了 %s。\n", currentRole.GetNameWithTroop(), b.name)
 }

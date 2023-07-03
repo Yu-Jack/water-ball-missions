@@ -23,13 +23,13 @@ func (b fireBall) Execute(currentRole domain.Role) {
 
 	var output []string
 	for _, targetRole := range enemies {
-		output = append(output, targetRole.GetName())
+		output = append(output, targetRole.GetNameWithTroop())
 
 	}
-	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetName(), strings.Join(output, ", "), b.name)
+	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetNameWithTroop(), strings.Join(output, ", "), b.name)
 
 	for _, targetRole := range enemies {
-		domain.LogDamage(currentRole.GetName(), targetRole.GetName(), damage)
+		domain.LogDamage(currentRole.GetNameWithTroop(), targetRole.GetNameWithTroop(), damage)
 		targetRole.MinusHp(damage)
 	}
 }

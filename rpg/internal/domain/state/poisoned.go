@@ -1,8 +1,6 @@
 package state
 
 import (
-	"fmt"
-
 	"rpg/internal/domain"
 )
 
@@ -20,7 +18,6 @@ func NewPoisonedState() domain.State {
 }
 
 func (s *poisonedState) Do() {
-	damage := 50
-	fmt.Printf("%s 中毒，扣除 %d 生命\n", s.role.GetName(), damage)
+	damage := 30
 	s.role.MinusHp(damage)
 }

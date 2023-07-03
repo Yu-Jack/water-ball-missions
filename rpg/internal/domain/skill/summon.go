@@ -34,5 +34,5 @@ func (b summon) Execute(currentRole domain.Role) {
 	slime.AddRelationSummon(rs)
 	troop.AddRole(slime)
 
-	fmt.Printf("%s 使用了 %s。\n", currentRole.GetName(), b.name)
+	fmt.Printf("%s 使用了 %s。\n", currentRole.GetNameWithTroop(), b.name)
 }

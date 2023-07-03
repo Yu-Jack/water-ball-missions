@@ -38,6 +38,7 @@ type Role interface {
 	GetExtraStr() int
 	TakeAction()
 	GetRPG() RPG
+	GetNameWithTroop() string
 	GetName() string
 	GetHp() int
 	GetMp() int
@@ -102,7 +103,7 @@ func (r *role) MinusHp(hp int) {
 	r.hp -= hp
 
 	if r.hp <= 0 {
-		fmt.Printf("%s 死亡。\n", r.GetName())
+		fmt.Printf("%s 死亡。\n", r.GetNameWithTroop())
 		r.state.Die()
 	}
 }
@@ -111,14 +112,15 @@ func (r *role) MinusMp(mp int) {
 	r.mp -= mp
 }
 
-func (r *role) TakeAction() {
+func (r *role) PrintInformation() {
 	fmt.Printf(
 		"輪到 %s (%s)。\n",
-		r.GetName(), r.GetStatus(),
+		r.GetNameWithTroop(), r.GetStatus(),
 	)
+}
 
+func (r *role) TakeAction() {
 	if !r.actionAble {
-		fmt.Printf("%s 無法行動。\n", r.GetName())
 		return
 	}
 
@@ -148,6 +150,10 @@ func (r *role) TakeAction() {
 }
 
 func (r *role) GetName() string {
+	return r.name
+}
+
+func (r *role) GetNameWithTroop() string {
 	return fmt.Sprintf("[%d]%s", r.troopID, r.name)
 }
 
@@ -170,7 +176,7 @@ func (r *role) GetAllSkillName() string {
 
 func (r *role) AddRelationCurse(rc RelationCurse) bool {
 	for _, relation := range r.relationCurses {
-		if relation.curse.GetName() == rc.curse.GetName() {
+		if relation.curse.GetNameWithTroop() == rc.curse.GetNameWithTroop() {
 			return false
 		}
 	}
@@ -181,7 +187,7 @@ func (r *role) AddRelationCurse(rc RelationCurse) bool {
 
 func (r *role) AddRelationSummon(rs RelationSummon) bool {
 	for _, relation := range r.relationSummoners {
-		if relation.summoner.GetName() == rs.summoner.GetName() {
+		if relation.summoner.GetNameWithTroop() == rs.summoner.GetNameWithTroop() {
 			return false
 		}
 	}

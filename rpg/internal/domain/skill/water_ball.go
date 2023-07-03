@@ -25,7 +25,7 @@ func (b waterBall) Execute(currentRole domain.Role) {
 	var output []string
 	var enemiesIndex []int
 	for i, e := range enemies {
-		output = append(output, fmt.Sprintf("(%d) %s", i, e.GetName()))
+		output = append(output, fmt.Sprintf("(%d) %s", i, e.GetNameWithTroop()))
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
@@ -36,9 +36,9 @@ func (b waterBall) Execute(currentRole domain.Role) {
 
 	damage := 120 + currentRole.GetExtraStr()
 
-	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetName(), targetRole.GetName(), b.name)
+	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetNameWithTroop(), targetRole.GetNameWithTroop(), b.name)
 
-	domain.LogDamage(currentRole.GetName(), targetRole.GetName(), damage)
+	domain.LogDamage(currentRole.GetNameWithTroop(), targetRole.GetNameWithTroop(), damage)
 
 	targetRole.MinusHp(damage)
 }

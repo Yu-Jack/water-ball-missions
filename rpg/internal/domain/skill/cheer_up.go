@@ -27,8 +27,13 @@ func (b cheerUp) Execute(currentRole domain.Role) {
 	var list []string
 	var indexes []int
 	for i, e := range allies {
-		list = append(list, fmt.Sprintf("(%d) %s", i, e.GetName()))
+		list = append(list, fmt.Sprintf("(%d) %s", i, e.GetNameWithTroop()))
 		indexes = append(indexes, i)
+	}
+
+	if len(indexes) == 0 {
+		fmt.Printf("%s 使用了 %s。\n", currentRole.GetNameWithTroop(), b.name)
+		return
 	}
 
 	if len(indexes) > b.limit {
@@ -39,14 +44,14 @@ func (b cheerUp) Execute(currentRole domain.Role) {
 		)
 		for _, ID := range selectedIDs {
 			allies[ID].SetState(state.NewCheerUpState())
-			output = append(output, fmt.Sprintf("%s", allies[ID].GetName()))
+			output = append(output, fmt.Sprintf("%s", allies[ID].GetNameWithTroop()))
 		}
 	} else {
 		for _, ally := range allies {
 			ally.SetState(state.NewCheerUpState())
-			output = append(output, fmt.Sprintf("%s ", ally.GetName()))
+			output = append(output, fmt.Sprintf("%s", ally.GetNameWithTroop()))
 		}
 	}
 
-	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetName(), strings.Join(output, ", "), b.name)
+	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetNameWithTroop(), strings.Join(output, ", "), b.name)
 }

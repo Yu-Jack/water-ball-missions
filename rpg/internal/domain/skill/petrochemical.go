@@ -26,7 +26,7 @@ func (b petrochemical) Execute(currentRole domain.Role) {
 	var output []string
 	var enemiesIndex []int
 	for i, e := range enemies {
-		output = append(output, fmt.Sprintf("(%d) %s", i, e.GetName()))
+		output = append(output, fmt.Sprintf("(%d) %s", i, e.GetNameWithTroop()))
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
@@ -36,5 +36,5 @@ func (b petrochemical) Execute(currentRole domain.Role) {
 	targetRole := enemies[selectedID[0]]
 	targetRole.SetState(state.NewPetrochemicalState())
 
-	fmt.Printf("%s 對 %s 使用了 %s\n", currentRole.GetName(), targetRole.GetName(), b.name)
+	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetNameWithTroop(), targetRole.GetNameWithTroop(), b.name)
 }

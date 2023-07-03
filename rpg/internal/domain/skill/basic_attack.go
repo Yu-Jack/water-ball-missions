@@ -25,7 +25,7 @@ func (b basicAttack) Execute(currentRole domain.Role) {
 	var list []string
 	var enemiesIndex []int
 	for i, e := range enemies {
-		list = append(list, fmt.Sprintf("(%d) %s", i, e.GetName()))
+		list = append(list, fmt.Sprintf("(%d) %s", i, e.GetNameWithTroop()))
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
@@ -38,8 +38,8 @@ func (b basicAttack) Execute(currentRole domain.Role) {
 	targetRole := enemies[selectedID[0]]
 	damage := currentRole.GetStr() + currentRole.GetExtraStr()
 
-	fmt.Printf("%s 攻擊 %s。\n", currentRole.GetName(), targetRole.GetName())
+	fmt.Printf("%s 攻擊 %s。\n", currentRole.GetNameWithTroop(), targetRole.GetNameWithTroop())
 
-	domain.LogDamage(currentRole.GetName(), targetRole.GetName(), damage)
+	domain.LogDamage(currentRole.GetNameWithTroop(), targetRole.GetNameWithTroop(), damage)
 	targetRole.MinusHp(damage)
 }

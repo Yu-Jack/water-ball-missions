@@ -23,7 +23,7 @@ func (s *state) CountDown() {
 	if s.round > 0 {
 		s.round--
 	}
-	if s.round == -1 {
+	if s.round == 0 {
 		s.role.SetState(NewNormalState())
 	}
 }

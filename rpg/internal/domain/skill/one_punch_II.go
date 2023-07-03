@@ -24,7 +24,11 @@ func (o onePunchII) execute(currentRole, targetRole domain.Role) {
 	damage := 80 + currentRole.GetExtraStr()
 
 	for i := 0; i < 3; i++ {
-		domain.LogDamage(currentRole.GetName(), targetRole.GetName(), damage)
+		domain.LogDamage(currentRole.GetNameWithTroop(), targetRole.GetNameWithTroop(), damage)
 		targetRole.MinusHp(damage)
+
+		if targetRole.GetHp() <= 0 {
+			break
+		}
 	}
 }

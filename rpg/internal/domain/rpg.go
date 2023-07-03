@@ -45,6 +45,10 @@ func (r *rpg) Start() {
 
 	for !end {
 		for _, t := range r.troops {
+			if end, winner = r.End(); end {
+				return
+			}
+
 			for i := 0; i < len(t.roles); i++ {
 				role := t.roles[i]
 
@@ -52,9 +56,15 @@ func (r *rpg) Start() {
 					continue
 				}
 
+				role.PrintInformation()
 				role.state.Do()
-				role.state.CountDown()
+
+				if role.GetHp() <= 0 {
+					continue
+				}
+
 				role.TakeAction()
+				role.state.CountDown()
 
 				if end, winner = r.End(); end {
 					return
@@ -72,7 +82,7 @@ func (r *rpg) End() (bool, string) {
 		for j := 0; j < len(t.roles); j++ {
 			role := t.roles[j]
 
-			if role.GetName() == "英雄" && role.GetHp() < 0 {
+			if role.GetName() == "英雄" && role.GetHp() <= 0 {
 				return true, "你失敗了！"
 			}
 
@@ -128,7 +138,7 @@ func (r *rpg) GetAllAlliesExcludeSelf(troopID, roleID int) []Role {
 		}
 
 		for index, role := range t.roles {
-			if index != roleID {
+			if index != roleID && role.GetHp() > 0 {
 				roles = append(roles, role)
 			}
 		}

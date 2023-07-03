@@ -12,7 +12,7 @@ func NewOnePunchIII() OnePunchHandler {
 }
 
 func (o onePunchIII) match(currentRole, targetRole domain.Role) bool {
-	if targetRole.GetState().GetName() == "鼓舞" {
+	if targetRole.GetState().GetName() == "受到鼓舞" {
 		return true
 	}
 	return false
@@ -21,7 +21,7 @@ func (o onePunchIII) match(currentRole, targetRole domain.Role) bool {
 func (o onePunchIII) execute(currentRole, targetRole domain.Role) {
 	damage := 100 + currentRole.GetExtraStr()
 
-	domain.LogDamage(currentRole.GetName(), targetRole.GetName(), damage)
+	domain.LogDamage(currentRole.GetNameWithTroop(), targetRole.GetNameWithTroop(), damage)
 
 	targetRole.MinusHp(damage)
 	targetRole.SetState(state.NewNormalState())

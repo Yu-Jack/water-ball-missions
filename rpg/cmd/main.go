@@ -14,51 +14,23 @@ func main() {
 	t1 := domain.NewTroop(1, rpg)
 	t2 := domain.NewTroop(2, rpg)
 
-	onePunchSkill := skill.NewOnePunch(
-		skill.NewOnePunchHandler(
-			skill.NewOnePunchI(), skill.NewOnePunchHandler(
-				skill.NewOnePunchII(), skill.NewOnePunchHandler(
-					skill.NewOnePunchIII(), skill.NewOnePunchHandler(
-						skill.NewOnePunchIV(), nil,
-					),
-				),
-			),
-		),
-	)
-	_ = onePunchSkill
-
 	t1.AddRole(domain.NewRole(
-		"英雄", 500, 10000, 30, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), skill.NewCheerUp()},
+		"英雄", 1000, 500, 0, state.NewNormalState(),
+		[]domain.Skill{skill.NewBasicAttack(), skill.NewPoison()},
 		action.NewHero(),
 	))
-	t1.AddRole(domain.NewRole(
-		"Servant1", 1000, 0, 0, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack()},
-		action.NewAiI(),
-	))
-	t1.AddRole(domain.NewRole(
-		"Servant2", 1000, 0, 0, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack()},
-		action.NewAiI(),
-	))
-	t1.AddRole(domain.NewRole(
-		"Servant3", 1000, 0, 0, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack()},
-		action.NewAiI(),
-	))
-	t1.AddRole(domain.NewRole(
-		"Servant4", 1000, 0, 0, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack()},
-		action.NewAiI(),
-	))
-	t1.AddRole(domain.NewRole(
-		"Servant5", 1000, 0, 0, state.NewNormalState(),
+	t2.AddRole(domain.NewRole(
+		"Slime1", 120, 90, 50, state.NewNormalState(),
 		[]domain.Skill{skill.NewBasicAttack()},
 		action.NewAiI(),
 	))
 	t2.AddRole(domain.NewRole(
-		"Slime1", 500, 0, 0, state.NewNormalState(),
+		"Slime2", 120, 90, 50, state.NewNormalState(),
+		[]domain.Skill{skill.NewBasicAttack()},
+		action.NewAiI(),
+	))
+	t2.AddRole(domain.NewRole(
+		"Slime3", 120, 9000, 50, state.NewNormalState(),
 		[]domain.Skill{skill.NewBasicAttack()},
 		action.NewAiI(),
 	))
