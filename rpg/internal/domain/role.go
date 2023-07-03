@@ -3,18 +3,20 @@ package domain
 import "fmt"
 
 type role struct {
-	name           string
-	troopID        int
-	ID             int
-	hp             int
-	mp             int
-	str            int
-	extraStr       int
-	state          State
-	skills         []Skill
-	actionAble     bool
-	actionStrategy ActionStrategy
-	rpg            RPG
+	name              string
+	troopID           int
+	ID                int
+	hp                int
+	mp                int
+	str               int
+	extraStr          int
+	state             State
+	skills            []Skill
+	actionAble        bool
+	actionStrategy    ActionStrategy
+	rpg               RPG
+	relationCurses    []RelationCurse
+	relationSummoners []RelationSummon
 }
 
 type Role interface {
@@ -34,6 +36,30 @@ type Role interface {
 	GetRPG() RPG
 	GetName() string
 	GetHp() int
+	GetMp() int
+	AddRelationCurse(RelationCurse) bool
+	AddRelationSummon(RelationSummon) bool
+	GetRelationCurses() []RelationCurse
+	GetRelationSummons() []RelationSummon
+}
+
+func NewRole(name string, hp, mp, str, troopID int, state State, skills []Skill, strategy ActionStrategy) Role {
+	// `rpg` && `ID` will be set when it's assigned into troop
+	role := &role{
+		name:           name,
+		troopID:        troopID,
+		hp:             hp,
+		mp:             mp,
+		str:            str,
+		extraStr:       0,
+		skills:         skills,
+		state:          state,
+		actionAble:     true,
+		actionStrategy: strategy,
+	}
+
+	role.SetState(state)
+	return role
 }
 
 func (r *role) GetTroopID() int               { return r.troopID }
@@ -43,6 +69,7 @@ func (r *role) GetExtraStr() int              { return r.extraStr }
 func (r *role) SetExtraStr(extraStr int)      { r.extraStr = extraStr }
 func (r *role) SetActionAble(actionAble bool) { r.actionAble = actionAble }
 func (r *role) GetHp() int                    { return r.hp }
+func (r *role) GetMp() int                    { return r.mp }
 func (r *role) GetState() State               { return r.state }
 
 func (r *role) SetState(newState State) {
@@ -72,6 +99,7 @@ func (r *role) MinusHp(hp int) {
 
 	if r.hp <= 0 {
 		fmt.Printf("%s 死亡。\n", r.GetName())
+		r.state.Die()
 	}
 }
 
@@ -134,4 +162,34 @@ func (r *role) GetAllSkillName() string {
 	}
 
 	return str
+}
+
+func (r *role) AddRelationCurse(rc RelationCurse) bool {
+	for _, rc := range r.relationCurses {
+		if rc.curse.GetName() == rc.curse.GetName() {
+			return false
+		}
+	}
+
+	r.relationCurses = append(r.relationCurses, rc)
+	return true
+}
+
+func (r *role) AddRelationSummon(rs RelationSummon) bool {
+	for _, rc := range r.relationSummoners {
+		if rc.summoner.GetName() == rc.summoner.GetName() {
+			return false
+		}
+	}
+
+	r.relationSummoners = append(r.relationSummoners, rs)
+	return true
+}
+
+func (r *role) GetRelationCurses() []RelationCurse {
+	return r.relationCurses
+}
+
+func (r *role) GetRelationSummons() []RelationSummon {
+	return r.relationSummoners
 }

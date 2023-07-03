@@ -7,4 +7,5 @@ type State interface {
 	GetName() string
 	CountDown()
 	SetRole(r Role)
+	Die()
 }
