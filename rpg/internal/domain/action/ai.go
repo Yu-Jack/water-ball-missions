@@ -1,8 +1,6 @@
 package action
 
 import (
-	"fmt"
-
 	"rpg/internal/domain"
 )
 
@@ -15,7 +13,6 @@ func NewAiI() domain.ActionStrategy {
 }
 
 func (ai *aiI) S1(skillsIDs []int) int {
-	fmt.Println(ai.seed)
 	target := ai.seed % len(skillsIDs)
 	ai.seed++
 	return target

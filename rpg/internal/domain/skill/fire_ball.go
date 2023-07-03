@@ -25,7 +25,7 @@ func (b fireBall) Execute(currentRole domain.Role) {
 		output1 += targetRole.GetName() + ", "
 
 	}
-	fmt.Printf("%s 對 %s 使用了 %s\n", currentRole.GetName(), output1, b.name)
+	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetName(), output1, b.name)
 
 	for _, targetRole := range enemies {
 		fmt.Printf(

@@ -23,7 +23,7 @@ func (b petrochemical) Execute(currentRole domain.Role) {
 	output := ""
 	var enemiesIndex []int
 	for i, e := range enemies {
-		output += fmt.Sprintf("(%d)%s ", i, e.GetName())
+		output += fmt.Sprintf("(%d) %s ", i, e.GetName())
 		enemiesIndex = append(enemiesIndex, i)
 	}
 

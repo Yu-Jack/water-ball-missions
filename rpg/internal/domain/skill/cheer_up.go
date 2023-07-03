@@ -25,7 +25,7 @@ func (b cheerUp) Execute(currentRole domain.Role) {
 	output := ""
 	var indexes []int
 	for i, e := range allies {
-		output += fmt.Sprintf("(%d)%s ", i, e.GetName())
+		output += fmt.Sprintf("(%d) %s ", i, e.GetName())
 		indexes = append(indexes, i)
 	}
 
@@ -47,5 +47,5 @@ func (b cheerUp) Execute(currentRole domain.Role) {
 		}
 	}
 
-	fmt.Printf("%s 對 %s 使用了 %s \n", currentRole.GetName(), output, b.name)
+	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetName(), output, b.name)
 }

@@ -24,7 +24,7 @@ func (b onePunch) Execute(currentRole domain.Role) {
 	output := ""
 	var enemiesIndex []int
 	for i, e := range enemies {
-		output += fmt.Sprintf("(%d)%s ", i, e.GetName())
+		output += fmt.Sprintf("(%d) %s ", i, e.GetName())
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
@@ -35,6 +35,6 @@ func (b onePunch) Execute(currentRole domain.Role) {
 	selectedID := currentRole.ActionS2(enemiesIndex, 1)
 	targetRole := enemies[selectedID[0]]
 
-	fmt.Printf("%s 對 %s 使用了 %s\n", currentRole.GetName(), targetRole.GetName(), b.name)
+	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetName(), targetRole.GetName(), b.name)
 	b.handler.execute(currentRole, targetRole)
 }
