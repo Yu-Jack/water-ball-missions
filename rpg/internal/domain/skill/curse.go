@@ -2,27 +2,30 @@ package skill
 
 import (
 	"fmt"
+	"strings"
 
 	"rpg/internal/domain"
 )
 
 type curse struct {
 	skill
+	limit int
 }
 
 func NewCurse() domain.Skill {
 	return &curse{
-		skill{mp: 100, name: "詛咒"},
+		skill: skill{mp: 100, name: "詛咒"},
+		limit: 1,
 	}
 }
 
 func (b curse) Execute(currentRole domain.Role) {
 	enemies := currentRole.GetRPG().GetAllEnemies(currentRole.GetTroopID())
 
-	output := ""
+	var output []string
 	var enemiesIndex []int
 	for i, e := range enemies {
-		output += fmt.Sprintf("(%d) %s ", i, e.GetName())
+		output = append(output, fmt.Sprintf("(%d) %s", i, e.GetName()))
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
@@ -31,10 +34,10 @@ func (b curse) Execute(currentRole domain.Role) {
 
 	for !success {
 		fmt.Printf(
-			"選擇 1 位目標: %s\n", output,
+			"選擇 %d 位目標: %s\n", b.limit, strings.Join(output, " "),
 		)
 
-		selectedID := currentRole.ActionS2(enemiesIndex, 1)
+		selectedID := currentRole.ActionS2(enemiesIndex, b.limit)
 		targetRole = enemies[selectedID[0]]
 		rc := domain.NewRelationCurse(targetRole, currentRole)
 		success = targetRole.AddRelationCurse(rc)

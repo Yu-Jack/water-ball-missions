@@ -2,45 +2,45 @@ package skill
 
 import (
 	"fmt"
+	"strings"
 
 	"rpg/internal/domain"
 )
 
 type waterBall struct {
 	skill
+	limit int
 }
 
 func NewWaterBall() domain.Skill {
 	return &waterBall{
-		skill{mp: 50, name: "水球"},
+		skill: skill{mp: 50, name: "水球"},
+		limit: 1,
 	}
 }
 
 func (b waterBall) Execute(currentRole domain.Role) {
 	enemies := currentRole.GetRPG().GetAllEnemies(currentRole.GetTroopID())
 
-	output := ""
+	var output []string
 	var enemiesIndex []int
 	for i, e := range enemies {
-		output += fmt.Sprintf("(%d) %s ", i, e.GetName())
+		output = append(output, fmt.Sprintf("(%d) %s", i, e.GetName()))
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
 	fmt.Printf(
-		"選擇 1 位目標: %s\n", output,
+		"選擇 %d 位目標: %s\n", b.limit, strings.Join(output, " "),
 	)
 
-	selectedID := currentRole.ActionS2(enemiesIndex, 1)
+	selectedID := currentRole.ActionS2(enemiesIndex, b.limit)
 	targetRole := enemies[selectedID[0]]
 
 	damage := 50 + currentRole.GetExtraStr()
 
 	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetName(), targetRole.GetName(), b.name)
 
-	fmt.Printf(
-		"%s 對 %s 造成 %d 點傷害。\n",
-		currentRole.GetName(), targetRole.GetName(), damage,
-	)
+	domain.LogDamage(currentRole.GetName(), targetRole.GetName(), damage)
 
 	targetRole.MinusHp(damage)
 }

@@ -1,8 +1,6 @@
 package skill
 
 import (
-	"fmt"
-
 	"rpg/internal/domain"
 	"rpg/internal/domain/state"
 )
@@ -23,10 +21,7 @@ func (o onePunchIII) match(currentRole, targetRole domain.Role) bool {
 func (o onePunchIII) execute(currentRole, targetRole domain.Role) {
 	damage := 100 + currentRole.GetExtraStr()
 
-	fmt.Printf(
-		"%s 對 %s 造成 %d 點傷害。\n",
-		currentRole.GetName(), targetRole.GetName(), damage,
-	)
+	domain.LogDamage(currentRole.GetName(), targetRole.GetName(), damage)
 
 	targetRole.MinusHp(damage)
 	targetRole.SetState(state.NewNormalState())

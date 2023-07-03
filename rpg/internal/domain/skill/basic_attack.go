@@ -2,6 +2,7 @@ package skill
 
 import (
 	"fmt"
+	"strings"
 
 	"rpg/internal/domain"
 )
@@ -21,16 +22,16 @@ func NewBasicAttack() domain.Skill {
 func (b basicAttack) Execute(currentRole domain.Role) {
 	enemies := currentRole.GetRPG().GetAllEnemies(currentRole.GetTroopID())
 
-	output := ""
+	var output []string
 	var enemiesIndex []int
 	for i, e := range enemies {
-		output += fmt.Sprintf("(%d) %s ", i, e.GetName())
+		output = append(output, fmt.Sprintf("(%d) %s", i, e.GetName()))
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
 	if len(enemiesIndex) != b.limit {
 		fmt.Printf(
-			"選擇 1 位目標: %s\n", output,
+			"選擇 1 位目標: %s\n", strings.Join(output, " "),
 		)
 	}
 
@@ -41,10 +42,7 @@ func (b basicAttack) Execute(currentRole domain.Role) {
 
 	fmt.Printf("%s 攻擊 %s。\n", currentRole.GetName(), targetRole.GetName())
 
-	fmt.Printf(
-		"%s 對 %s 造成 %d 點傷害。\n",
-		currentRole.GetName(), targetRole.GetName(), damage,
-	)
+	domain.LogDamage(currentRole.GetName(), targetRole.GetName(), damage)
 
 	targetRole.MinusHp(damage)
 }

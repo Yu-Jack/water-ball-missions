@@ -2,6 +2,7 @@ package skill
 
 import (
 	"fmt"
+	"strings"
 
 	"rpg/internal/domain"
 	"rpg/internal/domain/state"
@@ -9,29 +10,31 @@ import (
 
 type petrochemical struct {
 	skill
+	limit int
 }
 
 func NewPetrochemical() domain.Skill {
 	return &petrochemical{
-		skill{mp: 100, name: "石化"},
+		skill: skill{mp: 100, name: "石化"},
+		limit: 1,
 	}
 }
 
 func (b petrochemical) Execute(currentRole domain.Role) {
 	enemies := currentRole.GetRPG().GetAllEnemies(currentRole.GetTroopID())
 
-	output := ""
+	var output []string
 	var enemiesIndex []int
 	for i, e := range enemies {
-		output += fmt.Sprintf("(%d) %s ", i, e.GetName())
+		output = append(output, fmt.Sprintf("(%d) %s", i, e.GetName()))
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
 	fmt.Printf(
-		"選擇 1 位目標: %s\n", output,
+		"選擇 %d 位目標: %s\n", b.limit, strings.Join(output, " "),
 	)
 
-	selectedID := currentRole.ActionS2(enemiesIndex, 1)
+	selectedID := currentRole.ActionS2(enemiesIndex, b.limit)
 	targetRole := enemies[selectedID[0]]
 	targetRole.SetState(state.NewPetrochemicalState())
 

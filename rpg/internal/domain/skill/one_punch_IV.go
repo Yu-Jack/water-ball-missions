@@ -1,8 +1,6 @@
 package skill
 
 import (
-	"fmt"
-
 	"rpg/internal/domain"
 )
 
@@ -22,10 +20,7 @@ func (o onePunchIV) match(currentRole, targetRole domain.Role) bool {
 func (o onePunchIV) execute(currentRole, targetRole domain.Role) {
 	damage := 100 + currentRole.GetExtraStr()
 
-	fmt.Printf(
-		"%s 對 %s 造成 %d 點傷害。\n",
-		currentRole.GetName(), targetRole.GetName(), damage,
-	)
+	domain.LogDamage(currentRole.GetName(), targetRole.GetName(), damage)
 
 	targetRole.MinusHp(damage)
 }
