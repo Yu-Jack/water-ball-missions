@@ -38,7 +38,7 @@ func (b waterBall) Execute(currentRole domain.Role) {
 	fmt.Printf("%s 對 %s 使用了 %s\n", currentRole.GetName(), targetRole.GetName(), b.name)
 
 	fmt.Printf(
-		"%s 對 %s 造成 %d 傷害。\n",
+		"%s 對 %s 造成 %d 點傷害。\n",
 		currentRole.GetName(), targetRole.GetName(), damage,
 	)
 

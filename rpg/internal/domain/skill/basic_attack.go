@@ -8,11 +8,13 @@ import (
 
 type basicAttack struct {
 	skill
+	limit int
 }
 
 func NewBasicAttack() domain.Skill {
 	return &basicAttack{
-		skill{name: "普通攻擊"},
+		skill: skill{name: "普通攻擊"},
+		limit: 1,
 	}
 }
 
@@ -26,19 +28,21 @@ func (b basicAttack) Execute(currentRole domain.Role) {
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
-	fmt.Printf(
-		"選擇 1 位目標: %s\n", output,
-	)
+	if len(enemiesIndex) != b.limit {
+		fmt.Printf(
+			"選擇 1 位目標: %s\n", output,
+		)
+	}
 
-	selectedID := currentRole.ActionS2(enemiesIndex, 1)
+	selectedID := currentRole.ActionS2(enemiesIndex, b.limit)
 	targetRole := enemies[selectedID[0]]
 
 	damage := currentRole.GetStr() + currentRole.GetExtraStr()
 
-	fmt.Printf("%s 攻擊 %s \n", currentRole.GetName(), targetRole.GetName())
+	fmt.Printf("%s 攻擊 %s。\n", currentRole.GetName(), targetRole.GetName())
 
 	fmt.Printf(
-		"%s 對 %s 造成 %d 傷害。\n",
+		"%s 對 %s 造成 %d 點傷害。\n",
 		currentRole.GetName(), targetRole.GetName(), damage,
 	)
 

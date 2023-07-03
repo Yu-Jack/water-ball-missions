@@ -1,6 +1,8 @@
 package action
 
 import (
+	"fmt"
+
 	"rpg/internal/domain"
 )
 
@@ -9,13 +11,27 @@ type aiI struct {
 }
 
 func NewAiI() domain.ActionStrategy {
-	return &aiI{}
+	return &aiI{seed: 0}
 }
 
 func (ai *aiI) S1(skillsIDs []int) int {
-	return 0
+	fmt.Println(ai.seed)
+	target := ai.seed % len(skillsIDs)
+	ai.seed++
+	return target
 }
 
 func (ai *aiI) S2(availableIDs []int, limit int) []int {
-	return []int{}
+	if len(availableIDs) == limit {
+		return availableIDs
+	}
+
+	var targets []int
+
+	for i := 0; i < limit; i++ {
+		targets = append(targets, (ai.seed+i)%len(availableIDs))
+	}
+
+	ai.seed++
+	return targets
 }

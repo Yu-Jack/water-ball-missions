@@ -43,11 +43,10 @@ type Role interface {
 	GetRelationSummons() []RelationSummon
 }
 
-func NewRole(name string, hp, mp, str, troopID int, state State, skills []Skill, strategy ActionStrategy) Role {
-	// `rpg` && `ID` will be set when it's assigned into troop
+func NewRole(name string, hp, mp, str int, state State, skills []Skill, strategy ActionStrategy) Role {
+	// `rpg` && `ID` && `troopID` will be set when it's assigned into troop
 	role := &role{
 		name:           name,
-		troopID:        troopID,
 		hp:             hp,
 		mp:             mp,
 		str:            str,

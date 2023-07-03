@@ -25,26 +25,17 @@ func main() {
 			),
 		),
 	)
+	_ = onePunchSkill
 
 	t1.AddRole(domain.NewRole(
-		"英雄1", 300, 300, 20, t1.GetID(), state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), skill.NewCurse(), skill.NewSummon(), onePunchSkill},
-		action.NewHero(),
-	))
-	t1.AddRole(domain.NewRole(
-		"友人2", 300, 300, 20, t1.GetID(), state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), skill.NewWaterBall(), onePunchSkill},
-		action.NewHero(),
-	))
-	t2.AddRole(domain.NewRole(
-		"敵人1", 400, 300, 100, t1.GetID(), state.NewNormalState(),
+		"英雄", 500, 500, 40, state.NewNormalState(),
 		[]domain.Skill{skill.NewBasicAttack()},
 		action.NewHero(),
 	))
 	t2.AddRole(domain.NewRole(
-		"敵人2", 100, 300, 100, t1.GetID(), state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack()},
-		action.NewHero(),
+		"Slime1", 100, 100, 30, state.NewNormalState(),
+		[]domain.Skill{skill.NewBasicAttack(), skill.NewSelfHealing()},
+		action.NewAiI(),
 	))
 
 	rpg.AddTroop(t1)

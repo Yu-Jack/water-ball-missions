@@ -1,5 +1,9 @@
 package domain
 
+import (
+	"fmt"
+)
+
 type rpg struct {
 	troops []*troop
 }
@@ -32,7 +36,13 @@ func NewClientRPG() RPG {
 }
 
 func (r *rpg) Start() {
-	for !r.End() {
+	end, winner := r.End()
+
+	defer func() {
+		fmt.Println(winner)
+	}()
+
+	for !end {
 		for _, t := range r.troops {
 			for i := 0; i < len(t.roles); i++ {
 				role := t.roles[i]
@@ -44,14 +54,41 @@ func (r *rpg) Start() {
 				role.state.Do()
 				role.state.CountDown()
 				role.TakeAction()
+
+				if end, winner = r.End(); end {
+					return
+				}
 			}
 		}
 	}
 }
 
-func (r *rpg) End() bool {
-	// TODO: HERO dies or troops all die
-	return false
+func (r *rpg) End() (bool, string) {
+	for i := 0; i < len(r.troops); i++ {
+		t := r.troops[i]
+		atLeastOneAlive := false
+
+		for j := 0; j < len(t.roles); j++ {
+			role := t.roles[j]
+
+			if role.GetName() == "英雄" && role.GetHp() < 0 {
+				return true, "你失敗了！"
+			}
+
+			if role.GetHp() > 0 {
+				atLeastOneAlive = true
+				break
+			}
+		}
+
+		if atLeastOneAlive {
+			continue
+		} else {
+			return true, "你獲勝了！"
+		}
+	}
+
+	return false, ""
 }
 
 func (r *rpg) AddTroop(t Troop) {

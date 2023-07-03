@@ -29,7 +29,7 @@ func (b fireBall) Execute(currentRole domain.Role) {
 
 	for _, targetRole := range enemies {
 		fmt.Printf(
-			"%s 對 %s 造成 %d 傷害。\n",
+			"%s 對 %s 造成 %d 點傷害。\n",
 			currentRole.GetName(), targetRole.GetName(), damage,
 		)
 		targetRole.MinusHp(damage)

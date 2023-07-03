@@ -27,7 +27,7 @@ func (o onePunchII) execute(currentRole, targetRole domain.Role) {
 
 	for i := 0; i < 3; i++ {
 		fmt.Printf(
-			"%s 對 %s 造成 %d 傷害。\n",
+			"%s 對 %s 造成 %d 點傷害。\n",
 			currentRole.GetName(), targetRole.GetName(), damage,
 		)
 		targetRole.MinusHp(damage)

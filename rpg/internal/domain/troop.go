@@ -37,6 +37,7 @@ func (t *troop) AddRole(r Role) {
 	role := r.(*role)
 	role.rpg = t.rpg
 	role.ID = len(t.roles)
+	role.troopID = t.id
 
 	t.roles = append(t.roles, role)
 }

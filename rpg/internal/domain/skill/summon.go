@@ -25,10 +25,9 @@ func (b summon) Execute(currentRole domain.Role) {
 		100,
 		0,
 		50,
-		troop.GetID(),
 		state.NewNormalState(),
 		[]domain.Skill{NewBasicAttack()},
-		action.NewHero(),
+		action.NewAiI(),
 	)
 
 	rs := domain.NewRelationSummon(slime, currentRole)
