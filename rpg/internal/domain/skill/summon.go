@@ -14,7 +14,7 @@ type summon struct {
 
 func NewSummon() domain.Skill {
 	return &summon{
-		skill{mp: 150, name: "招喚"},
+		skill{mp: 150, name: "召喚"},
 	}
 }
 
@@ -34,5 +34,5 @@ func (b summon) Execute(currentRole domain.Role) {
 	slime.AddRelationSummon(rs)
 	troop.AddRole(slime)
 
-	fmt.Printf("%s 招喚史萊姆\n", currentRole.GetName())
+	fmt.Printf("%s 使用了 %s。\n", currentRole.GetName(), b.name)
 }

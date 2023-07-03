@@ -169,8 +169,8 @@ func (r *role) GetAllSkillName() string {
 }
 
 func (r *role) AddRelationCurse(rc RelationCurse) bool {
-	for _, rc := range r.relationCurses {
-		if rc.curse.GetName() == rc.curse.GetName() {
+	for _, relation := range r.relationCurses {
+		if relation.curse.GetName() == rc.curse.GetName() {
 			return false
 		}
 	}
@@ -180,8 +180,8 @@ func (r *role) AddRelationCurse(rc RelationCurse) bool {
 }
 
 func (r *role) AddRelationSummon(rs RelationSummon) bool {
-	for _, rc := range r.relationSummoners {
-		if rc.summoner.GetName() == rc.summoner.GetName() {
+	for _, relation := range r.relationSummoners {
+		if relation.summoner.GetName() == rs.summoner.GetName() {
 			return false
 		}
 	}
