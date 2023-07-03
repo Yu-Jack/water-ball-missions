@@ -1,6 +1,9 @@
 package domain
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type role struct {
 	name              string
@@ -28,7 +31,7 @@ type Role interface {
 	GetState() State
 	SetState(newState State)
 	ActionS1(skillIDs []int) int
-	ActionS2(availableIDs []int, limit int) []int
+	ActionS2(availableIDs []int, limit int, list string) []int
 	GetTroopID() int
 	GetID() int
 	GetStr() int
@@ -87,8 +90,8 @@ func (r *role) ActionS1(skillIDs []int) int {
 	return r.actionStrategy.S1(skillIDs)
 }
 
-func (r *role) ActionS2(availableIDs []int, limit int) []int {
-	return r.actionStrategy.S2(availableIDs, limit)
+func (r *role) ActionS2(availableIDs []int, limit int, list string) []int {
+	return r.actionStrategy.S2(availableIDs, limit, list)
 }
 
 func (r *role) PlusHp(hp int) {
@@ -156,13 +159,13 @@ func (r *role) GetStatus() string {
 }
 
 func (r *role) GetAllSkillName() string {
-	str := ""
+	var list []string
 
 	for i, skill := range r.skills {
-		str += fmt.Sprintf("(%d) %s ", i, skill.GetName())
+		list = append(list, fmt.Sprintf("(%d) %s", i, skill.GetName()))
 	}
 
-	return str
+	return strings.Join(list, " ")
 }
 
 func (r *role) AddRelationCurse(rc RelationCurse) bool {

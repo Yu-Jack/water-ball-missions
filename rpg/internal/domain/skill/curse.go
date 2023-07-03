@@ -33,11 +33,11 @@ func (b curse) Execute(currentRole domain.Role) {
 	var targetRole domain.Role
 
 	for !success {
-		fmt.Printf(
-			"選擇 %d 位目標: %s\n", b.limit, strings.Join(output, " "),
+		selectedID := currentRole.ActionS2(
+			enemiesIndex,
+			b.limit,
+			strings.Join(output, " "),
 		)
-
-		selectedID := currentRole.ActionS2(enemiesIndex, b.limit)
 		targetRole = enemies[selectedID[0]]
 		rc := domain.NewRelationCurse(targetRole, currentRole)
 		success = targetRole.AddRelationCurse(rc)

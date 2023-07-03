@@ -28,11 +28,9 @@ func (b poison) Execute(currentRole domain.Role) {
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
-	fmt.Printf(
-		"選擇 1 位目標: %s\n", strings.Join(output, " "),
+	selectedID := currentRole.ActionS2(
+		enemiesIndex, 1, strings.Join(output, " "),
 	)
-
-	selectedID := currentRole.ActionS2(enemiesIndex, 1)
 	targetRole := enemies[selectedID[0]]
 
 	fmt.Printf("%s 對 %s 使用了 %s\n", currentRole.GetName(), targetRole.GetName(), b.name)

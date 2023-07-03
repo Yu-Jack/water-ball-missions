@@ -24,19 +24,19 @@ func (b cheerUp) Execute(currentRole domain.Role) {
 	allies := currentRole.GetRPG().GetAllAlliesExcludeSelf(currentRole.GetTroopID(), currentRole.GetID())
 
 	var output []string
+	var list []string
 	var indexes []int
 	for i, e := range allies {
-		output = append(output, fmt.Sprintf("(%d) %s", i, e.GetName()))
+		list = append(list, fmt.Sprintf("(%d) %s", i, e.GetName()))
 		indexes = append(indexes, i)
 	}
 
-	fmt.Printf(
-		"選擇 %d 位目標: %s\n", b.limit, strings.Join(output, " "),
-	)
-
-	output = []string{}
 	if len(indexes) > b.limit {
-		selectedIDs := currentRole.ActionS2(indexes, b.limit)
+		selectedIDs := currentRole.ActionS2(
+			indexes,
+			b.limit,
+			strings.Join(list, " "),
+		)
 		for _, ID := range selectedIDs {
 			allies[ID].SetState(state.NewCheerUpState())
 			output = append(output, fmt.Sprintf("%s", allies[ID].GetName()))

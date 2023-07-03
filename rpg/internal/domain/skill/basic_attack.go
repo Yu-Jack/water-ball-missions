@@ -22,27 +22,24 @@ func NewBasicAttack() domain.Skill {
 func (b basicAttack) Execute(currentRole domain.Role) {
 	enemies := currentRole.GetRPG().GetAllEnemies(currentRole.GetTroopID())
 
-	var output []string
+	var list []string
 	var enemiesIndex []int
 	for i, e := range enemies {
-		output = append(output, fmt.Sprintf("(%d) %s", i, e.GetName()))
+		list = append(list, fmt.Sprintf("(%d) %s", i, e.GetName()))
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
-	if len(enemiesIndex) != b.limit {
-		fmt.Printf(
-			"選擇 1 位目標: %s\n", strings.Join(output, " "),
-		)
-	}
+	selectedID := currentRole.ActionS2(
+		enemiesIndex,
+		b.limit,
+		strings.Join(list, " "),
+	)
 
-	selectedID := currentRole.ActionS2(enemiesIndex, b.limit)
 	targetRole := enemies[selectedID[0]]
-
 	damage := currentRole.GetStr() + currentRole.GetExtraStr()
 
 	fmt.Printf("%s 攻擊 %s。\n", currentRole.GetName(), targetRole.GetName())
 
 	domain.LogDamage(currentRole.GetName(), targetRole.GetName(), damage)
-
 	targetRole.MinusHp(damage)
 }

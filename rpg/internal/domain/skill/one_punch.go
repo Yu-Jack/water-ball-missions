@@ -31,13 +31,12 @@ func (b onePunch) Execute(currentRole domain.Role) {
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
-	if len(enemiesIndex) != b.limit {
-		fmt.Printf(
-			"選擇 %d 位目標: %s\n", b.limit, strings.Join(output, " "),
-		)
-	}
+	selectedID := currentRole.ActionS2(
+		enemiesIndex,
+		b.limit,
+		strings.Join(output, " "),
+	)
 
-	selectedID := currentRole.ActionS2(enemiesIndex, b.limit)
 	targetRole := enemies[selectedID[0]]
 
 	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetName(), targetRole.GetName(), b.name)

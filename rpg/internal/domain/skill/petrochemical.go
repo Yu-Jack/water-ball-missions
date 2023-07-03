@@ -30,11 +30,9 @@ func (b petrochemical) Execute(currentRole domain.Role) {
 		enemiesIndex = append(enemiesIndex, i)
 	}
 
-	fmt.Printf(
-		"選擇 %d 位目標: %s\n", b.limit, strings.Join(output, " "),
+	selectedID := currentRole.ActionS2(
+		enemiesIndex, b.limit, strings.Join(output, " "),
 	)
-
-	selectedID := currentRole.ActionS2(enemiesIndex, b.limit)
 	targetRole := enemies[selectedID[0]]
 	targetRole.SetState(state.NewPetrochemicalState())
 

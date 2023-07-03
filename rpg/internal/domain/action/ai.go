@@ -18,7 +18,7 @@ func (ai *aiI) S1(skillsIDs []int) int {
 	return target
 }
 
-func (ai *aiI) S2(availableIDs []int, limit int) []int {
+func (ai *aiI) S2(availableIDs []int, limit int, list string) []int {
 	if len(availableIDs) == limit {
 		return availableIDs
 	}
