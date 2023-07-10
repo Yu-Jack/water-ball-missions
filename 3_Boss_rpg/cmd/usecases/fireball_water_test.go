@@ -1,46 +1,34 @@
 package usecases
 
 import (
-	"rpg/internal/domain"
-	"rpg/internal/domain/action"
-	"rpg/internal/domain/skill"
-	"rpg/internal/domain/state"
+	"fmt"
+	"os"
+
+	"rpg/internal/domain/game"
 )
 
 func ExampleFireWaterBall() {
-	rpg := domain.NewClientRPG()
+	input := `#軍隊-1-開始
+英雄 300 500 100 火球 水球
+#軍隊-1-結束
+#軍隊-2-開始
+Slime1 200 60 49 火球
+Slime2 200 200 50 火球 水球
+#軍隊-2-結束
+1
+2
+1
+2
+1
+2
+1
+`
+	r, w, _ := os.Pipe()
+	os.Stdin = r
+	_, _ = fmt.Fprint(w, input)
+	_ = w.Close()
 
-	t1 := domain.NewTroop(1, rpg)
-	t2 := domain.NewTroop(2, rpg)
-
-	t1.AddRole(domain.NewRole(
-		"英雄", 300, 500, 100, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), skill.NewFireBall(), skill.NewWaterBall()},
-		action.NewHeroTxt([]string{
-			"1",
-			"2",
-			"1",
-			"2",
-			"1",
-			"2",
-			"1",
-		}),
-	))
-	t2.AddRole(domain.NewRole(
-		"Slime1", 200, 60, 49, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), skill.NewFireBall()},
-		action.NewAiI(),
-	))
-	t2.AddRole(domain.NewRole(
-		"Slime2", 200, 200, 50, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), skill.NewFireBall(), skill.NewWaterBall()},
-		action.NewAiI(),
-	))
-
-	rpg.AddTroop(t1)
-	rpg.AddTroop(t2)
-
-	rpg.Start()
+	game.SetupRPGGame()
 
 	// Output:
 	//輪到 [1]英雄 (HP: 300, MP: 500, STR: 100, State: 正常)。

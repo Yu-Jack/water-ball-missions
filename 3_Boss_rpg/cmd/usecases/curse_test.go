@@ -1,54 +1,37 @@
 package usecases
 
 import (
-	"rpg/internal/domain"
-	"rpg/internal/domain/action"
-	"rpg/internal/domain/skill"
-	"rpg/internal/domain/state"
+	"fmt"
+	"os"
+
+	"rpg/internal/domain/game"
 )
 
 func ExampleCurse() {
-	rpg := domain.NewClientRPG()
+	input := `#軍隊-1-開始
+英雄 300 10000 100 詛咒
+Ally 600 100 30 詛咒 詛咒
+#軍隊-1-結束
+#軍隊-2-開始
+Slime1 200 999 50
+Slime2 200 999 100
+#軍隊-2-結束
+1
+1
+0
+0
+0
+1
+0
+1
+0
+`
+	r, w, _ := os.Pipe()
+	os.Stdin = r
+	_, _ = fmt.Fprint(w, input)
+	_ = w.Close()
 
-	t1 := domain.NewTroop(1, rpg)
-	t2 := domain.NewTroop(2, rpg)
-
-	t1.AddRole(domain.NewRole(
-		"英雄", 300, 10000, 100, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), skill.NewCurse()},
-		action.NewHeroTxt([]string{
-			"1",
-			"1",
-			"0",
-			"0",
-			"0",
-			"1",
-			"0",
-			"1",
-			"0",
-		}),
-	))
-	t1.AddRole(domain.NewRole(
-		"Ally", 600, 100, 30, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), skill.NewCurse(), skill.NewCurse()},
-		action.NewAiI(),
-	))
-
-	t2.AddRole(domain.NewRole(
-		"Slime1", 200, 999, 50, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack()},
-		action.NewAiI(),
-	))
-	t2.AddRole(domain.NewRole(
-		"Slime2", 200, 999, 100, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack()},
-		action.NewAiI(),
-	))
-
-	rpg.AddTroop(t1)
-	rpg.AddTroop(t2)
-
-	rpg.Start()
+	game.SetupRPGGame()
 
 	// Output:
 	//輪到 [1]英雄 (HP: 300, MP: 10000, STR: 100, State: 正常)。

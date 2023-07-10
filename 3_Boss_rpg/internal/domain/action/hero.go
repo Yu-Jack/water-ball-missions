@@ -3,27 +3,28 @@ package action
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
 
 	"rpg/internal/domain"
 )
 
-type hero struct{}
-
-func NewHero() domain.ActionStrategy {
-	return &hero{}
+type hero struct {
+	reader *bufio.Reader
 }
 
-func (h hero) S1(skillsIDs []int) int {
+func NewHero(reader *bufio.Reader) domain.ActionStrategy {
+	return &hero{reader: reader}
+}
+
+func (h *hero) S1(skillsIDs []int) int {
 	var n int
 	var input string
 
 	for {
-		_, _ = fmt.Scanln(&input)
+		input, _ = h.reader.ReadString('\n')
+		input = strings.TrimSuffix(input, "\n")
 		n, _ = strconv.Atoi(input)
-
 		if n >= len(skillsIDs) {
 			fmt.Println("選擇超出範圍，請重新選擇。")
 			continue
@@ -35,7 +36,7 @@ func (h hero) S1(skillsIDs []int) int {
 	return skillsIDs[n]
 }
 
-func (h hero) S2(availableIDs []int, limit int, list string) []int {
+func (h *hero) S2(availableIDs []int, limit int, list string) []int {
 	if len(availableIDs) == limit {
 		return availableIDs
 	}
@@ -43,8 +44,6 @@ func (h hero) S2(availableIDs []int, limit int, list string) []int {
 	fmt.Printf(
 		"選擇 %d 位目標: %s\n", limit, list,
 	)
-
-	reader := bufio.NewReader(os.Stdin)
 
 	var (
 		input  string
@@ -55,7 +54,7 @@ func (h hero) S2(availableIDs []int, limit int, list string) []int {
 
 	for again {
 		for input == "" {
-			input, _ = reader.ReadString('\n')
+			input, _ = h.reader.ReadString('\n')
 			input = strings.TrimSuffix(input, "\n")
 			inputs = strings.Split(input, ", ")
 		}

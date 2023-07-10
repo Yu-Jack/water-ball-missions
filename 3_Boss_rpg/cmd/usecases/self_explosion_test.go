@@ -1,46 +1,45 @@
 package usecases
 
 import (
-	"rpg/internal/domain"
-	"rpg/internal/domain/action"
-	"rpg/internal/domain/skill"
-	"rpg/internal/domain/state"
+	"fmt"
+	"os"
+
+	"rpg/internal/domain/game"
 )
 
 func ExampleSelfExplosion() {
-	rpg := domain.NewClientRPG()
+	input := `#軍隊-1-開始
+英雄 999999 500 30 自爆
+A 100 1000 15
+B 100 1000 15
+C 100 1000 15
+D 100 1000 15
+E 100 1000 15
+F 100 1000 15
+G 100 1000 15
+H 100 1000 15
+I 100 1000 15
+#軍隊-1-結束
+#軍隊-2-開始
+A 100 1000 15
+B 100 1000 15
+C 100 1000 15
+D 100 1000 15
+E 100 1000 15
+F 100 1000 15
+G 100 1000 15
+H 100 1000 15
+I 100 1000 15
+#軍隊-2-結束
+1
+`
 
-	t1 := domain.NewTroop(1, rpg)
-	t2 := domain.NewTroop(2, rpg)
+	r, w, _ := os.Pipe()
+	os.Stdin = r
+	_, _ = fmt.Fprint(w, input)
+	_ = w.Close()
 
-	t1.AddRole(domain.NewRole(
-		"英雄", 999999, 500, 30, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), skill.NewSelfExplosion()},
-		action.NewHeroTxt([]string{
-			"1",
-		}),
-	))
-
-	for _, name := range []string{"A", "B", "C", "D", "E", "F", "G", "H", "I"} {
-		t1.AddRole(domain.NewRole(
-			name, 100, 1000, 15, state.NewNormalState(),
-			[]domain.Skill{skill.NewBasicAttack()},
-			action.NewAiI()),
-		)
-	}
-
-	for _, name := range []string{"A", "B", "C", "D", "E", "F", "G", "H", "I"} {
-		t2.AddRole(domain.NewRole(
-			name, 100, 1000, 15, state.NewNormalState(),
-			[]domain.Skill{skill.NewBasicAttack()},
-			action.NewAiI()),
-		)
-	}
-
-	rpg.AddTroop(t1)
-	rpg.AddTroop(t2)
-
-	rpg.Start()
+	game.SetupRPGGame()
 
 	// Output:
 	//輪到 [1]英雄 (HP: 999999, MP: 500, STR: 30, State: 正常)。

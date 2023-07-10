@@ -1,72 +1,44 @@
 package usecases
 
 import (
-	"rpg/internal/domain"
-	"rpg/internal/domain/action"
-	"rpg/internal/domain/skill"
-	"rpg/internal/domain/state"
+	"fmt"
+	"os"
+
+	"rpg/internal/domain/game"
 )
 
 func ExampleOnePunch() {
-	onePunchSkill := skill.NewOnePunch(
-		skill.NewOnePunchHandler(
-			skill.NewOnePunchI(), skill.NewOnePunchHandler(
-				skill.NewOnePunchII(), skill.NewOnePunchHandler(
-					skill.NewOnePunchIII(), skill.NewOnePunchHandler(
-						skill.NewOnePunchIV(), nil,
-					),
-				),
-			),
-		),
-	)
+	input := `#軍隊-1-開始
+英雄 1000 10000 0 一拳攻擊 下毒 石化 鼓舞
+#軍隊-1-結束
+#軍隊-2-開始
+Slime1 601 0 0
+Slime2 241 0 0
+Slime3 101 999 0 一拳攻擊 一拳攻擊 鼓舞
+#軍隊-2-結束
+1
+0
+2
+1
+1
+1
+1
+0
+1
+0
+3
+0
+1
+0
+2
+1
+`
+	r, w, _ := os.Pipe()
+	os.Stdin = r
+	_, _ = fmt.Fprint(w, input)
+	_ = w.Close()
 
-	rpg := domain.NewClientRPG()
-
-	t1 := domain.NewTroop(1, rpg)
-	t2 := domain.NewTroop(2, rpg)
-
-	t1.AddRole(domain.NewRole(
-		"英雄", 1000, 10000, 0, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), onePunchSkill, skill.NewPoison(), skill.NewPetrochemical(), skill.NewCheerUp()},
-		action.NewHeroTxt([]string{
-			"1",
-			"0",
-			"2",
-			"1",
-			"1",
-			"1",
-			"1",
-			"0",
-			"1",
-			"0",
-			"3",
-			"0",
-			"1",
-			"0",
-			"2",
-			"1",
-		}),
-	))
-	t2.AddRole(domain.NewRole(
-		"Slime1", 601, 0, 0, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack()},
-		action.NewAiI(),
-	))
-	t2.AddRole(domain.NewRole(
-		"Slime2", 241, 0, 0, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack()},
-		action.NewAiI(),
-	))
-	t2.AddRole(domain.NewRole(
-		"Slime3", 101, 999, 0, state.NewNormalState(),
-		[]domain.Skill{skill.NewBasicAttack(), onePunchSkill, onePunchSkill, skill.NewCheerUp()},
-		action.NewAiI(),
-	))
-
-	rpg.AddTroop(t1)
-	rpg.AddTroop(t2)
-
-	rpg.Start()
+	game.SetupRPGGame()
 
 	// Output:
 	//輪到 [1]英雄 (HP: 1000, MP: 10000, STR: 0, State: 正常)。

@@ -37,42 +37,43 @@ func NewClientRPG() RPG {
 	return &rpg{}
 }
 
-func (r *rpg) Start() {
+func (r *rpg) startGame() string {
 	end, winner := r.End()
-
-	defer func() {
-		fmt.Println(winner)
-	}()
 
 	for !end {
 		for _, t := range r.troops {
-			if end, winner = r.End(); end {
-				return
-			}
-
 			for i := 0; i < len(t.roles); i++ {
-				role := t.roles[i]
-
-				if role.GetHp() <= 0 {
-					continue
-				}
-
-				role.PrintInformation()
-				role.state.Do()
-
-				if role.GetHp() <= 0 {
-					continue
-				}
-
-				role.TakeAction()
-				role.state.CountDown()
+				r.takeRound(t.roles[i])
 
 				if end, winner = r.End(); end {
-					return
+					return winner
 				}
 			}
 		}
 	}
+
+	return winner
+}
+
+func (r *rpg) takeRound(role *role) {
+	if role.GetHp() <= 0 {
+		return
+	}
+
+	role.PrintInformation()
+	role.state.Do()
+
+	if role.GetHp() <= 0 {
+		return
+	}
+
+	role.TakeAction()
+	role.state.CountDown()
+}
+
+func (r *rpg) Start() {
+	winner := r.startGame()
+	fmt.Println(winner)
 }
 
 func (r *rpg) End() (bool, string) {
@@ -83,6 +84,7 @@ func (r *rpg) End() (bool, string) {
 		for j := 0; j < len(t.roles); j++ {
 			role := t.roles[j]
 
+			// 暫時寫死用 英雄 去判斷是人為控制的
 			if role.GetName() == "英雄" && role.GetHp() <= 0 {
 				return true, "你失敗了！"
 			}
