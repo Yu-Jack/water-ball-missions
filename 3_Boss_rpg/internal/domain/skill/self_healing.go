@@ -12,7 +12,7 @@ type selfHealing struct {
 
 func NewSelfHealing() domain.Skill {
 	return &selfHealing{
-		skill{mp: 50, name: "自我治療"},
+		skill{mp: 50, name: domain.SkillNameSelfHealing},
 	}
 }
 

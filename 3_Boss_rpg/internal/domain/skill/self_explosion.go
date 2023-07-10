@@ -13,7 +13,7 @@ type selfExplosion struct {
 
 func NewSelfExplosion() domain.Skill {
 	return &selfExplosion{
-		skill{mp: 200, name: "自爆"},
+		skill{mp: 200, name: domain.SkillNameSelfExplosion},
 	}
 }
 

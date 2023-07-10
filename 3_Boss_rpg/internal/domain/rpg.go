@@ -85,7 +85,7 @@ func (r *rpg) End() (bool, string) {
 			role := t.roles[j]
 
 			// 暫時寫死用 英雄 去判斷是人為控制的
-			if role.GetName() == "英雄" && role.GetHp() <= 0 {
+			if role.GetName() == StrategyNameHero.String() && role.GetHp() <= 0 {
 				return true, "你失敗了！"
 			}
 

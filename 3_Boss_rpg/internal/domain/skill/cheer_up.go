@@ -16,7 +16,7 @@ type cheerUp struct {
 func NewCheerUp() domain.Skill {
 	return &cheerUp{
 		limit: 3,
-		skill: skill{mp: 100, name: "鼓舞"},
+		skill: skill{mp: 100, name: domain.SkillNameCheerUp},
 	}
 }
 

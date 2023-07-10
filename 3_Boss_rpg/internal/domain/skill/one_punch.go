@@ -15,7 +15,7 @@ type onePunch struct {
 
 func NewOnePunch(handler OnePunchHandler) domain.Skill {
 	return &onePunch{
-		skill:   skill{name: "一拳攻擊", mp: 180},
+		skill:   skill{name: domain.SkillNameOnePunch, mp: 180},
 		handler: handler,
 		limit:   1,
 	}

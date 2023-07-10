@@ -14,7 +14,7 @@ type curse struct {
 
 func NewCurse() domain.Skill {
 	return &curse{
-		skill: skill{mp: 100, name: "詛咒"},
+		skill: skill{mp: 100, name: domain.SkillNameCurse},
 		limit: 1,
 	}
 }

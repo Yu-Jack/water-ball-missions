@@ -14,7 +14,7 @@ type waterBall struct {
 
 func NewWaterBall() domain.Skill {
 	return &waterBall{
-		skill: skill{mp: 50, name: "水球"},
+		skill: skill{mp: 50, name: domain.SkillNameWaterBall},
 		limit: 1,
 	}
 }

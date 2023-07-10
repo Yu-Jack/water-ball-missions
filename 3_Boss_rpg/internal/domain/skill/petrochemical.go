@@ -15,7 +15,7 @@ type petrochemical struct {
 
 func NewPetrochemical() domain.Skill {
 	return &petrochemical{
-		skill: skill{mp: 100, name: "石化"},
+		skill: skill{mp: 100, name: domain.SkillNamePetrochemical},
 		limit: 1,
 	}
 }

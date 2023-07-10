@@ -14,7 +14,7 @@ type basicAttack struct {
 
 func NewBasicAttack() domain.Skill {
 	return &basicAttack{
-		skill: skill{name: "普通攻擊"},
+		skill: skill{name: domain.SkillNameBasicAttack},
 		limit: 1,
 	}
 }

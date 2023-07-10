@@ -10,11 +10,17 @@ import (
 )
 
 type hero struct {
+	action
 	reader *bufio.Reader
 }
 
 func NewHero(reader *bufio.Reader) domain.ActionStrategy {
-	return &hero{reader: reader}
+	return &hero{
+		reader: reader,
+		action: action{
+			name: domain.StrategyNameHero,
+		},
+	}
 }
 
 func (h *hero) S1(skillsIDs []int) int {

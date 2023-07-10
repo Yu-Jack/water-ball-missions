@@ -61,7 +61,7 @@ func StartRPG() {
 
 			strategy := action.NewAiI()
 
-			if name == "英雄" {
+			if name == domain.StrategyNameHero.String() {
 				strategy = action.NewHero(reader)
 			}
 
@@ -85,43 +85,43 @@ func getSkills(inputs []string) []domain.Skill {
 		str := inputs[i]
 		var s domain.Skill
 
-		if str == "火球" {
+		if str == domain.SkillNameFireBall.String() {
 			s = skill.NewFireBall()
 		}
 
-		if str == "水球" {
+		if str == domain.SkillNameWaterBall.String() {
 			s = skill.NewWaterBall()
 		}
 
-		if str == "自我治療" {
+		if str == domain.SkillNameSelfHealing.String() {
 			s = skill.NewSelfHealing()
 		}
 
-		if str == "石化" {
+		if str == domain.SkillNamePetrochemical.String() {
 			s = skill.NewPetrochemical()
 		}
 
-		if str == "下毒" {
+		if str == domain.SkillNamePoison.String() {
 			s = skill.NewPoison()
 		}
 
-		if str == "召喚" {
+		if str == domain.SkillNameSummon.String() {
 			s = skill.NewSummon()
 		}
 
-		if str == "自爆" {
+		if str == domain.SkillNameSelfExplosion.String() {
 			s = skill.NewSelfExplosion()
 		}
 
-		if str == "鼓舞" {
+		if str == domain.SkillNameCheerUp.String() {
 			s = skill.NewCheerUp()
 		}
 
-		if str == "詛咒" {
+		if str == domain.SkillNameCurse.String() {
 			s = skill.NewCurse()
 		}
 
-		if str == "一拳攻擊" {
+		if str == domain.SkillNameOnePunch.String() {
 			s = skill.NewOnePunch(
 				skill.NewOnePunchHandler(
 					skill.NewOnePunchI(), skill.NewOnePunchHandler(

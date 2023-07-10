@@ -14,7 +14,7 @@ type summon struct {
 
 func NewSummon() domain.Skill {
 	return &summon{
-		skill{mp: 150, name: "召喚"},
+		skill{mp: 150, name: domain.SkillNameSummon},
 	}
 }
 

@@ -14,7 +14,7 @@ type poison struct {
 
 func NewPoison() domain.Skill {
 	return &poison{
-		skill{mp: 80, name: "下毒"},
+		skill{mp: 80, name: domain.SkillNamePoison},
 	}
 }
 

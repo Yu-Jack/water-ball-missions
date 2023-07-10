@@ -9,11 +9,17 @@ import (
 )
 
 type heroTxt struct {
+	action
 	input []string
 }
 
 func NewHeroTxt(input []string) domain.ActionStrategy {
-	return &heroTxt{input: input}
+	return &heroTxt{
+		input: input,
+		action: action{
+			name: domain.StrategyNameHero,
+		},
+	}
 }
 
 func (h *heroTxt) popInput() string {

@@ -5,11 +5,17 @@ import (
 )
 
 type aiI struct {
+	action
 	seed int
 }
 
 func NewAiI() domain.ActionStrategy {
-	return &aiI{seed: 0}
+	return &aiI{
+		seed: 0,
+		action: action{
+			name: domain.StrategyNameAI,
+		},
+	}
 }
 
 func (ai *aiI) S1(skillsIDs []int) int {
