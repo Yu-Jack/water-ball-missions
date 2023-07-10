@@ -9,7 +9,7 @@ type petrochemicalState struct {
 func NewPetrochemicalState() domain.State {
 	return &petrochemicalState{
 		state{
-			name:  "石化",
+			name:  domain.StateNamePetrochemical,
 			round: 3,
 		},
 	}

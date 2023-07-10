@@ -11,7 +11,7 @@ type poisonedState struct {
 func NewPoisonedState() domain.State {
 	return &poisonedState{
 		state{
-			name:  "中毒",
+			name:  domain.StateNamePoisoned,
 			round: 3,
 		},
 	}

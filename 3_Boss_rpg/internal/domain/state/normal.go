@@ -9,7 +9,7 @@ type normalState struct {
 func NewNormalState() domain.State {
 	return &normalState{
 		state{
-			name:  "正常",
+			name:  domain.StateNameNormal,
 			round: 0,
 		},
 	}

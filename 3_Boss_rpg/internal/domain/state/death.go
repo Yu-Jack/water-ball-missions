@@ -11,7 +11,7 @@ type deathState struct {
 func NewDeathState() domain.State {
 	return &deathState{
 		state{
-			name:  "死亡",
+			name:  domain.StateNameDeath,
 			round: 0,
 		},
 	}

@@ -9,7 +9,7 @@ type cheerUpState struct {
 func NewCheerUpState() domain.State {
 	return &cheerUpState{
 		state{
-			name:  "受到鼓舞",
+			name:  domain.StateNameCheerUp,
 			round: 3,
 		},
 	}
