@@ -28,7 +28,7 @@ Slime2 200 200 50 火球 水球
 	_, _ = fmt.Fprint(w, input)
 	_ = w.Close()
 
-	game.SetupRPGGame()
+	game.StartRPG()
 
 	// Output:
 	//輪到 [1]英雄 (HP: 300, MP: 500, STR: 100, State: 正常)。

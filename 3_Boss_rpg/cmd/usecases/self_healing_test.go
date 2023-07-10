@@ -31,7 +31,7 @@ Slime1 100 100 30 自我治療
 	_, _ = fmt.Fprint(w, input)
 	_ = w.Close()
 
-	game.SetupRPGGame()
+	game.StartRPG()
 
 	// Output:
 	//輪到 [1]英雄 (HP: 500, MP: 500, STR: 40, State: 正常)。

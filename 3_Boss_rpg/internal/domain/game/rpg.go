@@ -14,7 +14,7 @@ import (
 	"rpg/internal/domain/state"
 )
 
-func SetupRPGGame() {
+func StartRPG() {
 	rpg := domain.NewClientRPG()
 	count := 0
 	reader := bufio.NewReader(os.Stdin)

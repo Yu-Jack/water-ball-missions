@@ -28,7 +28,7 @@ Slime1 1000 0 99
 	_, _ = fmt.Fprint(w, input)
 	_ = w.Close()
 
-	game.SetupRPGGame()
+	game.StartRPG()
 	// Output:
 	//輪到 [1]英雄 (HP: 500, MP: 10000, STR: 30, State: 正常)。
 	//選擇行動：(0) 普通攻擊 (1) 召喚

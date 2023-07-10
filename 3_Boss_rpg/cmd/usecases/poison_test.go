@@ -35,7 +35,7 @@ Slime3 120 9000 50
 	_, _ = fmt.Fprint(w, input)
 	_ = w.Close()
 
-	game.SetupRPGGame()
+	game.StartRPG()
 
 	// Output:
 	//輪到 [1]英雄 (HP: 1000, MP: 500, STR: 0, State: 正常)。

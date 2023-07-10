@@ -39,7 +39,7 @@ I 100 1000 15
 	_, _ = fmt.Fprint(w, input)
 	_ = w.Close()
 
-	game.SetupRPGGame()
+	game.StartRPG()
 
 	// Output:
 	//輪到 [1]英雄 (HP: 999999, MP: 500, STR: 30, State: 正常)。
