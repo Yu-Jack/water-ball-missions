@@ -31,10 +31,12 @@ func StartRPG() {
 
 		if len(match) > 1 {
 			troopID, _ = strconv.Atoi(match[1])
-			count++
 		} else {
-			fmt.Println("未找到數字")
+			fmt.Println("未找到數字，請重新輸入一遍")
+			continue
 		}
+
+		count++
 
 		t := domain.NewTroop(troopID, rpg)
 
