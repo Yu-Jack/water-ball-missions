@@ -11,7 +11,7 @@ func NewOnePunchIV() OnePunchHandler {
 }
 
 func (o onePunchIV) match(currentRole, targetRole domain.Role) bool {
-	if targetRole.GetState().GetName() == "正常" {
+	if targetRole.GetState().GetName() == domain.StateNameNormal {
 		return true
 	}
 	return false

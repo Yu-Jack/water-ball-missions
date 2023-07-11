@@ -13,7 +13,7 @@ func NewOnePunchII() OnePunchHandler {
 func (o onePunchII) match(currentRole, targetRole domain.Role) bool {
 	stateName := targetRole.GetState().GetName()
 
-	if stateName == "石化" || stateName == "中毒" {
+	if stateName == domain.StateNamePetrochemical || stateName == domain.StateNamePoisoned {
 		return true
 	}
 

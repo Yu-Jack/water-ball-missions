@@ -12,7 +12,7 @@ func NewOnePunchIII() OnePunchHandler {
 }
 
 func (o onePunchIII) match(currentRole, targetRole domain.Role) bool {
-	if targetRole.GetState().GetName() == "受到鼓舞" {
+	if targetRole.GetState().GetName() == domain.StateNameCheerUp {
 		return true
 	}
 	return false
