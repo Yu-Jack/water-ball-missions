@@ -12,7 +12,7 @@ func NewRelationCurse(beCursed, curse Role) RelationObserver {
 	}
 }
 
-func (rs *RelationCurse) GetName() string {
+func (rs *RelationCurse) GetAttackerName() string {
 	return rs.curse.GetNameWithTroop()
 }
 

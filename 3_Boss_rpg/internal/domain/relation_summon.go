@@ -12,18 +12,12 @@ func NewRelationSummon(beSummoned, summoner Role) RelationObserver {
 	}
 }
 
-func (rs *RelationSummon) RecoverSummonerHp() {
-	if rs.summoner.GetHp() > 0 {
-		rs.summoner.PlusHp(30)
-	}
-}
-
 func (rs *RelationSummon) Action() {
 	if rs.summoner.GetHp() > 0 {
 		rs.summoner.PlusHp(30)
 	}
 }
 
-func (rs *RelationSummon) GetName() string {
+func (rs *RelationSummon) GetAttackerName() string {
 	return rs.summoner.GetNameWithTroop()
 }
