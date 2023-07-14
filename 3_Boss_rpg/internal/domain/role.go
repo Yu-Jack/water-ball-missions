@@ -173,7 +173,7 @@ func (r *role) GetAllSkillName() string {
 
 func (r *role) AddRelation(ro RelationObserver) bool {
 	for _, relation := range r.relations {
-		if relation.GetName() == ro.GetName() {
+		if relation.GetAttackerName() == ro.GetAttackerName() {
 			return false
 		}
 	}
