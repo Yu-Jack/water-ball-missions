@@ -6,20 +6,19 @@ import (
 )
 
 type role struct {
-	name              string
-	troopID           int
-	ID                int
-	hp                int
-	mp                int
-	str               int
-	extraStr          int
-	state             State
-	skills            []Skill
-	actionAble        bool
-	actionStrategy    ActionStrategy
-	rpg               RPG
-	relationCurses    []RelationCurse
-	relationSummoners []RelationSummon
+	name           string
+	troopID        int
+	ID             int
+	hp             int
+	mp             int
+	str            int
+	extraStr       int
+	state          State
+	skills         []Skill
+	actionAble     bool
+	actionStrategy ActionStrategy
+	rpg            RPG
+	relations      []RelationObserver
 }
 
 type Role interface {
@@ -42,10 +41,8 @@ type Role interface {
 	GetName() string
 	GetHp() int
 	GetMp() int
-	AddRelationCurse(RelationCurse) bool
-	AddRelationSummon(RelationSummon) bool
-	GetRelationCurses() []RelationCurse
-	GetRelationSummons() []RelationSummon
+	AddRelation(observer RelationObserver) bool
+	GetRelations() []RelationObserver
 }
 
 func NewRole(name string, hp, mp, str int, state State, skills []Skill, strategy ActionStrategy) Role {
@@ -174,32 +171,17 @@ func (r *role) GetAllSkillName() string {
 	return strings.Join(list, " ")
 }
 
-func (r *role) AddRelationCurse(rc RelationCurse) bool {
-	for _, relation := range r.relationCurses {
-		if relation.curse.GetNameWithTroop() == rc.curse.GetNameWithTroop() {
+func (r *role) AddRelation(ro RelationObserver) bool {
+	for _, relation := range r.relations {
+		if relation.GetName() == ro.GetName() {
 			return false
 		}
 	}
 
-	r.relationCurses = append(r.relationCurses, rc)
+	r.relations = append(r.relations, ro)
 	return true
 }
 
-func (r *role) AddRelationSummon(rs RelationSummon) bool {
-	for _, relation := range r.relationSummoners {
-		if relation.summoner.GetNameWithTroop() == rs.summoner.GetNameWithTroop() {
-			return false
-		}
-	}
-
-	r.relationSummoners = append(r.relationSummoners, rs)
-	return true
-}
-
-func (r *role) GetRelationCurses() []RelationCurse {
-	return r.relationCurses
-}
-
-func (r *role) GetRelationSummons() []RelationSummon {
-	return r.relationSummoners
+func (r *role) GetRelations() []RelationObserver {
+	return r.relations
 }

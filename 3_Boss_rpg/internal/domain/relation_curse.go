@@ -5,14 +5,18 @@ type RelationCurse struct {
 	curse    Role
 }
 
-func NewRelationCurse(beCursed, curse Role) RelationCurse {
-	return RelationCurse{
+func NewRelationCurse(beCursed, curse Role) RelationObserver {
+	return &RelationCurse{
 		beCursed: beCursed,
 		curse:    curse,
 	}
 }
 
-func (rs *RelationCurse) RecoverCurseHp() {
+func (rs *RelationCurse) GetName() string {
+	return rs.curse.GetNameWithTroop()
+}
+
+func (rs *RelationCurse) Action() {
 	if rs.curse.GetHp() > 0 {
 		rs.curse.PlusHp(rs.beCursed.GetMp())
 	}

@@ -18,11 +18,7 @@ func NewDeathState() domain.State {
 }
 
 func (s *deathState) Enter() {
-	for _, rc := range s.role.GetRelationCurses() {
-		rc.RecoverCurseHp()
-	}
-
-	for _, rs := range s.role.GetRelationSummons() {
-		rs.RecoverSummonerHp()
+	for _, rc := range s.role.GetRelations() {
+		rc.Action()
 	}
 }

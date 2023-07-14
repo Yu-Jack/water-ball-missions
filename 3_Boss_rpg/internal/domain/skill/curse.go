@@ -40,7 +40,7 @@ func (b curse) Execute(currentRole domain.Role) {
 		)
 		targetRole = enemies[selectedID[0]]
 		rc := domain.NewRelationCurse(targetRole, currentRole)
-		success = targetRole.AddRelationCurse(rc)
+		success = targetRole.AddRelation(rc)
 	}
 
 	fmt.Printf("%s 對 %s 使用了 %s。\n", currentRole.GetNameWithTroop(), targetRole.GetNameWithTroop(), b.name)
