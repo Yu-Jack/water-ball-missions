@@ -6,6 +6,10 @@ import (
 	"fmt"
 )
 
+const (
+	fullHP = 300
+)
+
 type Role interface {
 	SetState(state State)
 	MinusHP(hp int)
@@ -28,6 +32,7 @@ type Role interface {
 	RandomMoved()
 	AttackedTransfer()
 	IsAttackedAble() bool
+	IsFullHP() bool
 }
 
 // RoleName
@@ -187,8 +192,8 @@ func (r *role) PlusHP(hp int) {
 	beforeHp = r.hp
 
 	r.hp += hp
-	if r.hp >= 300 {
-		r.hp = 300
+	if r.hp >= fullHP {
+		r.hp = fullHP
 	}
 
 	afterHp = r.hp
@@ -232,4 +237,8 @@ func (r *role) TakeTreasure(role Role, treasure Treasure) {
 	s.SetRole(role)
 	r.m.AppendLog(fmt.Sprintf("%s 取得 %s\n", role.GetName(), treasure.GetContent()))
 	r.SetState(s)
+}
+
+func (r *role) IsFullHP() bool {
+	return r.hp == fullHP
 }

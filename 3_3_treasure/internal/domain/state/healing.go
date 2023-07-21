@@ -14,7 +14,7 @@ func NewStateHealing() domain.State {
 }
 
 func (s *healing) Do() {
-	if s.role.GetHP() == 300 {
+	if s.role.IsFullHP() {
 		newS := NewStateNormal()
 		newS.SetRole(s.role)
 		s.role.SetState(newS)
@@ -23,7 +23,7 @@ func (s *healing) Do() {
 
 	s.role.PlusHP(30)
 
-	if s.role.GetHP() == 300 {
+	if s.role.IsFullHP() {
 		newS := NewStateNormal()
 		newS.SetRole(s.role)
 		s.role.SetState(newS)
