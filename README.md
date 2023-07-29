@@ -1,7 +1,7 @@
 # Water Ball Missions
 
 
-These are home assignments of water ball for OOA/OOD/OOP.
+These are home assignments of water ball for OOADP. I also wrote a [article](https://yu-jack.github.io/2023/06/28/water-ball-design-patterns/) about experience of this trip.
 
 # BootStrap
 
