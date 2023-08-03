@@ -14,6 +14,25 @@ func NewSuperRelationshipAnalyzer() *SuperRelationshipAnalyzer {
 	}
 }
 
+/*
+Init accepts following format string
+
+A -- B
+A -- C
+A -- D
+B -- D
+B -- E
+C -- E
+C -- G
+C -- K
+C -- M
+D -- K
+D -- P
+E -- J
+E -- K
+E -- L
+F -- Z
+*/
 func (s *SuperRelationshipAnalyzer) Init(script string) {
 	s.data = make(map[string][]string)
 

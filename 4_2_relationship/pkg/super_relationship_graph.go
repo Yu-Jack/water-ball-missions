@@ -14,6 +14,16 @@ func NewSuperRelationshipGraph() *SuperRelationshipGraph {
 	}
 }
 
+/*
+Init accepts following format string
+
+A: B C D
+B: A D E
+C: A E G K M
+D: A B K P
+E: B C J K L
+F: Z
+*/
 func (s *SuperRelationshipGraph) Init(script string) {
 	s.data = make(map[string][]string)
 

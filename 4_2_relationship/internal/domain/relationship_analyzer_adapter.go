@@ -21,6 +21,16 @@ func NewRelationShipAnalyzerAdapter() RelationShipAnalyzer {
 	}
 }
 
+/*
+Parse accepts following format string
+
+A: B C D
+B: A D E
+C: A E G K M
+D: A B K P
+E: B C J K L
+F: Z
+*/
 func (r *relationShipAnalyzerAdapter) Parse(script string) RelationShipGraph {
 	r.superRelationshipAnalyzer.Init(r.convertScript(script))
 	r.superRelationshipGraph.Init(script)
@@ -52,6 +62,34 @@ func (r *relationShipAnalyzerAdapter) GetMutualFriends(name1, name2 string) []st
 	return keys
 }
 
+/*
+convertScript converts following string to another format
+
+A: B C D
+B: A D E
+C: A E G K M
+D: A B K P
+E: B C J K L
+F: Z
+
+into
+
+A -- B
+A -- C
+A -- D
+B -- D
+B -- E
+C -- E
+C -- G
+C -- K
+C -- M
+D -- K
+D -- P
+E -- J
+E -- K
+E -- L
+F -- Z
+*/
 func (r *relationShipAnalyzerAdapter) convertScript(script string) string {
 	var output string
 
