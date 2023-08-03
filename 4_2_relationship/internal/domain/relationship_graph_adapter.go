@@ -1,12 +1,21 @@
 package domain
 
-type relationShipGraphAdapter struct{}
+import "relationship/pkg"
 
-func newRelationShipGraphAdapter() RelationShipGraph {
-	return &relationShipGraphAdapter{}
+type RelationShipGraphAdapter struct {
+	superRelationshipGraph *pkg.SuperRelationshipGraph
 }
 
-func (r relationShipGraphAdapter) HasConnection(name1, name2 string) bool {
-	//TODO implement me
-	panic("implement me")
+func newRelationShipGraphAdapter() *RelationShipGraphAdapter {
+	return &RelationShipGraphAdapter{
+		superRelationshipGraph: pkg.NewSuperRelationshipGraph(),
+	}
+}
+
+func (r *RelationShipGraphAdapter) Init(script string) {
+	r.superRelationshipGraph.Init(script)
+}
+
+func (r *RelationShipGraphAdapter) HasConnection(name1, name2 string) bool {
+	return r.superRelationshipGraph.HasConnection(name1, name2)
 }

@@ -9,14 +9,14 @@ import (
 
 type relationShipAnalyzerAdapter struct {
 	superRelationshipAnalyzer *pkg.SuperRelationshipAnalyzer
-	superRelationshipGraph    *pkg.SuperRelationshipGraph
+	relationshipGraphAdapter  *RelationShipGraphAdapter
 	data                      map[string][]string
 }
 
 func NewRelationShipAnalyzerAdapter() RelationShipAnalyzer {
 	return &relationShipAnalyzerAdapter{
 		superRelationshipAnalyzer: pkg.NewSuperRelationshipAnalyzer(),
-		superRelationshipGraph:    pkg.NewSuperRelationshipGraph(),
+		relationshipGraphAdapter:  newRelationShipGraphAdapter(),
 		data:                      make(map[string][]string),
 	}
 }
@@ -33,8 +33,8 @@ F: Z
 */
 func (r *relationShipAnalyzerAdapter) Parse(script string) RelationShipGraph {
 	r.superRelationshipAnalyzer.Init(r.convertScript(script))
-	r.superRelationshipGraph.Init(script)
-	return r.superRelationshipGraph
+	r.relationshipGraphAdapter.Init(script)
+	return r.relationshipGraphAdapter
 }
 
 func (r *relationShipAnalyzerAdapter) GetMutualFriends(name1, name2 string) []string {
