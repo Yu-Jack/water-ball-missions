@@ -3,18 +3,20 @@ package domain
 import (
 	"fmt"
 	"strings"
+
+	"relationship/pkg"
 )
 
 type relationShipAnalyzerAdapter struct {
-	superRelationshipAnalyzer *SuperRelationshipAnalyzer
-	superRelationshipGraph    *SuperRelationshipGraph
+	superRelationshipAnalyzer *pkg.SuperRelationshipAnalyzer
+	superRelationshipGraph    *pkg.SuperRelationshipGraph
 	data                      map[string][]string
 }
 
 func NewRelationShipAnalyzerAdapter() RelationShipAnalyzer {
 	return &relationShipAnalyzerAdapter{
-		superRelationshipAnalyzer: NewSuperRelationshipAnalyzer(),
-		superRelationshipGraph:    NewSuperRelationshipGraph(),
+		superRelationshipAnalyzer: pkg.NewSuperRelationshipAnalyzer(),
+		superRelationshipGraph:    pkg.NewSuperRelationshipGraph(),
 		data:                      make(map[string][]string),
 	}
 }

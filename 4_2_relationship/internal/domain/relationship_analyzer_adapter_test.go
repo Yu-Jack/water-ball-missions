@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"sort"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -51,6 +52,9 @@ F: Z`)
 
 	for _, test := range tests {
 		friends := s.analyzer.GetMutualFriends(test.name1, test.name2)
+		sort.Slice(friends, func(i, j int) bool {
+			return friends[i] < friends[j]
+		})
 		s.Require().Equal(test.friends, friends)
 	}
 }
