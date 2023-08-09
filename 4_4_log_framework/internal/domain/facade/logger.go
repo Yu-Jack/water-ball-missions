@@ -128,6 +128,8 @@ func getExporter(e exporter) domain.Exporter {
 			allExporters = append(allExporters, getExporter(child))
 		}
 		output = domainExport.NewCompositeExporter(allExporters...)
+	case "":
+		// not set, inherit from parent
 	default:
 		panic(fmt.Errorf("unsupported exporter type: %s", e.Type))
 	}

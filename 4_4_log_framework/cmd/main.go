@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	way1ToRegisterLoggers()
+	way2ToRegisterLoggers()
 
 	r, _ := domain.GetLogger(domain.RootLoggerName)
 	appL, _ := domain.GetLogger("app.game")
