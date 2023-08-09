@@ -42,6 +42,15 @@ func ParseConfig(filename string) {
 		panic(fmt.Errorf("failed to parse config file: %w", err))
 	}
 
+	var allLoggers []domain.Logger
+
+	rootLogger, leftPart := parseRoot(bytes, m, err)
+	parseChildren(leftPart, rootLogger, &allLoggers)
+
+	domain.RegisterLogger(allLoggers...)
+}
+
+func parseRoot(bytes []byte, m map[string]interface{}, err error) (domain.Logger, map[string]interface{}) {
 	bytes, _ = json.Marshal(m["loggers"])
 	rootLogger := parseLogger(bytes)
 
@@ -52,16 +61,13 @@ func ParseConfig(filename string) {
 		domain.WithExporter(getExporter(rootLogger.Exporter)),
 	)
 
-	var leftParents map[string]interface{}
-	var allLoggers []domain.Logger
-	err = json.Unmarshal(bytes, &leftParents)
+	var leftPart map[string]interface{}
+	err = json.Unmarshal(bytes, &leftPart)
 	if err != nil {
 		panic(fmt.Errorf("failed to parse loggers key of remaining part: %w", err))
 	}
 
-	parseChildren(leftParents, rootL, &allLoggers)
-
-	domain.RegisterLogger(allLoggers...)
+	return rootL, leftPart
 }
 
 func parseChildren(leftPart map[string]interface{}, parentLogger domain.Logger, allLoggers *[]domain.Logger) {

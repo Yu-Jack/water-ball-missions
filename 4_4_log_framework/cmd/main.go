@@ -17,6 +17,7 @@ func main() {
 	r.Debug("This is root")
 	appL.Trace("Hi, app.game is running")
 	appAi.Trace("Hi, app.game.ai is running, but traced.")
+	r.Debug("This is root-2222")
 }
 
 func way2ToRegisterLoggers() {
