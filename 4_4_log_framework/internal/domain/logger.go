@@ -57,6 +57,18 @@ func NewLogger(name string, options ...LoggerOption) Logger {
 		}
 	}
 
+	if l.exporter == nil {
+		panic(fmt.Sprintf("logger %s must have exporter", name))
+	}
+
+	if l.level == 0 {
+		panic(fmt.Sprintf("logger %s must have level setting", name))
+	}
+
+	if l.layout == nil {
+		panic(fmt.Sprintf("logger %s must have layout settings", name))
+	}
+
 	return l
 }
 
