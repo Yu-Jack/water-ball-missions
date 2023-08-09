@@ -10,10 +10,6 @@ import (
 	"log.framework/internal/domain/layout"
 )
 
-type root struct {
-	Loggers logger `json:"loggers"`
-}
-
 type logger struct {
 	LevelThreshold string   `json:"levelThreshold"`
 	Exporter       exporter `json:"exporter"`
