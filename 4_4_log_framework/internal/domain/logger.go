@@ -145,7 +145,7 @@ func (l *logger) getName() string {
 }
 
 func (l *logger) isValidLevel(current, target LoggerLevel) bool {
-	return target >= current
+	return current >= target
 }
 
 func (l *logger) getParentLogger() Logger {

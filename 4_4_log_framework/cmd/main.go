@@ -11,13 +11,7 @@ func main() {
 		domain.RootLoggerName,
 		domain.WithLoggerLevel(domain.LoggerLevelDebug),
 		domain.WithLayout(layout.NewStandardLayout()),
-		domain.WithExporter(
-			exporter.NewCompositeExporter(
-				exporter.NewFileExporter("root.log"),
-				exporter.NewFileExporter("root.log.backup"),
-				exporter.NewConsoleExporter(),
-			),
-		),
+		domain.WithExporter(exporter.NewConsoleExporter()),
 	)
 
 	appNameLogger := domain.NewLogger(
@@ -28,18 +22,27 @@ func main() {
 			exporter.NewCompositeExporter(
 				exporter.NewConsoleExporter(),
 				exporter.NewCompositeExporter(
-					exporter.NewFileExporter("app.game.log"),
-					exporter.NewFileExporter("app.game.log.backup"),
+					exporter.NewFileExporter("game.log"),
+					exporter.NewFileExporter("game.backup.log"),
 				),
 			),
 		),
 	)
 
-	domain.RegisterLogger(rootLogger, appNameLogger)
+	aiNameLogger := domain.NewLogger(
+		"app.game.ai",
+		domain.WithParentLogger(appNameLogger),
+		domain.WithLoggerLevel(domain.LoggerLevelTrace),
+		domain.WithLayout(layout.NewStandardLayout()),
+	)
 
-	appL, _ := domain.GetLogger("app.game")
+	domain.RegisterLogger(rootLogger, appNameLogger, aiNameLogger)
+
 	r, _ := domain.GetLogger(domain.RootLoggerName)
+	appL, _ := domain.GetLogger("app.game")
+	appAi, _ := domain.GetLogger("app.game.ai")
 
-	appL.Info("Hi, I'm Jack")
-	r.Debug("Hi, I'm Jack")
+	r.Debug("This is root")
+	appL.Trace("Hi, app.game is running")
+	appAi.Trace("Hi, app.game.ai is running, but traced.")
 }
