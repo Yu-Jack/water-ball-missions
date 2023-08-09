@@ -2,6 +2,7 @@ package facade
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"os"
 
@@ -22,11 +23,24 @@ type exporter struct {
 	Children []exporter `json:"children"`
 }
 
+// ParseConfig parses the config file, but I use panic here for convenience.
+// In generally, it's not a good practice to use panic here.
 func ParseConfig(filename string) {
-	file, _ := os.Open("config.json")
-	bytes, _ := io.ReadAll(file)
+	file, err := os.Open(filename)
+	if err != nil {
+		panic(fmt.Errorf("failed to open config file: %w", err))
+	}
+
+	bytes, err := io.ReadAll(file)
+	if err != nil {
+		panic(fmt.Errorf("failed to read config file: %w", err))
+	}
+
 	var m map[string]interface{}
-	_ = json.Unmarshal(bytes, &m)
+	err = json.Unmarshal(bytes, &m)
+	if err != nil {
+		panic(fmt.Errorf("failed to parse config file: %w", err))
+	}
 
 	bytes, _ = json.Marshal(m["loggers"])
 	rootLogger := parseLogger(bytes)
@@ -40,7 +54,10 @@ func ParseConfig(filename string) {
 
 	var leftParents map[string]interface{}
 	var allLoggers []domain.Logger
-	_ = json.Unmarshal(bytes, &leftParents)
+	err = json.Unmarshal(bytes, &leftParents)
+	if err != nil {
+		panic(fmt.Errorf("failed to parse loggers key of remaining part: %w", err))
+	}
 
 	parseChildren(leftParents, rootL, &allLoggers)
 
@@ -67,7 +84,10 @@ func parseChildren(leftPart map[string]interface{}, parentLogger domain.Logger, 
 		)
 
 		var newLeftPart map[string]interface{}
-		_ = json.Unmarshal(bytes, &newLeftPart)
+		err := json.Unmarshal(bytes, &newLeftPart)
+		if err != nil {
+			panic(fmt.Errorf("failed to parse loggers key of remaining child part: %w", err))
+		}
 
 		parseChildren(newLeftPart, newLogger, allLoggers)
 	}
@@ -75,7 +95,10 @@ func parseChildren(leftPart map[string]interface{}, parentLogger domain.Logger, 
 
 func parseLogger(b []byte) logger {
 	var l logger
-	_ = json.Unmarshal(b, &l)
+	err := json.Unmarshal(b, &l)
+	if err != nil {
+		panic(fmt.Errorf("failed to parse logger: %w", err))
+	}
 	return l
 }
 
@@ -84,27 +107,29 @@ func isWhileListKey(key string) bool {
 }
 
 func getLevel(threshold string) domain.LoggerLevel {
-	level, _ := domain.ParseLoggerLevel(threshold)
+	level, err := domain.ParseLoggerLevel(threshold)
+	if err != nil {
+		panic(fmt.Errorf("failed to parse logger level: %w", err))
+	}
 	return level
 }
 
 func getExporter(e exporter) domain.Exporter {
 	var output domain.Exporter
 
-	if e.Type == "console" {
+	switch e.Type {
+	case "console":
 		output = domainExport.NewConsoleExporter()
-	}
-
-	if e.Type == "file" {
+	case "file":
 		output = domainExport.NewFileExporter(e.FileName)
-	}
-
-	if e.Type == "composite" {
+	case "composite":
 		allExporters := make([]domain.Exporter, 0)
 		for _, child := range e.Children {
 			allExporters = append(allExporters, getExporter(child))
 		}
 		output = domainExport.NewCompositeExporter(allExporters...)
+	default:
+		panic(fmt.Errorf("unsupported exporter type: %s", e.Type))
 	}
 
 	return output
