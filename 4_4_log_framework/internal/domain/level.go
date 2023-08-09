@@ -5,11 +5,11 @@ package domain
 // LoggerLevel
 /*
 ENUM(
-Trace = 1
-Info
-Debug
-Warn
-Error
+TRACE = 1
+INFO
+DEBUG
+WARN
+ERROR
 )
 */
 type LoggerLevel int

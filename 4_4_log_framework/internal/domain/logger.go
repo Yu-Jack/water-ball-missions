@@ -101,7 +101,7 @@ func (l *logger) print(content string) {
 }
 
 func (l *logger) Trace(log string) {
-	if !l.isValidLevel(l.level, LoggerLevelTrace) {
+	if !l.isValidLevel(l.level, LoggerLevelTRACE) {
 		return
 	}
 
@@ -109,7 +109,7 @@ func (l *logger) Trace(log string) {
 }
 
 func (l *logger) Info(log string) {
-	if !l.isValidLevel(l.level, LoggerLevelInfo) {
+	if !l.isValidLevel(l.level, LoggerLevelINFO) {
 		return
 	}
 
@@ -117,7 +117,7 @@ func (l *logger) Info(log string) {
 }
 
 func (l *logger) Debug(log string) {
-	if !l.isValidLevel(l.level, LoggerLevelDebug) {
+	if !l.isValidLevel(l.level, LoggerLevelDEBUG) {
 		return
 	}
 
@@ -125,7 +125,7 @@ func (l *logger) Debug(log string) {
 }
 
 func (l *logger) Warn(log string) {
-	if !l.isValidLevel(l.level, LoggerLevelWarn) {
+	if !l.isValidLevel(l.level, LoggerLevelWARN) {
 		return
 	}
 
@@ -133,7 +133,7 @@ func (l *logger) Warn(log string) {
 }
 
 func (l *logger) Error(log string) {
-	if !l.isValidLevel(l.level, LoggerLevelError) {
+	if !l.isValidLevel(l.level, LoggerLevelERROR) {
 		return
 	}
 
