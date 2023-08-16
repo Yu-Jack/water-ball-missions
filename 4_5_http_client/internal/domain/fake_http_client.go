@@ -16,22 +16,22 @@ func NewFakeHttpClient() HttpClient {
 	}
 }
 
-func (f *fakeHttpClient) SendRequest(request HttpRequest) (HttpRequest, error) {
+func (f *fakeHttpClient) SendRequest(request HttpRequest) error {
 	if len(request.Hosts) == 0 {
-		return request, errors.New("fail to send request")
+		return errors.New("fail to send request")
 	}
 
 	host := request.Hosts[0]
 
 	if f.monitorSomeSituations(request) {
-		return request, errors.New("fake data")
+		return errors.New("fake data")
 	}
 
 	fmt.Printf("[SUCCESS] %s://%s%s\n", request.Scheme, host, request.Path)
 
 	f.count++
 
-	return request, nil
+	return nil
 }
 
 func (f *fakeHttpClient) monitorSomeSituations(request HttpRequest) bool {

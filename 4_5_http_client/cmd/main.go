@@ -9,10 +9,10 @@ import (
 
 type CustomHttpClient struct{}
 
-func (c *CustomHttpClient) SendRequest(request domain.HttpRequest) (domain.HttpRequest, error) {
+func (c *CustomHttpClient) SendRequest(request domain.HttpRequest) error {
 	fmt.Printf("%#v\n", request)
 	fmt.Println("Do nothing because I'm customer.")
-	return request, nil
+	return nil
 }
 
 func main() {
@@ -24,5 +24,5 @@ func main() {
 		),
 	)
 
-	_, _ = client.SendRequest(domain.NewHttpRequest("example.com", "/hi"))
+	_ = client.SendRequest(domain.NewHttpRequest("example.com", "/hi"))
 }

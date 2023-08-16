@@ -10,9 +10,9 @@ func (p *processor) GetNext() domain.RequestProcessor {
 	return p.next
 }
 
-func (p *processor) SendRequest(request domain.HttpRequest) (domain.HttpRequest, error) {
+func (p *processor) SendRequest(request domain.HttpRequest) error {
 	if p.next != nil {
 		return p.next.SendRequest(request)
 	}
-	return request, nil
+	return nil
 }

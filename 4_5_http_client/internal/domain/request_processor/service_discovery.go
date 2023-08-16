@@ -41,20 +41,20 @@ func NewServiceDiscovery(next domain.RequestProcessor) domain.RequestProcessor {
 	return s
 }
 
-func (s *serviceDiscovery) SendRequest(request domain.HttpRequest) (domain.HttpRequest, error) {
+func (s *serviceDiscovery) SendRequest(request domain.HttpRequest) error {
 	if ips, ok := s.mapping[request.OriginalHost]; !ok {
-		return request, errors.New("fail to resolve host")
+		return errors.New("fail to resolve host")
 	} else {
 		s.findAvailableIP(ips, &request)
 
-		req, err := s.processor.SendRequest(request)
+		err := s.processor.SendRequest(request)
 
 		if err != nil {
-			s.unreachableHandler(&req)
-			return s.SendRequest(req) // 重 call 直到找到可用的 IP
+			s.unreachableHandler(&request)
+			return s.SendRequest(request) // 重 call 直到找到可用的 IP
 		}
 
-		return req, err
+		return nil
 	}
 }
 

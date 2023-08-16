@@ -42,7 +42,7 @@ func (s *httpClientSuite) Test_Nothing() {
 	client := domain.NewFakeHttpClient()
 
 	output := s.captureConsole(func() {
-		_, _ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
 	})
 
 	s.Require().Equal(
@@ -58,7 +58,7 @@ func (s *httpClientSuite) Test_Blacklist() {
 	)
 
 	output := s.captureConsole(func() {
-		_, _ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
 	})
 
 	s.Require().Equal(
@@ -74,9 +74,9 @@ func (s *httpClientSuite) Test_Discovery() {
 	)
 
 	output := s.captureConsole(func() {
-		_, _ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
 		time.Sleep(3 * time.Second)
-		_, _ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
 	})
 
 	s.Require().Equal(
@@ -94,8 +94,8 @@ func (s *httpClientSuite) Test_ServiceDiscovery_Blacklist() {
 	)
 
 	output := s.captureConsole(func() {
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
 	})
 
 	s.Require().Equal(
@@ -113,10 +113,10 @@ func (s *httpClientSuite) Test_ServiceDiscovery_LoadBalancer() {
 	)
 
 	output := s.captureConsole(func() {
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
 	})
 
 	s.Require().Equal(
@@ -136,11 +136,11 @@ func (s *httpClientSuite) Test_ServiceDiscovery_LoadBalancer_Blacklist() {
 	)
 
 	output := s.captureConsole(func() {
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
 	})
 
 	s.Require().Equal(
@@ -160,11 +160,11 @@ func (s *httpClientSuite) Test_Blacklist_LoadBalancer_ServiceDiscovery() {
 	)
 
 	output := s.captureConsole(func() {
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
-		_, _ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
+		_ = client.SendRequest(s.request)
 	})
 
 	s.Require().Equal(

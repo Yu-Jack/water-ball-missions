@@ -18,7 +18,7 @@ func NewLoadBalancer(next domain.RequestProcessor) domain.RequestProcessor {
 	return s
 }
 
-func (l *loadBalancer) SendRequest(request domain.HttpRequest) (domain.HttpRequest, error) {
+func (l *loadBalancer) SendRequest(request domain.HttpRequest) error {
 
 	if len(request.AvailableIPs) != 0 {
 		if _, ok := l.ipCounter[request.OriginalHost]; !ok {
