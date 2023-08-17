@@ -12,8 +12,7 @@ func main() {
 		"./database/prescription.csv",
 	)
 
-	pf.Open() // 診所開張囉
-
+	// queue1
 	pf.Prescribe(
 		"A000000000",
 		[]domain.Symptom{
@@ -21,12 +20,26 @@ func main() {
 		},
 		func(ca domain.ClientAction, c domain.Case) {
 			// 1a. only print case?
-			fmt.Println("case1")
+			fmt.Println(c)
 
 			// or 1b. export to database?, just whatever you want to do
 			//pf.Export("json", "./database/result", c)
 		},
 	)
 
-	pf.Wait()
+	// queue2
+	pf.Prescribe(
+		"A000000000",
+		[]domain.Symptom{
+			domain.SymptomSnore,
+		},
+		func(ca domain.ClientAction, c domain.Case) {
+			// 1a. only print case?
+			fmt.Println(c)
+
+			// or 1b. export to database?, just whatever you want to do
+			//pf.Export("json", "./database/result", c)
+		},
+	)
+
 }

@@ -7,34 +7,22 @@ import (
 	"io"
 	"log"
 	"os"
-	"os/signal"
-	"time"
 )
 
 type PrescribeFacade struct {
 	prescriber              *Prescriber
 	patientDatabaseFileName string
 	prescriptionFileName    string
-	q                       chan Queue
-	wait                    chan struct{}
 }
 
 type ClientAction interface {
 	Export(format, filePath string, c Case)
 }
 
-type Queue struct {
-	id       string
-	symptoms []Symptom
-	cb       func(ca ClientAction, c Case)
-}
-
 func NewPrescribeFacade(patientDatabaseFileName string, prescriptionFileName string) *PrescribeFacade {
 	pf := &PrescribeFacade{
 		patientDatabaseFileName: patientDatabaseFileName,
 		prescriptionFileName:    prescriptionFileName,
-		q:                       make(chan Queue, 1),
-		wait:                    make(chan struct{}),
 	}
 
 	database := NewPatientDatabase()
@@ -47,55 +35,17 @@ func NewPrescribeFacade(patientDatabaseFileName string, prescriptionFileName str
 	return pf
 }
 
-func (pf *PrescribeFacade) Open() {
-	pf.gracefulShutdown()
-	go pf.prescribe()
-}
-
-func (pf *PrescribeFacade) Wait() {
-	<-pf.wait
-}
-
-func (pf *PrescribeFacade) gracefulShutdown() {
-	termSignals := make(chan os.Signal)
-	signal.Notify(termSignals)
-
-	go func() {
-		select {
-		case <-termSignals:
-			pf.wait <- struct{}{}
-			close(pf.q)
-		}
-	}()
-}
-
-func (pf *PrescribeFacade) prescribe() {
-	for q := range pf.q {
-		t1 := time.Now()
-		c, success := pf.prescriber.Prescribe(q.id, q.symptoms)
-		if !success {
-			fmt.Println("找不到症狀！")
-			continue
-		}
-
-		pf.savePatientDatabase()
-
-		q.cb(pf, c)
-		t2 := time.Now()
-
-		if t2.Sub(t1) < 3*time.Second {
-			time.Sleep(3*time.Second - t2.Sub(t1))
-		}
-	}
-}
-
 func (pf *PrescribeFacade) Prescribe(id string, symptoms []Symptom, cb func(ca ClientAction, c Case)) {
-	// start queuing
-	pf.q <- Queue{
-		id:       id,
-		symptoms: symptoms,
-		cb:       cb,
+	c, success := pf.prescriber.Prescribe(id, symptoms)
+
+	if !success {
+		fmt.Println("找不到症狀！")
+		return
 	}
+
+	pf.savePatientDatabase()
+
+	cb(pf, c)
 }
 
 func (pf *PrescribeFacade) Export(format, filePath string, c Case) {
