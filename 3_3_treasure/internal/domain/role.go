@@ -102,10 +102,6 @@ func (r *role) takeTurn(action func()) {
 		action()
 	}
 
-	// 回合結束後確認新狀態是否有變化
-	if !r.state.IsNormal() {
-		r.m.AppendLog(fmt.Sprintf("角色: %s 的狀態 %s 剩餘 %d\n", r.name, r.state.GetType(), r.state.GetRound()))
-	}
 	r.state.Recover()
 }
 

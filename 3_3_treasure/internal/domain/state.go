@@ -12,7 +12,6 @@ type State interface {
 	IsAttackedAble() bool
 	GetRound() int
 	SetRole(role Role)
-	IsNormal() bool
 	IsControlledAble() bool
 	GetType() string
 }
