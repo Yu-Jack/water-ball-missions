@@ -8,7 +8,7 @@ func NewStateErupting() domain.State {
 	return &erupting{
 		state: state{
 			round: 3,
-			name:  TypeErupting,
+			name:  "Erupting",
 		},
 	}
 }

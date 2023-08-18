@@ -15,7 +15,7 @@ func NewStateOrderless() domain.State {
 	return &orderless{
 		state: state{
 			round: 3,
-			name:  TypeOrderless,
+			name:  "Orderless",
 		},
 		options: [][]domain.Direction{
 			{domain.DirectionUp, domain.DirectionDown},

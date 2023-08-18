@@ -8,7 +8,7 @@ func NewStateInvincible() domain.State {
 	return &invincible{
 		state: state{
 			round: 2,
-			name:  TypeInvincible,
+			name:  "Invincible",
 		},
 	}
 }

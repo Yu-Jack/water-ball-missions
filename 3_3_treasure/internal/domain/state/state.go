@@ -1,29 +1,11 @@
-//go:generate go-enum -f=$GOFILE --nocase
-
 package state
 
 import (
 	"treasure/internal/domain"
 )
 
-// Type
-/*
-ENUM(
-Accelerated
-Erupting
-Healing
-Invincible
-Normal
-Orderless
-Poisoned
-Stockpile
-Teleport
-)
-*/
-type Type string
-
 type state struct {
-	name  Type
+	name  string
 	round int
 	role  domain.Role
 }
@@ -38,8 +20,8 @@ func (s *state) Recover() {
 
 func (s *state) SetRole(role domain.Role) { s.role = role }
 func (s *state) GetRound() int            { return s.round }
-func (s *state) GetType() string          { return string(s.name) }
-func (s *state) IsNormal() bool           { return s.name == TypeNormal }
+func (s *state) GetType() string          { return s.name }
+func (s *state) IsNormal() bool           { return s.name == "Normal" }
 func (s *state) IsControlledAble() bool   { return true }
 func (s *state) Do()                      {}
 func (s *state) Enter()                   {}

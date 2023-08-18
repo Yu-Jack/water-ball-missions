@@ -8,7 +8,7 @@ func NewStateTeleport() domain.State {
 	return &teleport{
 		state: state{
 			round: 1,
-			name:  TypeTeleport,
+			name:  "Teleport",
 		},
 	}
 }

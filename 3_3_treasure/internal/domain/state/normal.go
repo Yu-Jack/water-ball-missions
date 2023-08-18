@@ -8,7 +8,7 @@ func NewStateNormal() domain.State {
 	return &normal{
 		state: state{
 			round: 0,
-			name:  TypeNormal,
+			name:  "Normal",
 		},
 	}
 }

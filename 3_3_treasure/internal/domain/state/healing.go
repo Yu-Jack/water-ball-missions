@@ -8,7 +8,7 @@ func NewStateHealing() domain.State {
 	return &healing{
 		state: state{
 			round: 5,
-			name:  TypeHealing,
+			name:  "Healing",
 		},
 	}
 }

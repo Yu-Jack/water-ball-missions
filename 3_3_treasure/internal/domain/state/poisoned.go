@@ -8,7 +8,7 @@ func NewStatePoisoned() domain.State {
 	return &poisoned{
 		state: state{
 			round: 3,
-			name:  TypePoisoned,
+			name:  "Poisoned",
 		},
 	}
 }

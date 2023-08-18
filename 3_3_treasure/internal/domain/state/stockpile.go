@@ -8,7 +8,7 @@ func NewStateStockpile() domain.State {
 	return &stockpile{
 		state: state{
 			round: 2,
-			name:  TypeStockpile,
+			name:  "Stockpile",
 		},
 	}
 }

@@ -8,7 +8,7 @@ func NewStateAccelerated() domain.State {
 	return &accelerated{
 		state: state{
 			round: 3,
-			name:  TypeAccelerated,
+			name:  "Accelerated",
 		},
 	}
 }
