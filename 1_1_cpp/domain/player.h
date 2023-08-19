@@ -15,13 +15,7 @@
 
 using PlayerName = std::string;
 
-class exchangeHand {
-public:
-    exchangeHand(PlayerI* exchangee, int countdown) {
-        this->exchangee = exchangee;
-        this->countdown = countdown;
-    }
-
+struct exchangeHand {
     PlayerI* exchangee;
     int countdown;
 };
@@ -36,7 +30,7 @@ public:
     Showdown* showdown;
     exchangeHand* exchangeHandData;
 
-    PlayerImpl(Showdown* s) : point(0), hand(new Hand()), exchangeAble(true), showdown(s) {}
+    PlayerImpl(Showdown* s) : point(0), hand(new Hand()), exchangeAble(true), showdown(s), exchangeHandData(new exchangeHand()) {}
 
     PlayerName GetName() const override {
         return name;
@@ -139,7 +133,8 @@ public:
             if (player->GetName() == input) {
                 exchangeAble = false;
                 ExchangeHand(player);
-                exchangeHandData = new exchangeHand(player, 3);
+                exchangeHandData->countdown = 3;
+                exchangeHandData->exchangee = player;
             }
         }
 
@@ -184,7 +179,8 @@ public:
         int order = rand() % showdown->players.size();
         PlayerI* targetPlayer = showdown->players[order];
         ExchangeHand(targetPlayer);
-        exchangeHandData = new exchangeHand(targetPlayer, 3);
+        exchangeHandData->countdown = 3;
+        exchangeHandData->exchangee = targetPlayer;
 
         std::cout << "AIPlayer: " << GetName() << " exchanged hand with " << targetPlayer->GetName() << std::endl;
     }

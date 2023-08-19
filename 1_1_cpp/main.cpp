@@ -19,10 +19,5 @@ int main() {
 
     showdown.Start();
 
-    // // 釋放玩家物件的記憶體
-    // for (auto player : showdown.GetPlayers()) {
-    //     delete player;
-    // }
-
     return 0;
 }
