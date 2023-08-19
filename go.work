@@ -1,0 +1,18 @@
+go 1.19
+
+use (
+	./1_1_showdown
+	./2_1_match_making
+	./2_2_card_layout
+	./2_3_world
+	./2_Boss_big2
+	./3_1_youtube
+	./3_2_hotkey
+	./3_3_treasure
+	./3_Boss_rpg
+	./4_1_prescriber
+	./4_2_relationship
+	./4_3_employee_database
+	./4_4_log_framework
+	./4_5_http_client
+)
