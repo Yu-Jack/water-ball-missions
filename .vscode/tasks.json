@@ -11,7 +11,9 @@
                 "${fileDirname}/*.cpp",
                 "${fileDirname}/**/*.cpp",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-std=c++17",
+                "-stdlib=libc++"
             ],
             "options": {
                 "cwd": "${fileDirname}"

@@ -1,15 +1,28 @@
 #include <iostream>
+#include "./domain/showdown.h"
+#include "./domain/player.h"
 #include "./domain/card.h"
+#include "./domain/hand.h"
+#include "./domain/deck.h"
+
 
 int main() {
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
-    Card mycard1 = Card(5, 3);
-    Card mycard2 = Card(2, 1);
+    Deck deck;
+    Showdown showdown(&deck);
 
-    std::cout << mycard1.Bigger(mycard2) << std::endl;
+    showdown.AddPlayer(new HumanPlayer(&showdown));
+    showdown.AddPlayer(new AIPlayer(&showdown));
+    showdown.AddPlayer(new AIPlayer(&showdown));
+    showdown.AddPlayer(new AIPlayer(&showdown));
 
-    std::cout << mycard1.String() << std::endl;
-    std::cout << mycard2.String() << std::endl;
+    showdown.Start();
+
+    // // 釋放玩家物件的記憶體
+    // for (auto player : showdown.GetPlayers()) {
+    //     delete player;
+    // }
 
     return 0;
 }

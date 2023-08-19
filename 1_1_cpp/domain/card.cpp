@@ -1,9 +1,11 @@
 #include "card.h"
 #include <iostream>
 
+Card::Card() {}
+
 Card::Card(int rank, int suit) {
-    this->rank = static_cast<Rank>(rank);
-    this->suit = static_cast<Suit>(suit);
+    this->rank = rank;
+    this->suit = suit;
 }
 
 bool Card::Bigger(Card card) {
@@ -66,16 +68,16 @@ std::string Card::String() {
     }
 
     switch (this->suit) {
-        case CLUB:
+        case SuitClub:
             suit = "Club";
             break;
-        case DIAMOND:
+        case SuitDiamond:
             suit = "Diamond";
             break;
-        case HEART:
+        case SuitHeart:
             suit = "Heart";
             break;
-        case SPADE:
+        case SuitSpade:
             suit = "Spade";
             break;
     }
