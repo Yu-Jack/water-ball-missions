@@ -1,3 +1,5 @@
 .idea
 *.log
 *.log.backup
+main
+main.*/
