@@ -1,10 +1,7 @@
 #include <iostream>
-#include "./domain/showdown.h"
-#include "./domain/player.h"
-#include "./domain/card.h"
-#include "./domain/hand.h"
 #include "./domain/deck.h"
-
+#include "./domain/player/player.h"
+#include "./domain/showdown.h"
 
 int main() {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));

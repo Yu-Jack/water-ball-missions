@@ -10,6 +10,7 @@
                 "-g",
                 "${fileDirname}/*.cpp",
                 "${fileDirname}/**/*.cpp",
+                "${fileDirname}/**/**/*.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-std=c++17",

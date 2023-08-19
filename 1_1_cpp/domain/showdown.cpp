@@ -1,7 +1,5 @@
 
 #include "showdown.h"
-#include "player_i.h"
-#include "deck.h"
 
 const int MaxTurn = 13;
 
@@ -11,19 +9,19 @@ Showdown::Showdown(Deck* d) {
     deck = d;
 }
 
-void Showdown::AddPlayer(PlayerI* p) {
+void Showdown::AddPlayer(IPlayer* p) {
     players.push_back(p);
 }
 
 void Showdown::Start() {
-    for (PlayerI* p : players) {
+    for (IPlayer* p : players) {
         p->Naming();
     }
 
     deck->Shuffle();
 
     while (deck->Size() > 0) {
-        for (PlayerI* p : players) {
+        for (IPlayer* p : players) {
             p->DrawCard(deck);
         }
     }
@@ -31,12 +29,12 @@ void Showdown::Start() {
     // Modify the game rule to prevent all hands from being empty
     while (turn < MaxTurn) {
         // First action: decide whether to exchange hands
-        for (PlayerI* p : players) {
+        for (IPlayer* p : players) {
             p->TakeTurn1(p);
         }
 
         // Second action: play a card
-        for (PlayerI* p : players) {
+        for (IPlayer* p : players) {
             p->TakeTurn2(p);
         }
 
@@ -57,7 +55,7 @@ void Showdown::Start() {
         }
 
         // Give the winner a point
-        for (PlayerI* p : players) {
+        for (IPlayer* p : players) {
             if (p->GetName() == biggerOne) {
                 std::cout << p->GetName() << " got a point!" << std::endl;
                 p->GainPoint();
@@ -70,7 +68,7 @@ void Showdown::Start() {
     // Find the winner
     int point = 0;
     PlayerName winner = "";
-    for (PlayerI* p : players) {
+    for (IPlayer* p : players) {
         std::cout << "Player gets " << p->GetName() << " point " << p->GetPoint() << "!" << std::endl;
         if (p->GetPoint() > point) {
             point = p->GetPoint();

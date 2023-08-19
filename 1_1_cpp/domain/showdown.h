@@ -3,10 +3,7 @@
 
 #include <map>
 #include <iostream>
-#include "player_i.h"
-#include "card.h"
-#include "hand.h"
-#include "deck.h"
+#include "./player/i_player.h"
 
 
 class Showdown {
@@ -14,11 +11,11 @@ class Showdown {
 public:
     int turn;
     Deck* deck;
-    std::vector<PlayerI*> players;
+    std::vector<IPlayer*> players;
     std::map<PlayerName, Card> table; // key is a HumanPlayer name
 
     Showdown(Deck* d);
-    void AddPlayer(PlayerI* p);
+    void AddPlayer(IPlayer* p);
     void Start();
     void PutCardOnTable(const Card& c, const PlayerName& p);
 };
