@@ -65,20 +65,20 @@ std::string Card::String() {
             break;
     }
 
-	switch (this->suit) {
-	case CLUB:
-		suit = "Club";
-        break;
-	case DIAMOND:
-		suit = "Diamond";
-        break;
-	case HEART:
-		suit = "Heart";
-        break;
-	case SPADE:
-		suit = "Spade";
-        break;
-	}
+    switch (this->suit) {
+        case CLUB:
+            suit = "Club";
+            break;
+        case DIAMOND:
+            suit = "Diamond";
+            break;
+        case HEART:
+            suit = "Heart";
+            break;
+        case SPADE:
+            suit = "Spade";
+            break;
+    }
 
     return suit + rank;
 }
