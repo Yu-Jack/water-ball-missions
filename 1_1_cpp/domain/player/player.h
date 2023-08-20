@@ -34,8 +34,8 @@ public:
     void SetHands(Hand* h) override;
     void ExchangeHand(IPlayer* exchangee) override;
     void DrawCard(Deck* deck) override;
-    void TakeTurn1(IPlayer* player) override;
-    void TakeTurn2(IPlayer* player) override;
+    void TakeTurn1() override;
+    void TakeTurn2() override;
 
     virtual ~PlayerImpl() {
         delete hand;

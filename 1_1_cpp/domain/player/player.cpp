@@ -32,10 +32,10 @@ void PlayerImpl::DrawCard(Deck* deck) {
     hand->AddCard(deck->DrawCard());
 }
 
-void PlayerImpl::TakeTurn1(IPlayer* player) {
-    player->MakeExchangeHandDecision();
+void PlayerImpl::TakeTurn1() {
+    this->MakeExchangeHandDecision();
 }
 
-void PlayerImpl::TakeTurn2(IPlayer* player) {
-    player->PickCard();
+void PlayerImpl::TakeTurn2() {
+    this->PickCard();
 }

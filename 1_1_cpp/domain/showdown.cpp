@@ -30,12 +30,12 @@ void Showdown::Start() {
     while (turn < MaxTurn) {
         // First action: decide whether to exchange hands
         for (IPlayer* p : players) {
-            p->TakeTurn1(p);
+            p->TakeTurn1();
         }
 
         // Second action: play a card
         for (IPlayer* p : players) {
-            p->TakeTurn2(p);
+            p->TakeTurn2();
         }
 
         // Find which player has the bigger card

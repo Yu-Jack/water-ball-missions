@@ -19,8 +19,8 @@ public:
     virtual Hand* GetHands() = 0;
     virtual void SetHands(Hand* hand) = 0;
     virtual int GetPoint() const = 0;
-    virtual void TakeTurn1(IPlayer* player) = 0;
-    virtual void TakeTurn2(IPlayer* player) = 0;
+    virtual void TakeTurn1() = 0;
+    virtual void TakeTurn2() = 0;
     virtual ~IPlayer() {}
 };
 
