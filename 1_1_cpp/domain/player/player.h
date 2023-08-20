@@ -45,7 +45,8 @@ public:
 
 class AIPlayer : public PlayerImpl {
 public:
-    AIPlayer(Showdown* s);
+    using PlayerImpl::PlayerImpl; // Inheriting Constructor, it's equal to below one.
+    // AIPlayer(Showdown* s);
     void Naming() override ;
     void PickCard() override;
     void MakeExchangeHandDecision() override;
@@ -53,7 +54,8 @@ public:
 
 class HumanPlayer : public PlayerImpl {
 public:
-    HumanPlayer(Showdown* s);
+    using PlayerImpl::PlayerImpl; 
+    // HumanPlayer(Showdown* s);
     void Naming() override;
     void PickCard() override;
     void MakeExchangeHandDecision() override;

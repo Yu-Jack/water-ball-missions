@@ -1,7 +1,5 @@
 #include "player.h"
 
-AIPlayer::AIPlayer(Showdown* s): PlayerImpl(s) {}
-
 void AIPlayer::Naming() {
     std::string nameStr = std::to_string(std::rand() % 100000);
     name = nameStr;

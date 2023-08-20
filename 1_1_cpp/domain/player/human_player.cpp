@@ -1,6 +1,5 @@
 #include "player.h"
 
-HumanPlayer::HumanPlayer(Showdown* s): PlayerImpl(s) {}
 void HumanPlayer::Naming()  {
     std::string input;
     std::cout << "What is your name?: ";
